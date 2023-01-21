@@ -7,9 +7,10 @@ import { MdOutlineLogout } from 'react-icons/md'
 import { IoMdContacts } from 'react-icons/io'
 import { SiSimpleanalytics } from 'react-icons/si'
 import { RiAccountBoxFill } from 'react-icons/ri'
-import { USER_ENDPOINTS } from '../../api/ACTIONS.JS'
+import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import { useRouter } from 'next/router'
-import api from '../../api/darlink'
+// import api from '../../pages/api/darlink'
+import api from '../../pages/api/darlink'
 
 
 const NewSidebar = () => {

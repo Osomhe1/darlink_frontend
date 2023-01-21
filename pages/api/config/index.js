@@ -1,6 +1,7 @@
 import CONFIG from "./env";
 // import '../../.env'
-import '../../../.env'
+// import '../../../.env'
+// import '../../../.env'
 
 const config = {
     API:()=>`${CONFIG.baseUrl()}/api/v1`,

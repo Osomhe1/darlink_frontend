@@ -8,8 +8,8 @@ import { IoMdContacts } from 'react-icons/io'
 import { SiSimpleanalytics } from 'react-icons/si'
 import { RiAccountBoxFill } from 'react-icons/ri'
 import {Modal} from '../Modal'
-import { USER_ENDPOINTS } from '../../api/ACTIONS.JS'
-import api from '../../api/darlink'
+import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
+import api from '../../pages/api/darlink'
 import {  useRouter } from 'next/router'
 
 
