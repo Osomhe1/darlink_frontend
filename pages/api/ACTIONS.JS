@@ -31,3 +31,21 @@ export const PROFILE = {
   USER_PROFILE: () => '/user/profile',
   CREATE_USER_PROFILE: () => '/user/profile',
 }
+
+export const LINK = {
+  ADD_LINK: () => '/user/resources',
+  GET_LINK: () => '/user/resources',
+  DELETE_LINK: () => '/user/resources',
+}
+
+export const BUTTONS = {
+  ADD_BUTTON: () => '/user/button',
+  GET_BUTTON: () => '/user/button',
+  DELETE_BUTTON: () => '/user/button',
+}
+
+export const VERIFICATION = {
+  VERIFY: () => '/user/verification-link',
+  GET_BUTTON: () => '/user/button',
+  DELETE_BUTTON: () => '/user/button',
+}
