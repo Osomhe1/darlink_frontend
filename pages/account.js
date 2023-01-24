@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { PROFILE } from '../pages/api/ACTIONS.JS'
 // import Dashboard from './dashboard'
 // import Details from '../components/Details'
 import Post from '../components/Post'
 import api from '../pages/api/darlink'
 import { USER_ENDPOINTS } from '../pages/api/ACTIONS.JS'
+import {useRouter} from 'next/router'
 
 export default function Account() {
   const [values, setValues] = useState({
@@ -12,27 +13,36 @@ export default function Account() {
     newPassword:'',
     cornfirm_newPassword:'',
   })
+
   const [error, setError] = useState('')
+  const router = useRouter()
+  const formRef = useRef()
+
+  const clearData = () =>{
+    values.cornfirm_newPassword='',
+    values.newPassword=''
+    values.currentPassword=''
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(values, 'valuesss')
     try {
       if (values.newPassword !== values.cornfirm_newPassword) {
         setError(true)
         console.log(error, 'error')
       }else{
-        const { data } = await api.post(USER_ENDPOINTS.RESET_LOGIN(), {
+        const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
           ...values,
         })
         console.log(values, 'values')
         if (data.success) {
+          formRef.current?.reset()
+          clearData()
+          console.log(values, 'clear')
           router.push('/accounts')
           // setIsEditing(false)
           // handleData()
-          setValues('')
-        } else {
-        }
+        } 
       }
     } catch (error) {
       console.log(error)
@@ -195,6 +205,7 @@ export default function Account() {
 
               <div className="text- mt-12   ">
                 <form
+                  ref={formRef}
                   onSubmit={handleSubmit}
                   className="Avenir w-full  xl:w-4/4      "
                 >

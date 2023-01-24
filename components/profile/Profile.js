@@ -1,4 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useInputRef,
+  useImperativeHandle, useContext
+} from 'react'
 import Image from 'next/image'
 import pic from '../../public/images/team-2-800x800.jpg'
 import Appreance from '../Appreance'
@@ -12,41 +18,68 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import ModeEditOutlineRoundedIcon from '@mui/icons-material/ModeEditOutlineRounded'
 import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
-import { faL } from '@fortawesome/free-solid-svg-icons'
+// import { faL } from '@fortawesome/free-solid-svg-icons'
+import {useRouter} from 'next/router'
+import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
+import { Logout, UserContext } from '../../context/context'
 
 
 export default function Profile() {
   const [alignment, setAlignment] = useState('left')
+
+  let userData;
+  const [users, setUsers] = useState([])
   const [values, setValues] = useState({
-    displayName: '',
-    location: '',
-    color: '',
+    displayName: users.displayName,
+    location: users.location,
+    colour: '',
     proileImage: '',
     bgImage: '',
+    discription: users.discription
+     
   })
+  const [file, setFile] = useState([]);
+
+
+  const inputRef = useRef(null)
+  // const inputRef = useInputRef(null)
+
   const [isEditing, setIsEditing] = useState(false)
+  const router = useRouter()
 
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment)
   }
-  const [users, setUsers] = useState()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    console.log(values, 'valuesss')
+  // const {   Logout } = useContext(UserContext)
+
+  const handleChange = (e) => {
+   
+
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    })
+    setUsers({ ...users, [e.target.name]: e.target.value })
+    console.log(values, users)
+  }
+
+
+  const handleFile = event => {
+        setFile(
+            URL.createObjectURL(event.target.files[0])
+        );
+  
+        const formData = new FormData();
+        formData.append("fileupload", event.target.files[0]);
+
+  }
+
+  const handleLogout = async (e) => {
     try {
-      const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
-        ...values,
-      })
-      console.log(values, 'values')
-      // if (!user || user.isLoggedIn === false) {
-      //   return <Layout>Loading...</Layout>
-      // }
+      const { data } = await api.post(USER_ENDPOINTS.LOGOUT(), {})
       if (data.success) {
-        // router.push('/auth/Login')
-        setIsEditing(false)
-        handleData()
-      } else {
+        router.push('/auth/Login')
       }
     } catch (error) {
       console.log(error)
@@ -54,14 +87,99 @@ export default function Profile() {
     }
   }
 
-  // function to handle when the "Edit" button is clicked
-  // function handleEditClick(e) {
-  //   const pro_id = e.target.id
-  //   const findProduct = order.find((curr) => curr.id === pro_id)
-  //   setProId(pro_id)
-  //   setIsEditing(true)
-  //   setvalues(findProduct)
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    console.log(values, 'valuesss')
+    console.log(users)
+    try {
+      const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
+        ...values,
+        // inputRef.current = values
+        // displayName: 'Learuelteh',
+        // location: 'no3just passw dkhfggg',
+        // description: 'this is my bio information for my account',
+      })
+      console.log(values, 'values')    
+      if (data.success) {
+        // router.push('/auth/Login')
+        console.log(values, 'success')
+        router.push('/dashboard')
+        setIsEditing(false)
+        handleData()
+      } else {
+        console.log(data)
+      }
+    } catch (error) {
+      console.log(error)
+      console.log(error.msg)
+      if (error.response.status === 401) {
+        Logout()
+      }
+    }
+  }
+
+  // useImperativeHandle(ref, () => ({
+  //   changeValue: (newValue) => {
+  //     inputRef.current.value = newValue
+  //   },
+  // }))
+  
+  
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0]
+    // previewFile(file)
+  }
+  // const handlefileRemove = () => {
+  //   setPreviewSource('')
+  //   values.imagedata = ''
   // }
+
+  // const [values, setValues] = useState({
+  //   firstname: '',
+  //   lastname: '',
+  //   middlename: '',
+  //   adminno: '',
+  //   dob: '',
+  //   gender: '',
+  //   currentclass: '',
+  //   admissionyear: '',
+  //   passporturl: '',
+  //   imagedata: '',
+  // })
+
+  // const [fileInputState, setFileInputState] = useState('')
+  // const uploadImage = (base64EncodedImage) => {
+  //   values.imagedata = base64EncodedImage
+  // }
+
+//   use this as a guide for the upload button
+// <div className="form-group flex flex-col">
+//                             <span className='ml-2 mb-2'> Upload passport</span>
+//                             <input type="file" className='ml-2 file:bg-blue-600 file:rounded-lg file:border-[1px] file:border-darkBlue file:cursor-pointer file:font-Roboto file:text-slate-300 file:px-2 file:text-[14px] file:hover:bg-darkBlueGray
+                             
+//                             cursor-pointer md:w-1/2' name='passporturl'
+// const [previewSource, setPreviewSource] = useState('');
+
+// const handleSubmit = async (e) => {
+//         e.preventDefault();
+//         try {
+//             setOpenModal(!openModal);
+//             if (previewSource)
+//                 uploadImage(previewSource);
+//             const { data } = await api.post(STUDENT_END_POINTS.REGISTER(), { ...values }
+//             );
+//             if (data.success) {
+//                 setIsSubmit(true);
+//                 toast.success(data.msg,{
+//                     theme:'dark'
+//                 });
+//             }
+//         } catch (error) {
+
+//         }
+
+
 
   const handleData = async () => {
     try {
@@ -70,16 +188,28 @@ export default function Profile() {
       if (!data.success) navigate('/home')
       //todo
       //populate UI
-      setUsers(data.profile)
+       userData = {...data.profile}
+      console.log(userData, 'usserDatass')
+      setUsers(userData)
+
+    
+      
     } catch (error) {
-      // console.log(error.response.data.error)
-      console.log(error, 'error')
+
+      if (error.response.status === 401) {
+        Logout()
+      }
     }
   }
 
   useEffect(() => {
+    // inputRef.current.value
+
     handleData()
-  })
+
+   
+
+  }, [])
 
   return (
     <>
@@ -159,6 +289,7 @@ export default function Profile() {
               //   backgroundImage:
               //     "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
               // }}
+              name="colour"
             >
               <span
                 id="blackOverlay"
@@ -184,12 +315,18 @@ export default function Profile() {
                           alt="..."
                           // src={require('assets/img/team-2-800x800.jpg').default}
                           // src='/public/images/team-2-800x800.jpg'
-                          src={pic}
+                          src={file}
+                          // src={proileImage}
                           className="shadow-md rounded-full h-auto align-middle  border-none absolute -m-12 -ml-20 lg:-ml-1"
                           style={{ maxWidth: '200px' }}
                           height={100}
                           width={120}
                         />
+                      </div>
+                      <div className="">
+                        <form action="">
+                          <input type="file" onChange={handleFile} />
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -209,13 +346,16 @@ export default function Profile() {
                    text-gray-700 bg-gray-50 rounded text-sm shadow focus:outline-none focus:ring  w-full"
                           placeholder="John Doe"
                           style={{ transition: 'all .15s ease' }}
-                          onChange={(e) => {
-                            setValues({
-                              ...values,
-                              [e.target.name]: e.target.value,
-                            })
-                          }}
+                          // onChange={(e) => {
+                          //   setValues({
+                          //     ...values,
+                          //     [e.target.name]: e.target.value,
+                          //   })
+                          // }}
+                          ref={inputRef.displayName}
+                          onInput={handleChange}
                           name="displayName"
+                          value={users?.displayName}
                         />
                       </div>
 
@@ -229,13 +369,16 @@ export default function Profile() {
                          text-sm shadow focus:outline-none focus:ring w-full"
                           placeholder="Canada"
                           style={{ transition: 'all .15s ease' }}
-                          onChange={(e) => {
-                            setValues({
-                              ...values,
-                              [e.target.name]: e.target.value,
-                            })
-                          }}
+                          // onChange={(e) => {
+                          //   setValues({
+                          //     ...values,
+                          //     [e.target.name]: e.target.value,
+                          //   })
+                          // }}
+                          ref={inputRef.location}
+                          onInput={handleChange}
                           name="location"
+                          value={users?.location}
                         />
                       </div>
                       <div className="relative w-full mb-3 ">
@@ -249,13 +392,16 @@ export default function Profile() {
                             text-sm shadow focus:outline-none focus:ring w-full"
                             placeholder="Lord chief Commandar"
                             style={{ transition: 'all .15s ease' }}
-                            onChange={(e) => {
-                              setValues({
-                                ...values,
-                                [e.target.name]: e.target.value,
-                              })
-                            }}
+                            // onChange={(e) => {
+                            //   setValues({
+                            //     ...values,
+                            //     [e.target.name]: e.target.value,
+                            //   })
+                            // }}
+                            ref={inputRef.description}
+                            onChange={handleChange}
                             name="description"
+                            value={users?.description}
                           />
                         </div>
                       </div>
