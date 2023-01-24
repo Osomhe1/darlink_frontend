@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
@@ -9,6 +9,7 @@ import { Box, Typography } from '@mui/material'
 import { LINK } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import {useRouter} from 'next/router'
+import { UserContext } from '../context/context'
 
 export default function Link() {
 
@@ -22,6 +23,8 @@ export default function Link() {
     dataFile: '',
   })
   const router = useRouter()
+  const { Logout } = useContext(UserContext)
+
 
   const handleClick = () => {
     setOpen(!open)
@@ -47,6 +50,9 @@ export default function Link() {
     } catch (error) {
       console.log(error)
       console.log(error.msg)
+      if (error.response.status === 401) {
+        Logout()
+      }
     }
   }
 

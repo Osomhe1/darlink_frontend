@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import twitter from '../public/images/twitter.svg'
 import twitter_black from '../public/images/twitter_black.svg'
 import twitter_origin from '../public/images/twitter-original.svg'
@@ -15,6 +15,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import { Typography } from '@mui/material'
 import api from '../pages/api/darlink'
 import { BUTTONS } from '../pages/api/ACTIONS.JS'
+import { UserContext } from '../context/context'
 
 export default function Buttons() {
 
@@ -26,6 +27,8 @@ export default function Buttons() {
     data: '',
     dataFile: '',
   })
+  const { Logout } = useContext(UserContext)
+
 
   const handleClick = () => {
     setOpen(!open)
@@ -55,6 +58,9 @@ export default function Buttons() {
     } catch (error) {
       console.log(error)
       console.log(error.msg)
+      if (error.response.status === 401) {
+        Logout()
+      }
     }
   }
 
