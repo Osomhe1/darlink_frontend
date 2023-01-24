@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import InfoCard from './Card'
 import Tables from './Table'
@@ -7,10 +7,14 @@ import  AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded'
 import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
+import { UserContext } from '../../context/context'
 
 export default function Profile() {
 
   const [user, setUser] = useState()
+
+   const {   Logout } = useContext(UserContext)
+
 
   const handleData = async () => {
     try {
@@ -23,6 +27,9 @@ export default function Profile() {
     } catch (error) {
       // console.log(error.response.data.error)
       console.log(error, 'error')
+      if (error.response.status === 401) {
+        Logout()
+      }
     }
   }
 

@@ -1,4 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useInputRef,
+  useImperativeHandle, useContext
+} from 'react'
 import Image from 'next/image'
 import pic from '../../public/images/team-2-800x800.jpg'
 import Appreance from '../Appreance'
@@ -14,6 +20,8 @@ import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 // import { faL } from '@fortawesome/free-solid-svg-icons'
 import {useRouter} from 'next/router'
+import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
+import { Logout, UserContext } from '../../context/context'
 
 
 export default function Profile() {
@@ -28,7 +36,13 @@ export default function Profile() {
     proileImage: '',
     bgImage: '',
     discription: users.discription
+     
   })
+  const [file, setFile] = useState([]);
+
+
+  const inputRef = useRef(null)
+  // const inputRef = useInputRef(null)
 
   const [isEditing, setIsEditing] = useState(false)
   const router = useRouter()
@@ -37,17 +51,10 @@ export default function Profile() {
     setAlignment(newAlignment)
   }
 
+  // const {   Logout } = useContext(UserContext)
+
   const handleChange = (e) => {
-    // console.log(e.target.name);
-    // if (e.target.name === discription) {
-    //   values.discription = e.target.value
-    // }
-    // if (e.target.name === location) {
-    //   values.location = e.target.value
-    // }
-    // if (e.target.name === displayName) {
-    //   values.displayName = e.target.value
-    // }
+   
 
     setValues({
       ...values,
@@ -57,6 +64,29 @@ export default function Profile() {
     console.log(values, users)
   }
 
+
+  const handleFile = event => {
+        setFile(
+            URL.createObjectURL(event.target.files[0])
+        );
+  
+        const formData = new FormData();
+        formData.append("fileupload", event.target.files[0]);
+
+  }
+
+  const handleLogout = async (e) => {
+    try {
+      const { data } = await api.post(USER_ENDPOINTS.LOGOUT(), {})
+      if (data.success) {
+        router.push('/auth/Login')
+      }
+    } catch (error) {
+      console.log(error)
+      console.log(error.msg)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(values, 'valuesss')
@@ -64,9 +94,12 @@ export default function Profile() {
     try {
       const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
         ...values,
+        // inputRef.current = values
+        // displayName: 'Learuelteh',
+        // location: 'no3just passw dkhfggg',
+        // description: 'this is my bio information for my account',
       })
-      console.log(values, 'values')
-    
+      console.log(values, 'values')    
       if (data.success) {
         // router.push('/auth/Login')
         console.log(values, 'success')
@@ -79,8 +112,17 @@ export default function Profile() {
     } catch (error) {
       console.log(error)
       console.log(error.msg)
+      if (error.response.status === 401) {
+        Logout()
+      }
     }
   }
+
+  // useImperativeHandle(ref, () => ({
+  //   changeValue: (newValue) => {
+  //     inputRef.current.value = newValue
+  //   },
+  // }))
   
   
 
@@ -149,15 +191,23 @@ export default function Profile() {
        userData = {...data.profile}
       console.log(userData, 'usserDatass')
       setUsers(userData)
+
+    
       
     } catch (error) {
-      // console.log(error.response.data.error)
-      console.log(error, 'error')
+
+      if (error.response.status === 401) {
+        Logout()
+      }
     }
   }
 
   useEffect(() => {
+    // inputRef.current.value
+
     handleData()
+
+   
 
   }, [])
 
@@ -265,13 +315,18 @@ export default function Profile() {
                           alt="..."
                           // src={require('assets/img/team-2-800x800.jpg').default}
                           // src='/public/images/team-2-800x800.jpg'
-                          src={pic}
+                          src={file}
                           // src={proileImage}
                           className="shadow-md rounded-full h-auto align-middle  border-none absolute -m-12 -ml-20 lg:-ml-1"
                           style={{ maxWidth: '200px' }}
                           height={100}
                           width={120}
                         />
+                      </div>
+                      <div className="">
+                        <form action="">
+                          <input type="file" onChange={handleFile} />
+                        </form>
                       </div>
                     </div>
                   </div>
@@ -297,6 +352,7 @@ export default function Profile() {
                           //     [e.target.name]: e.target.value,
                           //   })
                           // }}
+                          ref={inputRef.displayName}
                           onInput={handleChange}
                           name="displayName"
                           value={users?.displayName}
@@ -319,6 +375,7 @@ export default function Profile() {
                           //     [e.target.name]: e.target.value,
                           //   })
                           // }}
+                          ref={inputRef.location}
                           onInput={handleChange}
                           name="location"
                           value={users?.location}
@@ -341,6 +398,7 @@ export default function Profile() {
                             //     [e.target.name]: e.target.value,
                             //   })
                             // }}
+                            ref={inputRef.description}
                             onChange={handleChange}
                             name="description"
                             value={users?.description}

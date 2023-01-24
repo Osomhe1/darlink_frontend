@@ -17,45 +17,43 @@ export default function Login() {
     password:'',
     username:''
    })
-   const [loading, setLoading] = useState(false)
+  //  const [loading, setLoading] = useState(false)
    const route = useRouter()
 
    const userContext = useContext(UserContext)
-   console.log(userContext, 'usercontext');
 
    const handleSubmit = async (e) => {
      e.preventDefault()
-     console.log(values, 'valuesss')
-
      try {
        const { data } = await api.post(USER_ENDPOINTS.LOGIN(), {
          ...values,
        })
-       console.log(data, 'data')
-
        
        if (data.success) {
+
+        userContext.role = data.user.role
+        userContext.username = data.user.username
+        userContext.email = data.user.email
+        localStorage.setItem('token', data.token)
          if (data.user.role === USER_TYPE.ADMIN())
           route.push('/admin/dashboard')
        }
         if(data.user.role === USER_TYPE.USER()) {
          route.push('/dashboard')
        }
-
-       //  if (values.password !== values.confirm_password) {
-
-       //  } else {
-       //   //  const { data } = await api.post(USER_ENDPOINTS.LOGIN(), {
-       //    console.log(data, 'data');
-       //    console.log(values, 'values')
-       //    // if (!user || user.isLoggedIn === false) {
-       //    //   return <Layout>Loading...</Layout>
-       //    // }
-       //  }
      } catch (error) {
-       console.log(error)
-       console.log(error.msg)
-       setError(true)
+      console.log(error)
+      console.log(error.response.data.error, 'error')
+      // console.log(error.response.status, 'statue') //this is it
+
+      if (error.response.data.error) {
+        const err = error.response.data.error
+        if (err.includes('username')) error.username = err
+
+        if (err.includes('password')) error.password = err
+        setError(error.response.data.error)
+      }
+      // else setError(true)
       }
    }
 
@@ -63,6 +61,7 @@ export default function Login() {
     userContext.role = ''
     userContext.username = ''
     userContext.email = ''
+    localStorage.clear()
    })
 
   return (
@@ -71,7 +70,6 @@ export default function Login() {
         <section>
           <form
             onSubmit={handleSubmit}
-            // onSubmit={(e) => handleSubmit(e)}
             className="Avenir  lg:w-2/5 m-3 md:w-3/5 md:m-auto lg:m-auto py-28 "
           >
             <h2 className="text-center font-bold text-3xl md:text-5xl py-5 ">
@@ -93,11 +91,9 @@ export default function Login() {
                 }}
                 name="username"
               />
-              {/* {error?.username <p>{error}</p> : null}  */}
               {error?.username && (
                 <p className="text-red-500">{error.username}</p>
               )}
-              {/* {error && <p className="text-red-500">Invalid Username</p>} */}
             </div>
 
             <div className="relative w-full mb-3">
@@ -112,11 +108,9 @@ export default function Login() {
                 }}
                 name="password"
               />
-              {/* {error? <p>{error}</p> : null}  */}
-              {/* {error?.password && (
+              {error?.password && (
                 <p className="text-red-500">{error.password}</p>
-              )} */}
-              {/* {error && <p className="text-red-500">Invalid Password</p>} */}
+              )}
             </div>
             <div className="relative w-full mb-3 md:flex justify-between md:space-x-4 ">
               <div>
@@ -154,7 +148,6 @@ export default function Login() {
                 type="submit"
                 style={{ transition: 'all .15s ease' }}
               >
-                {/* <Link href='/dashboard  '>Sign in</Link> */}
                 Login
               </button>
             </div>
