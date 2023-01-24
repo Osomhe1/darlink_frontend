@@ -1,12 +1,44 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import InfoCard from './Card'
 import Tables from './Table'
 // import {ChatIcon} from '@mui/icons-material'
 import  AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded'
+import { PROFILE } from '../../pages/api/ACTIONS.JS'
+import api from '../../pages/api/darlink'
+import { UserContext } from '../../context/context'
 
 export default function Profile() {
+
+  const [user, setUser] = useState()
+
+   const {   Logout } = useContext(UserContext)
+
+
+  const handleData = async () => {
+    try {
+      const { data } = await api.get(PROFILE.ADMIN_PROFILE(), {})
+      console.log(data, 'data')
+      if (!data.success) navigate('/home')
+      //todo
+      //populate UI
+      setUsers(data.profile)
+    } catch (error) {
+      // console.log(error.response.data.error)
+      console.log(error, 'error')
+      if (error.response.status === 401) {
+        Logout()
+      }
+    }
+  }
+
+  useEffect(() => {
+    
+    handleData()
+    
+  }, [])
+  
   return (
     <>
       <main className='profile-page mx- '>

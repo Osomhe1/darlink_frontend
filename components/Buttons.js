@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import twitter from '../public/images/twitter.svg'
 import twitter_black from '../public/images/twitter_black.svg'
 import twitter_origin from '../public/images/twitter-original.svg'
@@ -13,12 +13,22 @@ import Collapse from '@mui/material/Collapse'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import { Typography } from '@mui/material'
+import api from '../pages/api/darlink'
+import { BUTTONS } from '../pages/api/ACTIONS.JS'
+import { UserContext } from '../context/context'
 
 export default function Buttons() {
 
-  const [open, setOpen] = React.useState(false)
-  const [open2, setOpen2] = React.useState(false)
-  const [open3, setOpen3] = React.useState(false)
+  const [open, setOpen] = useState(false)
+  const [open2, setOpen2] = useState(false)
+  const [open3, setOpen3] = useState(false)
+  const [values, setValues] = useState({
+    type: '',
+    data: '',
+    dataFile: '',
+  })
+  const { Logout } = useContext(UserContext)
+
 
   const handleClick = () => {
     setOpen(!open)
@@ -29,6 +39,62 @@ export default function Buttons() {
   const handleClick3 = () => {
     setOpen3(!open3)
   }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    console.log(values, 'valuesss')
+    try {
+      const { data } = await api.post(BUTTONS.ADD_BUTTON(), {
+        ...values,
+      })
+      console.log(values, 'values')
+      
+      if (data.success) {
+        // router.push('/auth/Login')
+        setIsEditing(false)
+        // handleData()
+      } else {
+      }
+    } catch (error) {
+      console.log(error)
+      console.log(error.msg)
+      if (error.response.status === 401) {
+        Logout()
+      }
+    }
+  }
+
+  //  const handleData = async () => {
+  //    try {
+  //      const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
+  //      console.log(data, 'data')
+  //      if (!data.success) navigate('/home')
+  //      //todo
+  //      //populate UI
+  //      setUsers(data.profile)
+  //    } catch (error) {
+  //      // console.log(error.response.data.error)
+  //      console.log(error, 'error')
+  //    }
+  //  }
+
+   const handleDelete = async (e) => {
+     try {
+       values.id = e.target.id
+       const { data } = await api.delete(BUTTONS.DELETE_BUTTON(), {})
+       if (data.success) {
+         handleData()
+       } else {
+         //display error
+       }
+     } catch (error) {
+       console.log(error.response.data.error)
+     }
+   }
+
+   useEffect(() => {
+    //  handleData()
+   })
 
 
   return (
