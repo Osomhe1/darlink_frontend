@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { PROFILE } from '../pages/api/ACTIONS.JS'
-import Post from '../components/Post'
 import api from '../pages/api/darlink'
 import { USER_ENDPOINTS } from '../pages/api/ACTIONS.JS'
 import {useRouter} from 'next/router'
 import { USER } from './api/ACTIONS.JS'
-import { UserContext } from '../context/context'
 import UserInfo from '../components/verify'
+import DeleteModal from '../components/DeleteModal'
 
 export default function Account() {
 
@@ -34,6 +33,8 @@ export default function Account() {
     values.currentPassword=''
   }
 
+ 
+
 const handleChange = (e) => {
   setUser({...user, [e.target.name]:e.target.value});
 }
@@ -49,8 +50,8 @@ const handleChange = (e) => {
           router.push('/accounts')
         } 
     } catch (error) {
-      console.log(error)
-      console.log(error.msg)
+      // console.log(error)
+      // console.log(error.msg)
     }
   }
   const handleSubmit = async (e) => {
@@ -62,7 +63,7 @@ const handleChange = (e) => {
         const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
           ...values,
         })
-        console.log(values, 'values')
+        // console.log(values, 'values')
         if (data.success) {
           formRef.current?.reset()
           clearData()
@@ -74,6 +75,7 @@ const handleChange = (e) => {
       console.log(error.msg)
     }
   }
+
 
   useEffect(() =>{
     const AuthenticateUser = async () => {
@@ -92,9 +94,7 @@ const handleChange = (e) => {
 
 
   return (
-    // <Dashboard>
     <>
-      {/* <Post > */}
       <div>
         <div>
           <div className="-mt-5 md:-mt-24 xl:w-5/6">
@@ -126,7 +126,6 @@ const handleChange = (e) => {
                       ref={emailRef}
                       value={user.email}
                       onChange={(e) => {
-                         
                         handleChange(e)
                       }}
                     />
@@ -146,8 +145,7 @@ const handleChange = (e) => {
                       style={{ transition: 'all .15s ease' }}
                       name="username"
                       onChange={(e) => {
-                         handleChange(e)
-                      
+                        handleChange(e)
                       }}
                     />
                   </div>
@@ -286,7 +284,6 @@ const handleChange = (e) => {
                       }}
                     />
                   </div>
-
                   <div className="relative w-full mb-3 flex gap-3">
                     <div className="w-1/2">
                       <label className="ml-2 text-sm font-semibold uppercase text-gray-700">
@@ -350,7 +347,11 @@ const handleChange = (e) => {
             </div>
             <div className="flex justify-between py-16 bottom-1   xl:w-5/6 -mb-8 ">
               <div className="">
-                <p className="text-red-600 underline">Delete Account</p>
+                <p
+                  className="text-red-600 cursor-pointer underline"
+                >
+                  <DeleteModal />
+                </p>
               </div>
               <div className=" text-gray-400">
                 <p>Terms. Privact policy</p>
@@ -359,8 +360,6 @@ const handleChange = (e) => {
           </section>
         </div>
       </div>
-      {/* </ Post> */}
-      {/* </Dashboard> */}
     </>
   )
 }
