@@ -5,8 +5,6 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import { Provider } from 'react-redux'
-import store from '../redux/store'
 import Context from '../context/context'
 
 
@@ -27,15 +25,12 @@ function MyApp({ Component, pageProps }) {
         </React.Fragment>
       ) : (
         
-        // <Provider store={store}>
         <Context>
 
           <Component {...pageProps} />
         </Context>
 
-        // </Provider>
       )}
-      {/* <h1 className='text-red-500 '>hey</h1> */}
     </>
   )
 }

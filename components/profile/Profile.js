@@ -23,18 +23,6 @@ import { Avatar, Box } from '@mui/material'
 import Modal from '../Modal'
 
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-}
-
 
 export default function Profile() {
 
@@ -49,9 +37,7 @@ export default function Profile() {
     setOpen(false)
   }
 
-
   const [alignment, setAlignment] = useState('left')
-//  const [fileInputState, setFileInputState] = useState('')
  const [previewSource, setPreviewSource] = useState('')
   let userData;
   const [users, setUsers] = useState([])
@@ -180,8 +166,6 @@ export default function Profile() {
 
   return (
     <>
-      {/* <Details> */}
-      {/* <Post> */}
       <main className="profile-page mx- ">
         {/* pages */}
         <div className="md:flex justify-between -mt-5 md:-mt-24 xl:w-5/6 my-  ">
@@ -289,7 +273,7 @@ export default function Profile() {
                             // src={proileImage}
 
                             className="shadow-md
-                           rounded-full h-auto align-middle  z-[99999]
+                           rounded-full h-auto align-middle  z-[99]
                            border-none absolute -m-12 -ml-20 lg:-ml-1 "
                             style={{ maxWidth: '200px' }}
                             height={100}
@@ -320,10 +304,7 @@ export default function Profile() {
                     </div>
 
                     <div className="text- mt-1 pt-14 md:pt-0  ">
-                      {/* <form
-                        // onSubmit={handleSubmit}
-                        className="Avenir w-full  xl:w-3/4 md:ml-44     "
-                      > */}
+                      
                       <div className="w-full  xl:w-3/4 md:ml-44 ">
                         <div className="relative  mb-3 ">
                           <label className="ml-2 text-sm font-semibold text-gray-700">
@@ -412,7 +393,6 @@ export default function Profile() {
                           </button>
                         </div>
                       </div>
-                      {/* </form> */}
                     </div>
                   </form>
                 </div>
@@ -438,8 +418,6 @@ export default function Profile() {
           </section>
         </div>
       </main>
-      {/* </Post> */}
-      {/* </Details> */}
     </>
   )
 }

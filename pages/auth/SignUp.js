@@ -17,20 +17,13 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(values, 'valuesss');
     try {
       if(values.password !== values.confirm_password){
         setError(true)
-        console.log(error, 'error');
-
       }else{
         const {data} = await api.post(USER_ENDPOINTS.REGISTER(),{
           ...values,
         })
-        console.log(values, 'values');
-        // if (!user || user.isLoggedIn === false) {
-        //   return <Layout>Loading...</Layout>
-        // }
         if(data.success){
           router.push('/auth/Login')
         }else{
@@ -38,8 +31,8 @@ export default function SignUp() {
         }
       }
     } catch (error) {
-      console.log(error);
-      console.log(error.msg);
+      // console.log(error);
+      // console.log(error.msg);
     }
   }
   return (
@@ -66,7 +59,7 @@ export default function SignUp() {
                 placeholder='UserName'
                 style={{ transition: 'all .15s ease' }}
               />
-              <small>hey</small>
+              {/* <small>hey</small> */}
             </div>
 
             <div className='relative w-full mb-3'>
@@ -81,7 +74,7 @@ export default function SignUp() {
                 placeholder='Email'
                 style={{ transition: 'all .15s ease' }}
               />
-              <small>hey</small>
+              {/* <small>hey</small> */}
             </div>
             <div className='relative w-full mb-3 md:flex justify-between md:space-x-4 '>
               <div className='w-full'>
@@ -96,7 +89,7 @@ export default function SignUp() {
                   placeholder='Password'
                   style={{ transition: 'all .15s ease' }}
                 />
-                <small>hey</small>
+                {/* <small>hey</small> */}
               </div>
               <div className='w-full my-3 md:m-0'>
                 <input
@@ -110,7 +103,7 @@ export default function SignUp() {
                   placeholder='Confirm Password'
                   style={{ transition: 'all .15s ease' }}
                 />
-                <small>hey</small>
+                {/* <small>hey</small> */}
               </div>
             </div>
 
