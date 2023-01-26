@@ -72,7 +72,7 @@ export default function Link() {
 
    useEffect(() => {
      handleData()
-   })
+   }, [])
 
   return (
     <div>
