@@ -35,6 +35,8 @@
     "next-seo": "^5.14.1",
     "react": "18.2.0",
     "react-chartjs-2": "^5.0.1",
+    "react-color": "^2.19.3",
+    "react-colorful": "^5.6.1",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
