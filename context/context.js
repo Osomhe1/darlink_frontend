@@ -38,11 +38,9 @@ export const UserContext = React.createContext()
  
  export default Context 
 
- export const Logout = () => {
-  //  const router = useRouter()
+ export const ResetUser = () => {
    localStorage.setItem('userToken', null)
    localStorage.setItem('user', null)
    localStorage.setItem('username', null)
    localStorage.setItem('email', null)
-  //  router.push('/auth/Login')
  }
