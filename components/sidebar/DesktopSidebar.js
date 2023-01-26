@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import pic from '../../public/images/team-2-800x800.jpg'
@@ -11,11 +11,11 @@ import {Modal} from '../Modal'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import {  useRouter } from 'next/router'
+import UserInfo from '../verify'
 
 
 
 export default function Sidebar() {
-  // const [collapseShow, setCollapseShow] = React.useState('hidden')
 
    const [showModal, setShowModal] = useState(false)
    const [loggedin, setLoggedin] = useState(true)
@@ -39,6 +39,19 @@ export default function Sidebar() {
       }
     }
 
+    useEffect(() =>{
+      const AuthenticateUser = async () => {
+        try {
+          const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+          if (!data.success) router.push('/auth/Login')
+        } catch (error) {
+          router.push('/auth/Login')
+        }
+      }
+
+      AuthenticateUser();
+    }, [])
+
   return (
     <>
       <aside>
@@ -56,7 +69,7 @@ export default function Sidebar() {
             <div className="mt-5">
               <Image
                 alt="..."
-                src={pic}
+                src={UserInfo().passportUrl? UserInfo().passportUrl : pic }
                 className=" h-auto  rounded-full align-middle  border-none shadow-xl   "
                 style={{ maxWidth: '150px' }}
                 height={100}
@@ -119,7 +132,11 @@ export default function Sidebar() {
                       href='/auth/Login'
                       // onClick={(e) => e.preventDefault()}
                     > */}
-                    <button type='submit'  onClick={handleLogout} className="text-blueGray-300 text-xs uppercase py-3 font-bold flex  gap-2 items-center">
+                    <button
+                      type="submit"
+                      onClick={handleLogout}
+                      className="text-blueGray-300 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
+                    >
                       <MdOutlineLogout className="text-2xl" />
                       Log Out
                     </button>

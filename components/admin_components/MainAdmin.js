@@ -13,8 +13,6 @@ export default function Profile() {
 
   const [user, setUser] = useState()
 
-   const {   Logout } = useContext(UserContext)
-
 
   const handleData = async () => {
     try {
@@ -23,7 +21,7 @@ export default function Profile() {
       if (!data.success) navigate('/home')
       //todo
       //populate UI
-      setUsers(data.profile)
+      setUser(data.profile)
     } catch (error) {
       // console.log(error.response.data.error)
       console.log(error, 'error')
