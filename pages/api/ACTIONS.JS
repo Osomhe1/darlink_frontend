@@ -1,6 +1,4 @@
-export const USER = {
-  UPGRADE_PLAN: () => '/plan/upgrade',
-}
+
 
 export const USER_ENDPOINTS = {
   REGISTER: () => '/auth/register',
@@ -10,6 +8,7 @@ export const USER_ENDPOINTS = {
   RESET_LOGIN: () => '/auth/reset',
   RECOVERY_MAIL: () => '/user/recovery-mail',
   CREATE_ADMIN: () => '/auth/create',
+  CHECK: ()=> '/auth/check',
 }
 
 
@@ -48,4 +47,11 @@ export const VERIFICATION = {
   VERIFY: () => '/user/verification-link',
   GET_BUTTON: () => '/user/button',
   DELETE_BUTTON: () => '/user/button',
+}
+
+export const USER = {
+  UPGRADE_PLAN: () => '/plan/upgrade',
+  UPDATE_USER_INFO: () => '/user/update',
+  VERIFY_LINK: () => '/user/verification-link',
+  GET_VERIFY: () => '/user/verify',
 }

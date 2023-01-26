@@ -64,19 +64,18 @@ export default function Buttons() {
     }
   }
 
-  //  const handleData = async () => {
-  //    try {
-  //      const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
-  //      console.log(data, 'data')
-  //      if (!data.success) navigate('/home')
-  //      //todo
-  //      //populate UI
-  //      setUsers(data.profile)
-  //    } catch (error) {
-  //      // console.log(error.response.data.error)
-  //      console.log(error, 'error')
-  //    }
-  //  }
+   const handleData = async () => {
+     try {
+       const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
+       console.log(data, 'data')
+       if (!data.success) navigate('/home')
+       //todo
+       //populate UI
+       setUsers(data.profile)
+     } catch (error) {
+       console.log(error, 'error')
+     }
+   }
 
    const handleDelete = async (e) => {
      try {

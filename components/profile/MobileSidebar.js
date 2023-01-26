@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import pic from '../../public/images/team-2-800x800.jpg'
 import { FaPager } from 'react-icons/fa'
 import { MdOutlineLogout } from 'react-icons/md'
@@ -9,8 +9,8 @@ import { SiSimpleanalytics } from 'react-icons/si'
 import { RiAccountBoxFill } from 'react-icons/ri'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import { useRouter } from 'next/router'
-// import api from '../../pages/api/darlink'
 import api from '../../pages/api/darlink'
+import UserInfo from '../verify'
 
 
 const NewSidebar = () => {
@@ -29,12 +29,23 @@ const NewSidebar = () => {
        console.log(error.msg)
      }
    }
+   useEffect(() =>{
+     const AuthenticateUser = async () => {
+       try {
+         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+         if (!data.success) router.push('/auth/Login')
+       } catch (error) {
+         router.push('/auth/Login')
+       }
+     }
+
+     AuthenticateUser();
+   }, [])
   return (
     <>
       <aside>
         {showSidebar ? (
           <button
-            // className='flex text-4xl text-white items-center cursor-pointer fixed left-10 top-6 z-50'
             className="flex text-2xl text-gray-400 items-center cursor-pointer fixed left-40 top-2 z-50"
             onClick={() => setShowSidebar(!showSidebar)}
           >
@@ -74,7 +85,7 @@ const NewSidebar = () => {
               <div className="mt-5">
                 <Image
                   alt="..."
-                  src={pic}
+                  src={UserInfo().passportUrl ? UserInfo().passportUrl : pic}
                   className=" h-auto  rounded-full align-middle  border-none shadow-xl   "
                   style={{ maxWidth: '150px' }}
                   height={100}
@@ -132,9 +143,8 @@ const NewSidebar = () => {
                     </li>
 
                     <li className="items-center hover:bg-gray-200">
-                      
                       <button
-                      type='submit'
+                        type="submit"
                         onClick={handleLogout}
                         className="text-blueGray-300 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
                       >
