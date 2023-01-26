@@ -12,6 +12,8 @@ import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import {  useRouter } from 'next/router'
 import UserInfo from '../verify'
+import Avatar from '@mui/material/Avatar'
+import { Box } from '@mui/material'
 
 
 
@@ -40,6 +42,7 @@ export default function Sidebar() {
     }
 
     useEffect(() =>{
+      UserInfo()
       const AuthenticateUser = async () => {
         try {
           const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
@@ -67,9 +70,16 @@ export default function Sidebar() {
             {/* Brand */}
 
             <div className="mt-5">
-              <Image
+              <Box
+                component="img"
                 alt="..."
-                src={UserInfo().passportUrl? UserInfo().passportUrl : pic }
+                src={
+                  UserInfo().passportUrl ? (
+                    UserInfo().passportUrl
+                  ) : (
+                    <Avatar src="/broken-image.jpg" />
+                  )
+                }
                 className=" h-auto  rounded-full align-middle  border-none shadow-xl   "
                 style={{ maxWidth: '150px' }}
                 height={100}

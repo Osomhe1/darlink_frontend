@@ -2,7 +2,6 @@ import React, {
   useEffect,
   useState,
   useRef,
-  useContext
 } from 'react'
 import Image from 'next/image'
 import Appreance from '../Appreance'
@@ -17,14 +16,42 @@ import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import {useRouter} from 'next/router'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
-import { Logout, UserContext } from '../../context/context'
+import {  ResetUser, UserContext } from '../../context/context'
 import UserInfo from '../verify'
 import pic from '../../public/images/team-2-800x800.jpg'
+import { Avatar, Box } from '@mui/material'
+import Modal from '../Modal'
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+}
 
 
 export default function Profile() {
+
+   const [open, setOpen] = useState(false)
+   const handleOpen = () =>{
+    console.log('open')
+     setOpen(true)
+     
+  }
+   const handleClose = () => {
+    console.log('close')
+    setOpen(false)
+  }
+
+
   const [alignment, setAlignment] = useState('left')
- const [fileInputState, setFileInputState] = useState('')
+//  const [fileInputState, setFileInputState] = useState('')
  const [previewSource, setPreviewSource] = useState('')
   let userData;
   const [users, setUsers] = useState([])
@@ -53,7 +80,6 @@ export default function Profile() {
       [e.target.name]: e.target.value,
     })
     setUsers({ ...users, [e.target.name]: e.target.value })
-    console.log(values, users)
   }
 
  const handlefileRemove = () => {
@@ -88,17 +114,7 @@ export default function Profile() {
  const uploadImage = (base64EncodedImage) => {
    values.profileImage= base64EncodedImage
  }
-  // const handleLogout = async (e) => {
-  //   try {
-  //     const { data } = await api.post(USER_ENDPOINTS.LOGOUT(), {})
-  //     if (data.success) {
-  //       router.push('/auth/Login')
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //     console.log(error.msg)
-  //   }
-  // }
+ 
 
   const handleSubmit = async (e) => {
     e.preventDefault() 
@@ -129,19 +145,19 @@ export default function Profile() {
   const handleData = async () => {
     try {
       const { data } = await api.get(PROFILE.USER_PROFILE(), {})
-      console.log(data, 'data')
       if (data.success) 
        userData = {...data.profile}
        localStorage.setItem('passportUrl', userData.passportUrl)
       setUsers(userData)
     } catch (error) {
       if (error.response.status === 401) {
-        Logout()
+        ResetUser()
+        router.push('/auth/Login')
       }
     }
   }
 
- 
+ const infor = UserInfo()
 
   useEffect(() => {
 
@@ -157,6 +173,7 @@ export default function Profile() {
 
     AuthenticateUser();
     handleData()
+
 
 
   }, [])
@@ -206,12 +223,12 @@ export default function Profile() {
             <div className="">
               <button
                 className="bg-[#8BC940]  text-white active:bg-gray-700 text-sm font-bold uppercase
-                       px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
+                       px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100%]
                        bottom-0 "
                 type="button"
                 style={{ transition: 'all .15s ease' }}
               >
-                unsave
+                {infor?.username}
               </button>
             </div>
           </div>
@@ -232,18 +249,16 @@ export default function Profile() {
             className="relative bg-white block"
             style={{ height: '200px', backgroundColor: 'white' }}
           >
+            {/* <Button onClick={handleOpen}>Open modal</Button> */}
             <div
-              className="absolute top-0 w-full h-full bg-center bg-cover bg-[#8BC940] "
+              className="absolute top-0 w-full h-full bg-center flex justify-center items-center cursor-pointer bg-cover bg-[#8BC940] "
               // style={{
               //   backgroundImage:
               //     "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
               // }}
               name="colour"
             >
-              <span
-                id="blackOverlay"
-                className="w-full h-full absolute opacity-50 bg-black"
-              ></span>
+              <Modal />
             </div>
             <div
               className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden"
@@ -261,126 +276,141 @@ export default function Profile() {
                     <div className="grid md:flex flex-wrap justify-center">
                       <div className="w-full  px-4  flex justify-">
                         <div className="relative pt-8 md:pt-0 ">
-                          <Image
+                          <Box
+                            component="img"
                             alt="..."
-                            src={users.passportUrl ? users.passportUrl : pic}
+                            src={
+                              users.passportUrl ? (
+                                users.passportUrl
+                              ) : (
+                                <Avatar src="/broken-image.jpg" />
+                              )
+                            }
                             // src={proileImage}
 
                             className="shadow-md
                            rounded-full h-auto align-middle  z-[99999]
-                           border-none absolute -m-12 -ml-20 lg:-ml-1"
+                           border-none absolute -m-12 -ml-20 lg:-ml-1 "
                             style={{ maxWidth: '200px' }}
                             height={100}
-                            width={120}
+                            width={100}
                           />
                         </div>
                         <div className="">
-                          <input
-                            className="  cursor-pointer "
-                            type="file"
-                            onChange={handleFile}
-                            accept="image/*"
-                            value={users?.profileImage}
-                            ref={inputRef.profileImage}
-                            name="profileImage"
-                          />
+                          <label>
+                            <input
+                              className="  cursor-pointer 
+                              file:mr-5 file:py-2 file:px-6
+                              file:rounded-full file:border-0
+                              file:text-sm file:font-medium
+                              file:bg-blue-50 file:text-blue-700
+                              hover:file:cursor-pointer hover:file:bg-amber-50
+                              hover:file:text-amber-700 w-4
+                               "
+                              type="file"
+                              onChange={handleFile}
+                              accept="image/*"
+                              value={users?.profileImage}
+                              ref={inputRef.profileImage}
+                              name="profileImage"
+                            />
+                          </label>
                         </div>
                       </div>
                     </div>
 
-                    <div className="text- mt-12 pt-14 md:pt-0  ">
+                    <div className="text- mt-1 pt-14 md:pt-0  ">
                       {/* <form
                         // onSubmit={handleSubmit}
                         className="Avenir w-full  xl:w-3/4 md:ml-44     "
                       > */}
-                      <div className="relative  mb-3 ">
-                        <label className="ml-2 text-sm font-semibold text-gray-700">
-                          Display Name
-                        </label>
-                        <input
-                          type="name"
-                          className="border-0 px-3 py-5 placeholder-gray-400 
-                   text-gray-700 bg-gray-50 rounded text-sm shadow focus:outline-none focus:ring  w-full"
-                          placeholder="John Doe"
-                          style={{ transition: 'all .15s ease' }}
-                          
-                          ref={inputRef.displayName}
-                          onInput={handleChange}
-                          name="displayName"
-                          value={users?.displayName}
-                        />
-                      </div>
-
-                      <div className="relative w-full mb-3">
-                        <label className="ml-2 text-sm font-semibold text-gray-700">
-                          Location
-                        </label>
-                        <input
-                          type="text"
-                          className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-gray-50 rounded
-                         text-sm shadow focus:outline-none focus:ring w-full"
-                          placeholder="Canada"
-                          style={{ transition: 'all .15s ease' }}
-                        
-                          ref={inputRef.location}
-                          onInput={handleChange}
-                          name="location"
-                          value={users?.location}
-                        />
-                      </div>
-                      <div className="relative w-full mb-3 ">
-                        <div className="">
+                      <div className="w-full  xl:w-3/4 md:ml-44 ">
+                        <div className="relative  mb-3 ">
                           <label className="ml-2 text-sm font-semibold text-gray-700">
-                            Bio
+                            Display Name
                           </label>
-                          <textarea
-                            type="text"
-                            className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-gray-50 rounded
-                            text-sm shadow focus:outline-none focus:ring w-full"
-                            placeholder="Lord chief Commandar"
+                          <input
+                            type="name"
+                            className="border-0 px-3 py-5 placeholder-gray-400 
+                   text-gray-700 bg-gray-50 rounded text-sm shadow focus:outline-none focus:ring  w-full"
+                            placeholder="John Doe"
                             style={{ transition: 'all .15s ease' }}
-                            
-                            ref={inputRef.description}
-                            onChange={handleChange}
-                            name="description"
-                            value={users?.description}
+                            ref={inputRef.displayName}
+                            onInput={handleChange}
+                            name="displayName"
+                            value={users?.displayName}
                           />
                         </div>
-                      </div>
-                      <div>
-                        <label className=" items-center cursor-pointer ">
+
+                        <div className="relative w-full mb-3">
+                          <label className="ml-2 text-sm font-semibold text-gray-700">
+                            Location
+                          </label>
+                          <input
+                            type="text"
+                            className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-gray-50 rounded
+                         text-sm shadow focus:outline-none focus:ring w-full"
+                            placeholder="Canada"
+                            style={{ transition: 'all .15s ease' }}
+                            ref={inputRef.location}
+                            onInput={handleChange}
+                            name="location"
+                            value={users?.location}
+                          />
+                        </div>
+                        <div className="relative w-full mb-3 ">
                           <div className="">
                             <label className="ml-2 text-sm font-semibold text-gray-700">
-                              Background Image
+                              Bio
                             </label>
-                            <div className="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
-                              <label className="inline-flex relative items-center w-full cursor-pointer">
-                                <input
-                                  id="customCheckLogin"
-                                  type="checkbox"
-                                  value=""
-                                  className="sr-only peer p-disabled"
-                                  style={{ transition: 'all .15s ease' }}
-                                  name="bgImage"
-                                  disabled={isDisabled}
-                                />
-                                <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600"></div>
-                              </label>
-                            </div>
+                            <textarea
+                              type="text"
+                              className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-gray-50 rounded
+                            text-sm shadow focus:outline-none focus:ring w-full"
+                              placeholder="Lord chief Commandar"
+                              style={{ transition: 'all .15s ease' }}
+                              ref={inputRef.description}
+                              onChange={handleChange}
+                              name="description"
+                              value={users?.description}
+                            />
                           </div>
-                        </label>
-                      </div>
+                        </div>
+                        <div>
+                          <label className=" items-center cursor-pointer ">
+                            <div className="">
+                              <label className="ml-2 text-sm font-semibold text-gray-700">
+                                Background Image
+                              </label>
+                              <div className="flex p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <label className="inline-flex relative items-center w-full cursor-pointer">
+                                  <input
+                                    id="customCheckLogin"
+                                    type="checkbox"
+                                    value=""
+                                    className="sr-only peer p-disabled"
+                                    style={{ transition: 'all .15s ease' }}
+                                    name="bgImage"
+                                    disabled={isDisabled}
+                                  />
+                                  <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600"></div>
+                                </label>
+                              </div>
+                            </div>
+                          </label>
+                        </div>
 
-                      <div className="text-center mt-6 float-right ">
-                        <button
-                          className="bg-[#8BC940]  text-white active:bg-gray-700 absolute right-0 text-sm font-bold uppercase
+                        <div className="text-center mt-6 float-right ">
+                          <button
+                            className="bg-[#8BC940]  text-white active:bg-gray-700 absolute right-0 text-sm font-bold uppercase
                        px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
                        bottom-0 "
-                          type="submit"
-                          style={{ transition: 'all .15s ease' }}
-                        >
-                          save
-                        </button>
+                            type="submit"
+                            style={{ transition: 'all .15s ease' }}
+                          >
+                            save
+                          </button>
+                        </div>
                       </div>
                       {/* </form> */}
                     </div>
