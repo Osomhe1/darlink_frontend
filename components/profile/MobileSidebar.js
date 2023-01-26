@@ -26,8 +26,8 @@ const NewSidebar = () => {
          router.push('/auth/Login')
        }
      } catch (error) {
-      //  console.log(error)
-      //  console.log(error.msg)
+       console.log(error)
+       console.log(error.msg)
      }
    }
    useEffect(() =>{
@@ -85,7 +85,7 @@ const NewSidebar = () => {
 
               <div className="mt-5">
                 <Box
-                  component="img"
+                component='img'
                   alt="..."
                   src={
                     UserInfo().passportUrl ? (
@@ -105,6 +105,7 @@ const NewSidebar = () => {
                 {/* Navigation */}
                 <div className="py-10">
                   <ul
+                  // className='md:flex-col md:min-w-full flex flex-col list-none  '
                   >
                     <li className="items-center hover:bg-gray-200 ">
                       <Link
