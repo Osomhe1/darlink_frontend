@@ -11,6 +11,7 @@ import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import { useRouter } from 'next/router'
 import api from '../../pages/api/darlink'
 import UserInfo from '../verify'
+import { Avatar, Box } from '@mui/material'
 
 
 const NewSidebar = () => {
@@ -83,9 +84,16 @@ const NewSidebar = () => {
               {/* Brand */}
 
               <div className="mt-5">
-                <Image
+                <Box
+                  component="img"
                   alt="..."
-                  src={UserInfo().passportUrl ? UserInfo().passportUrl : pic}
+                  src={
+                    UserInfo().passportUrl ? (
+                      UserInfo().passportUrl
+                    ) : (
+                      <Avatar src="/broken-image.jpg" />
+                    )
+                  }
                   className=" h-auto  rounded-full align-middle  border-none shadow-xl   "
                   style={{ maxWidth: '150px' }}
                   height={100}
