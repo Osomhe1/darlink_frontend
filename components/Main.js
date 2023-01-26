@@ -1,18 +1,9 @@
 import Image from "next/image";
 import Layout from "./Layout";
-// import { Message_data } from "../../context/context";
-import { Message_data } from "../context/context"; 
-import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
-// import api from '../api/darlink'
-// import { LOGIN_ENDPOINTS } from "../api/ACTIONS.JS";
 import Slide from "./Carousel";
 
 
 export default function Main() {
-
-  const { message, setMessage } = useContext(Message_data)
-  const router = useRouter()
  
 
 
@@ -89,7 +80,6 @@ export default function Main() {
             {/* </section> */}
           </div>
           <div className=" sm:mr-0 sm:mb-28 mb-0 lg:mb-  md:pl- lg:w-[50%]  ">
-          {/* <div className="xl:mr-44 sm:mr-0 sm:mb-28 mb-0 lg:mb-0 mr-48 md:pl-10  "> */}
             
             
             <Slide />

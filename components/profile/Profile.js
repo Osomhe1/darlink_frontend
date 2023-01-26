@@ -160,8 +160,6 @@ export default function Profile() {
     AuthenticateUser();
     handleData()
 
-
-
   }, [])
 
   return (
