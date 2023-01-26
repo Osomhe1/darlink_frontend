@@ -85,7 +85,7 @@ const NewSidebar = () => {
 
               <div className="mt-5">
                 <Box
-                  component="img"
+                component='img'
                   alt="..."
                   src={
                     UserInfo().passportUrl ? (

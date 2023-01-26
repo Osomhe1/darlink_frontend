@@ -43,6 +43,11 @@ export const BUTTONS = {
   DELETE_BUTTON: () => '/user/button',
 }
 
+export const APPREANCE = {
+  ADD_APPREANCE: () => '/user/appearance',
+  GET_APPREANCE: () => '/user/appearance',
+}
+
 export const VERIFICATION = {
   VERIFY: () => '/user/verification-link',
   GET_BUTTON: () => '/user/button',
@@ -54,4 +59,5 @@ export const USER = {
   UPDATE_USER_INFO: () => '/user/update',
   VERIFY_LINK: () => '/user/verification-link',
   GET_VERIFY: () => '/user/verify',
+  DELETE_ACC: () => '/user/account',
 }

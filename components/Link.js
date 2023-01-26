@@ -36,47 +36,29 @@ export default function Link() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(values, 'valuesss')
     try {
       const { data } = await api.post(LINK.ADD_LINK(), {
         ...values, type:"link"
       })
-      console.log(values, 'values')
      
       if (data.success) {
-        console.log(values, 'success')
         router.push('/dashboard')
-        // setIsEditing(false)
-        // handleData()
+        
       } else {
-        console.log(data, 'else')
       }
     } catch (error) {
-      console.log(error)
-      console.log(error.msg)
+      // console.log(error)
+      // console.log(error.msg)
       if (error.response.status === 401) {
         Logout()
       }
     }
   }
 
-  //  const handleData = async () => {
-  //    try {
-  //      const { data } = await api.get(LINK.GET_LINK(), {})
-  //      console.log(data, 'data')
-  //      if (!data.success) navigate('/home')
-  //      //todo
-  //      //populate UI
-  //      setUsers(data.profile)
-  //    } catch (error) {
-  //      // console.log(error.response.data.error)
-  //      console.log(error, 'error')
-  //    }
-  //  }
+ 
 
    const handleDelete = async (e) => {
      try {
-       alert('Do you want to delete your account?')
        const { data } = await api.delete(LINK.DELETE_LINK(), {})
        if (data.success) {
          handleData()
@@ -84,13 +66,13 @@ export default function Link() {
          //display error
        }
      } catch (error) {
-       console.log(error.response.data.error)
+      //  console.log(error.response.data.error)
      }
    }
 
    useEffect(() => {
-    //  handleData()
-   })
+     handleData()
+   }, [])
 
   return (
     <div>

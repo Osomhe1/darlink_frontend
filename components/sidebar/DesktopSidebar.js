@@ -24,7 +24,6 @@ export default function Sidebar() {
 
    const showtheModal = () => {
      setShowModal(!showModal)
-     console.log('welcome')
    }
    const router = useRouter()
 
@@ -36,8 +35,8 @@ export default function Sidebar() {
             router.push('/auth/Login')
           }       
       } catch (error) {
-        console.log(error)
-        console.log(error.msg)
+        // console.log(error)
+        // console.log(error.msg)
       }
     }
 
@@ -137,11 +136,7 @@ export default function Sidebar() {
                   </li>
 
                   <li className="items-center hover:bg-gray-200">
-                    {/* <Link
-                      className='text-blueGray-300 text-xs uppercase py-3 font-bold flex  gap-2 items-center'
-                      href='/auth/Login'
-                      // onClick={(e) => e.preventDefault()}
-                    > */}
+                   
                     <button
                       type="submit"
                       onClick={handleLogout}
@@ -157,9 +152,7 @@ export default function Sidebar() {
                     <button
                       className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
                       href="/upgrade"
-                      // onFocus={showtheModal}
                     >
-                      {/* {showModal && <Modal showtheModal={showtheModal} />} */}
                       <i className="fas fa-tools text-blueGray-300 mr-2 text-sm"></i>{' '}
                       Upgrade
                     </button>
