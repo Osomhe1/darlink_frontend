@@ -1,12 +1,10 @@
 import { createContext, useContext, useState } from 'react'
 import { useRouter } from 'next/router'
+import React from 'react'
 
-export const Message_data = createContext(null)
-
-export const UserContext = createContext()
+export const UserContext = React.createContext()
 
  function Context({ children }) {
-   const [message, setMessage] = useState()
    const [user, setUser] = useState()
    const [userToken, setUserToken] = useState()
    const [loading, setLoading] = useState(false)
@@ -25,32 +23,26 @@ export const UserContext = createContext()
    return (
      <UserContext.Provider value={{userInfor,
         user, 
-        // Logout,
         loading,
         userToken,
         setUserToken,
         successMessage,
         setSuccessMessage,
         setErrorMessage,
-        // isUserAuthenticated,
         errorMessage}}>
-       <Message_data.Provider value={{ message, setMessage }}>
          {children}
-       </Message_data.Provider>
      </UserContext.Provider>
    )
  }
-//  const router= useRouter()
 
-   export const Logout = () => {
-    //  setUserToken()
-    //  setUser()
-
-     localStorage.setItem('userToken', null)
-     localStorage.setItem('user', null)
-    //  router.push('/auth/Login')
-   }
-
-   export const isUserAuthenticated = () => !userToken
-
+ 
  export default Context 
+
+ export const Logout = () => {
+  //  const router = useRouter()
+   localStorage.setItem('userToken', null)
+   localStorage.setItem('user', null)
+   localStorage.setItem('username', null)
+   localStorage.setItem('email', null)
+  //  router.push('/auth/Login')
+ }

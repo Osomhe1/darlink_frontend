@@ -1,18 +1,28 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { PROFILE } from '../pages/api/ACTIONS.JS'
-// import Dashboard from './dashboard'
-// import Details from '../components/Details'
 import Post from '../components/Post'
 import api from '../pages/api/darlink'
 import { USER_ENDPOINTS } from '../pages/api/ACTIONS.JS'
 import {useRouter} from 'next/router'
+import { USER } from './api/ACTIONS.JS'
+import { UserContext } from '../context/context'
+import UserInfo from '../components/verify'
 
 export default function Account() {
+
   const [values, setValues] = useState({
     currentPassword: '',
     newPassword:'',
     cornfirm_newPassword:'',
   })
+ const emailRef = useRef(null);
+ const usernameRef = useRef(null);
+  const [user, setUser] = useState({
+    username: '',
+    email: '',
+  })
+
+  const [isDisabled, setDisabled] = useState(true)
 
   const [error, setError] = useState('')
   const router = useRouter()
@@ -24,12 +34,30 @@ export default function Account() {
     values.currentPassword=''
   }
 
+const handleChange = (e) => {
+  setUser({...user, [e.target.name]:e.target.value});
+}
+
+  const handleEditUser = async (e) => {
+    e.preventDefault()
+    try { 
+        const { data } = await api.patch(USER.UPDATE_USER_INFO(), {
+          username:usernameRef.current.value,
+          email:emailRef.current.value
+        })
+        if (data.success) {         
+          router.push('/accounts')
+        } 
+    } catch (error) {
+      console.log(error)
+      console.log(error.msg)
+    }
+  }
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       if (values.newPassword !== values.cornfirm_newPassword) {
         setError(true)
-        console.log(error, 'error')
       }else{
         const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
           ...values,
@@ -38,10 +66,7 @@ export default function Account() {
         if (data.success) {
           formRef.current?.reset()
           clearData()
-          console.log(values, 'clear')
           router.push('/accounts')
-          // setIsEditing(false)
-          // handleData()
         } 
       }
     } catch (error) {
@@ -49,6 +74,23 @@ export default function Account() {
       console.log(error.msg)
     }
   }
+
+  useEffect(() =>{
+    const AuthenticateUser = async () => {
+      try {
+        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+        if (!data.success) router.push('/auth/Login')
+      } catch (error) {
+        router.push('/auth/Login')
+      }
+    }
+    const infor = UserInfo();
+    user.username = infor.username
+    user.email = infor.email
+    AuthenticateUser();
+  }, [])
+
+
   return (
     // <Dashboard>
     <>
@@ -66,7 +108,10 @@ export default function Account() {
               <h1 className="text-3xl font-semibold">User Info</h1>
 
               <div className="text- mt-12   ">
-                <form className="Avenir w-full  xl:w-4/4      ">
+                <form
+                  onSubmit={handleEditUser}
+                  className="Avenir w-full  xl:w-4/4      "
+                >
                   <div className="relative  mb-3 ">
                     <label className="ml-2 text-sm font-semibold uppercase text-gray-700">
                       EMAIL
@@ -76,8 +121,14 @@ export default function Account() {
                       className="border-0 px-3 py-5  placeholder-gray-400 focus:ring-[#8BC940]
                    text-gray-700 bg-gray-50 rounded text-sm shadow focus:outline-none focus:ring  w-full"
                       placeholder="JohnDoe@gmail.com"
-                      value="airlink@gmail.com"
                       style={{ transition: 'all .15s ease' }}
+                      name="email"
+                      ref={emailRef}
+                      value={user.email}
+                      onChange={(e) => {
+                         
+                        handleChange(e)
+                      }}
                     />
                   </div>
 
@@ -90,8 +141,14 @@ export default function Account() {
                       className="border-0 px-3 py-5 focus:ring-[#8BC940]  placeholder-gray-400 text-gray-700 bg-gray-50 rounded
                          text-sm shadow focus:outline-none focus:ring w-full"
                       placeholder="USERNAME"
-                      value="airlink"
+                      ref={usernameRef}
+                      value={user.username}
                       style={{ transition: 'all .15s ease' }}
+                      name="username"
+                      onChange={(e) => {
+                         handleChange(e)
+                      
+                      }}
                     />
                   </div>
 
@@ -122,6 +179,7 @@ export default function Account() {
                               value=""
                               className="sr-only peer"
                               style={{ transition: 'all .15s ease' }}
+                              disabled={isDisabled}
                             />
                             <div className="w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-blue-600"></div>
                           </label>
@@ -135,7 +193,7 @@ export default function Account() {
                       className="bg-[#8BC940]  text-white absolute right-0 active:bg-gray-700 text-sm font-bold uppercase
                        px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
                        bottom-0 "
-                      type="button"
+                      type="submit"
                       style={{ transition: 'all .15s ease' }}
                     >
                       save
