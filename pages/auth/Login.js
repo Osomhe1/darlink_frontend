@@ -17,7 +17,6 @@ export default function Login() {
     password:'',
     username:''
    })
-  //  const [loading, setLoading] = useState(false)
    const route = useRouter()
 
    const userContext = useContext(UserContext)
@@ -28,41 +27,34 @@ export default function Login() {
        const { data } = await api.post(USER_ENDPOINTS.LOGIN(), {
          ...values,
        })
-       
        if (data.success) {
-
-        userContext.role = data.user.role
-        userContext.username = data.user.username
-        userContext.email = data.user.email
+         
+       
+        localStorage.setItem('username', data.user.username)
+        localStorage.setItem('email', data.user.email)
+        localStorage.setItem('role', data.user.role)
         localStorage.setItem('token', data.token)
          if (data.user.role === USER_TYPE.ADMIN())
-          route.push('/admin/dashboard')
+            route.push('/admin/dashboard')
        }
         if(data.user.role === USER_TYPE.USER()) {
          route.push('/dashboard')
        }
      } catch (error) {
-      console.log(error)
-      console.log(error.response.data.error, 'error')
-      // console.log(error.response.status, 'statue') //this is it
 
-      if (error.response.data.error) {
+      if (error.response.data) {
         const err = error.response.data.error
         if (err.includes('username')) error.username = err
 
         if (err.includes('password')) error.password = err
         setError(error.response.data.error)
       }
-      // else setError(true)
       }
    }
 
    useEffect(() =>{
-    userContext.role = ''
-    userContext.username = ''
-    userContext.email = ''
     localStorage.clear()
-   })
+   }, [])
 
   return (
     <Layout>
