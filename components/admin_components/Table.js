@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react'
-
-// import PageTitle from './PageTitle'
 import SectionTitle from './SectionTitle'
 import {
   Table,
@@ -17,8 +15,12 @@ import {
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
+import api from '../../pages/api/darlink'
 
 import response from '../utility/tableData'
+import { GET_USERS } from '../../pages/api/ACTIONS.JS'
+import DeleteModal from './DeleteModal'
+import {toast} from 'react-toastify'
 // make a copy of the data, for the second table
 const response2 = response.concat([])
 
@@ -30,6 +32,7 @@ function Tables() {
 
   // setup data for every table
   const [dataTable2, setDataTable2] = useState([])
+  const [users, setUsers] = useState([])
 
   // pagination setup
   const resultsPerPage = 20
@@ -44,6 +47,46 @@ function Tables() {
   function onPageChangeTable2(p) {
     setPageTable2(p)
   }
+
+  
+
+  const handleData = async () => {
+    try {
+      const { data } = await api.get(GET_USERS.GET_USER(), {})
+      console.log(data, 'data')
+      if (data.success) 
+      //todo
+      //populate UI
+      setUsers(data.user)
+    } catch (error) {
+      // console.log(error.response.data.error)
+      console.log(error, 'error')
+      // if (error.response.status === 401) {
+      //   Logout()
+      // }
+    }
+  }
+  const handleDeleteAcc = async () => {
+    try {
+      const { data } = await api.get(GET_USERS.DELETE_ACC(), {})
+      console.log(data, 'data')
+      if (data.success) 
+      //todo
+      //populate UI
+      // setUser(data.profile)
+      toast.success('user successful deleted')
+      handleData()
+    } catch (error) {
+      // console.log(error.response.data.error)
+      console.log(error, 'error')
+      toast.error(error.response.data.error)
+      // if (error.response.status === 401) {
+      //   Logout()
+      // }
+    }
+  }
+
+
 
   // on page change, load new sliced data
   // here you would make another server request for new data
@@ -65,118 +108,67 @@ function Tables() {
         pageTable2 * resultsPerPage
       )
     )
+    handleData()
   }, [pageTable2])
 
   return (
     <>
-      {/* <PageTitle>Suscribers</PageTitle> */}
-
-      {/* <SectionTitle>Simple table</SectionTitle>
-      <TableContainer className='mb-8'>
-        <Table>
-          <TableHeader>
-            <tr>
-              <TableCell>Client</TableCell>
-              <TableCell>Amount</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Date</TableCell>
-            </tr>
-          </TableHeader>
-          <TableBody>
-            {dataTable1.map((user, i) => (
-              <TableRow key={i}>
-                <TableCell>
-                  <div className='flex items-center text-sm'>
-                    <Avatar
-                      className='hidden mr-3 md:block'
-                      src={user.avatar}
-                      alt='User avatar'
-                    />
-                    <div>
-                      <p className='font-semibold'>{user.name}</p>
-                      <p className='text-xs text-gray-600 dark:text-gray-400'>
-                        {user.job}
-                      </p>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <span className='text-sm'>$ {user.amount}</span>
-                </TableCell>
-                <TableCell>
-                  <Badge type={user.status}>{user.status}</Badge>
-                </TableCell>
-                <TableCell>
-                  <span className='text-sm'>
-                    {new Date(user.date).toLocaleDateString()}
-                  </span>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <TableFooter>
-          <Pagination
-            totalResults={totalResults}
-            resultsPerPage={resultsPerPage}
-            onChange={onPageChangeTable1}
-            label='Table navigation'
-          />
-        </TableFooter>
-      </TableContainer> */}
-
       <SectionTitle>Users</SectionTitle>
-      <TableContainer className='mb-8'>
+      <TableContainer className="mb-8">
         <Table>
           <TableHead>
             <tr>
               <TableCell>Client</TableCell>
               <TableCell>Amount</TableCell>
+              <TableCell>Role</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Date</TableCell>
               <TableCell>Actions</TableCell>
             </tr>
           </TableHead>
           <TableBody>
-            {dataTable2.map((user, i) => (
+            {dataTable2.map((users, i) => (
               <TableRow key={i}>
                 <TableCell>
-                  <div className='flex items-center text-sm'>
+                  <div className="flex items-center text-sm">
                     <Avatar
-                      className='hidden mr-3 md:block'
-                      src={user.avatar}
-                      alt='User avatar'
+                      className="hidden mr-3 md:block"
+                      src={users.avatar}
+                      alt="users avatar"
                     />
                     <div>
-                      <p className='font-semibold'>{user.name}</p>
-                      <p className='text-xs text-gray-600 dark:text-gray-400'>
-                        {user.job}
+                      <p className="font-semibold">{users.username}</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">
+                        {users.job}
                       </p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className='text-sm'>$ {user.amount}</span>
+                  <span className="text-sm">$ {users.amount}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={user.status}>{user.status}</Badge>
+                  <span className="text-sm"> {users.role}</span>
                 </TableCell>
                 <TableCell>
-                  <span className='text-sm'>
-                    {new Date(user.date).toLocaleDateString()}
+                  <Badge type={users.status}>{users.status}</Badge>
+                </TableCell>
+                <TableCell>
+                  <span className="text-sm">
+                    {new Date(users.createdAt).toLocaleDateString()}
                   </span>
                 </TableCell>
                 <TableCell>
-                  <div className='flex items-center space-x-4'>
-                    <Button layout='link' size='icon' aria-label='Edit'>
+                  <div className="flex items-center space-x-4">
+                    <Button layout="link" size="icon" aria-label="Edit">
                       {/* <EditIcon className='w-5 h-5' aria-hidden='true' /> */}
                       {/* <EditIcon className='w-5 h-5' aria-hidden='true' /> */}
                       <EditIcon />
                     </Button>
-                    <Button layout='link' size='icon' aria-label='Delete'>
-                      {/* <DeleteIcon className='w-5 h-5' aria-hidden='true' /> */}
-                      {/* <TrashIcon className='w-5 h-5' aria-hidden='true' /> */}
-                      <DeleteIcon />
+                    <Button layout="link" size="icon"  aria-label="Delete">
+                      {/* <DeleteIcon
+                      /> */}
+                      <DeleteModal />
                     </Button>
                   </div>
                 </TableCell>
@@ -189,7 +181,7 @@ function Tables() {
             totalResults={totalResults}
             resultsPerPage={resultsPerPage}
             onChange={onPageChangeTable2}
-            label='Table navigation'
+            label="Table navigation"
           />
         </TableFooter>
       </TableContainer>
