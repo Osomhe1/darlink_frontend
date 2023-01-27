@@ -12,6 +12,8 @@ import { useRouter } from 'next/router'
 import api from '../../pages/api/darlink'
 import UserInfo from '../verify'
 import { Avatar, Box } from '@mui/material'
+import { toast } from 'react-toastify'
+
 
 
 const NewSidebar = () => {
@@ -26,8 +28,9 @@ const NewSidebar = () => {
          router.push('/auth/Login')
        }
      } catch (error) {
-       console.log(error)
-       console.log(error.msg)
+      //  console.log(error)
+      //  console.log(error.msg)
+      toast.error(error.response.data.error)
      }
    }
    useEffect(() =>{
