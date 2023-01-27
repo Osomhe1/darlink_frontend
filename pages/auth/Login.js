@@ -6,6 +6,7 @@ import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import { USER_TYPE } from '../../pages/api/ACTIONS.JS'
 import { UserContext } from '../../context/context'
+import { toast } from 'react-toastify'
 
 
 export default function Login() {
@@ -38,9 +39,11 @@ export default function Login() {
             route.push('/admin/dashboard')
        }
         if(data.user.role === USER_TYPE.USER()) {
+          toast.success('success')
          route.push('/dashboard')
        }
      } catch (error) {
+      toast.error(error.response.data.error)
 
       if (error.response.data) {
         const err = error.response.data.error

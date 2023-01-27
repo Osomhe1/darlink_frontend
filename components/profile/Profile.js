@@ -21,6 +21,7 @@ import UserInfo from '../verify'
 import pic from '../../public/images/team-2-800x800.jpg'
 import { Avatar, Box } from '@mui/material'
 import Modal from '../Modal'
+import { toast } from 'react-toastify'
 
 
 
@@ -117,7 +118,7 @@ export default function Profile() {
         handleData() 
       } 
     } catch (error) {
-     
+     toast.error(error.response.data.error)
       if (error.response.status === 401) {
         Logout()
       }
@@ -137,6 +138,7 @@ export default function Profile() {
       setUsers(userData)
     } catch (error) {
       if (error.response.status === 401) {
+        toast.error(error.response.data.error)
         ResetUser()
         router.push('/auth/Login')
       }
@@ -153,11 +155,12 @@ export default function Profile() {
         if (!data.success) router.push('/auth/Login')
         
       } catch (error) {
+        toast.error(error.response.data.error)
         router.push('/auth/Login')
       }
     }
 
-    AuthenticateUser();
+    // AuthenticateUser();
     handleData()
 
   }, [])

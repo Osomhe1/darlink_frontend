@@ -10,6 +10,7 @@ import { LINK } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import {useRouter} from 'next/router'
 import { UserContext } from '../context/context'
+import { toast } from 'react-toastify'
 
 export default function Link() {
 
@@ -50,6 +51,7 @@ export default function Link() {
       // console.log(error)
       // console.log(error.msg)
       if (error.response.status === 401) {
+        toast.error(error.response.data.error)
         Logout()
       }
     }
@@ -67,11 +69,24 @@ export default function Link() {
        }
      } catch (error) {
       //  console.log(error.response.data.error)
+      toast.error(error.response.data.error)
+     }
+   }
+   const handleData = async (e) => {
+     try {
+       const { data } = await api.get(LINK.GET_LINK(), {})
+       if (data.success) {
+       } else {
+         //display error
+       }
+     } catch (error) {
+       //  console.log(error.response.data.error)
+       toast.error(error.response.data.error)
      }
    }
 
    useEffect(() => {
-     handleData()
+     handleData()  
    }, [])
 
   return (

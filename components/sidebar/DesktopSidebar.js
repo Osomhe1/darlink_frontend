@@ -14,6 +14,8 @@ import {  useRouter } from 'next/router'
 import UserInfo from '../verify'
 import Avatar from '@mui/material/Avatar'
 import { Box } from '@mui/material'
+import { toast } from 'react-toastify'
+
 
 
 
@@ -37,6 +39,7 @@ export default function Sidebar() {
       } catch (error) {
         // console.log(error)
         // console.log(error.msg)
+        toast.error(error.response.data.error)
       }
     }
 
