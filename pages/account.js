@@ -101,7 +101,7 @@ const handleChange = (e) => {
     <>
       <div>
         <div>
-          <div className="-mt-5 md:-mt-24 xl:w-5/6">
+          <div className="-mt-5 md:-mt-24 xl:w-5/6 ml-20 md:ml-0">
             <div className="">
               <h1 className="text-[#8BC940] font-semibold text-3xl">Account</h1>
               <div className=""></div>
@@ -351,9 +351,7 @@ const handleChange = (e) => {
             </div>
             <div className="flex justify-between py-16 bottom-1   xl:w-5/6 -mb-8 ">
               <div className="">
-                <p
-                  className="text-red-600 cursor-pointer underline"
-                >
+                <p className="text-red-600 cursor-pointer underline">
                   <DeleteModal />
                 </p>
               </div>
