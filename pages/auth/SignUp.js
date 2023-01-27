@@ -4,6 +4,7 @@ import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import Layout from '../../components/Layout'
 import api from '../../pages/api/darlink'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 export default function SignUp() {
   const [values, setValues] = useState({
@@ -14,6 +15,7 @@ export default function SignUp() {
   })
   const [error, setError] = useState('')
   const router = useRouter()
+  // const notice = toast()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +27,7 @@ export default function SignUp() {
           ...values,
         })
         if(data.success){
+          toast.success('success')
           router.push('/auth/Login')
         }else{
 
@@ -32,6 +35,8 @@ export default function SignUp() {
       }
     } catch (error) {
       // console.log(error);
+      toast.error(error.response.data.error)
+
       // console.log(error.msg);
     }
   }

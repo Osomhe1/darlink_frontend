@@ -6,6 +6,7 @@ import {useRouter} from 'next/router'
 import { USER } from './api/ACTIONS.JS'
 import UserInfo from '../components/verify'
 import DeleteModal from '../components/DeleteModal'
+import { toast } from 'react-toastify'
 
 export default function Account() {
 
@@ -52,6 +53,7 @@ const handleChange = (e) => {
     } catch (error) {
       // console.log(error)
       // console.log(error.msg)
+      toast.error(error.response.data.error)
     }
   }
   const handleSubmit = async (e) => {
@@ -71,8 +73,9 @@ const handleChange = (e) => {
         } 
       }
     } catch (error) {
-      console.log(error)
-      console.log(error.msg)
+      // console.log(error)
+      // console.log(error.msg)
+      toast.error(error.response.data.error)
     }
   }
 
@@ -83,6 +86,7 @@ const handleChange = (e) => {
         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
         if (!data.success) router.push('/auth/Login')
       } catch (error) {
+        toast.error(error.response.data.error)
         router.push('/auth/Login')
       }
     }

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button } from '@mui/material'
 import { USER } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
+import { toast } from 'react-toastify'
 
 export default function DeleteModal() {
   const [showModal, setShowModal] = useState(false)
@@ -14,7 +15,7 @@ export default function DeleteModal() {
            router.push('/auth/Login')
        }
      } catch (error) {
-       
+       toast.error(error.response.data.error)
      }
    }
 
