@@ -1,22 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import logo from '../public/images/PayPal-Logo.png'
 import airlink from '../public/images/solo_logo.jpeg'
 import InfoCard from '../components/admin_components/Card'
 import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded'
+import { USER_ENDPOINTS } from './api/ACTIONS.JS'
+import api from './api/darlink'
+import { toast } from 'react-toastify'
 
 
 export default function Referrals() {
+
+  useEffect(() => {
+    const AuthenticateUser = async () => {
+      try {
+        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+        if (!data.success) router.push('/auth/Login')
+      } catch (error) {
+        toast.error(error.response.data.error)
+        router.push('/auth/Login')
+      }
+    }
+
+    AuthenticateUser();
+    // handleData()
+  }, [])
   return (
     <div>
-      <div className="-mt-5 md:-mt-24 xl:w-5/6">
-        <h1 className="text-blue-500 font-semibold text-3xl ml-20 md:ml-0">
-          Wallet
-        </h1>
+      <div className="-mt-5 md:-mt-24 xl:w-5/6 ml-20 md:ml-0">
+        <h1 className="text-[#8BC940] font-semibold text-3xl ">Wallet</h1>
       </div>
       <section>
         {/* <div class='flex flex-co items-center w-full max-w-screen-md p-6 pb-6 mt-10 gap-6 bg-white rounded-lg shadow-xl sm:p-8'> */}
-        <div className="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4 xl:w-5/6">
+        <div className="grid gap-6 mt-4 mb-8 md:grid-cols-2 xl:grid-cols-4 xl:w-5/6">
           <InfoCard title="Total Balance" value="6389">
             <AttachMoneyRoundedIcon />
           </InfoCard>
@@ -31,20 +47,20 @@ export default function Referrals() {
           <h1 className="text-3xl text-black py-3 font-semibold pb-8 mb-4 ">
             Affiliate Program
           </h1>
-          <div className="flex flex-co justify-between items-center">
+          <div className="flex flex-wrap justify-center md:justify-between items-center">
             <div className="border p-4 w-[150px] ">
               <h4 className="text-lg">Referrals </h4>
-              <p className="text-blue-500 text-2xl font-semibold ">0</p>
+              <p className="text-[#8BC940] text-2xl font-semibold ">0</p>
             </div>
             <div className="border p-4 w-[150px] ">
               <h4 className="text-lg flex items-center gap-2">
                 Pending{' '}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-4"
+                  className="h-5 w-4 text-[#8BC940]"
                   viewBox="0 0 20 20"
                   //   fill='currentColor'
-                  fill="blue"
+                  fill="green"
                 >
                   <path
                     fillRule="evenodd"
@@ -53,17 +69,17 @@ export default function Referrals() {
                   />
                 </svg>
               </h4>
-              <p className="text-blue-500 text-2xl font-semibold ">$0.00</p>
+              <p className="text-[#8BC940] text-2xl font-semibold ">$0.00</p>
             </div>
             <div className="border p-4 w-[150px] ">
               <h4 className="text-lg flex items-center gap-2">
                 Upcoming{' '}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-5 w-4"
+                  className="h-5 w-4 text-[#8BC940] "
                   viewBox="0 0 20 20"
                   //   fill='currentColor'
-                  fill="blue"
+                  fill="green"
                 >
                   <path
                     fillRule="evenodd"
@@ -72,14 +88,14 @@ export default function Referrals() {
                   />
                 </svg>
               </h4>
-              <p className="text-blue-500 text-2xl font-semibold ">$0.00</p>
+              <p className="text-[#8BC940] text-2xl font-semibold ">$0.00</p>
             </div>
             <div className="border p-4 w-[150px] ">
               <h4 className="text-lg">Total Paid</h4>
-              <p className="text-blue-500 text-2xl font-semibold ">$0.00</p>
+              <p className="text-[#8BC940] text-2xl font-semibold ">$0.00</p>
             </div>
           </div>
-          <div className="bg-gray-200 grid grid-cols-2 my-8 ">
+          <div className="bg-gray-200 grid md:grid-cols-2 my-8 ">
             <div className=" border-r-2 border-gray-300 p-4">
               <h3 className="text-black font-semibold text-xl p-3 ">
                 Get Started
@@ -94,7 +110,7 @@ export default function Referrals() {
                 adding your PayPal email address.
               </p>
 
-              <p className="p-3 text-blue-500 cursor-pointer pt-4 ">
+              <p className="p-3 text-[#8BC940] cursor-pointer pt-4 ">
                 More Information
               </p>
             </div>

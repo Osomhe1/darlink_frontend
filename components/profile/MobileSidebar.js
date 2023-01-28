@@ -51,7 +51,7 @@ const NewSidebar = () => {
       <aside>
         {showSidebar ? (
           <button
-            className="flex text-2xl text-gray-400 items-center cursor-pointer fixed left-44 top-2 z-[999999]"
+            className="flex text-2xl  text-gray-400 items-center cursor-pointer fixed left-44 md:left-56 top-6 z-[999999]"
             onClick={() => setShowSidebar(!showSidebar)}
           >
            <CloseIcon />
@@ -74,7 +74,7 @@ const NewSidebar = () => {
         )}
 
         <div
-          className={`top-0 left-0 w-3/5 bg-white  p-10 pl-0 text- shadow-3xl shadow hover:shadow-lg fixed h-[96%] z-[99999] 
+          className={`top-0 left-0 w-3/5 md:w-2/5 bg-white  p-10 pl-0 text- shadow-3xl shadow hover:shadow-lg fixed h-[96%] z-[99999] 
             
          ease-in-out duration-300 ${showSidebar ? 'translate-x-0 ' : 'hidden'}`}
         >

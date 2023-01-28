@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 // import pic from '../../public/images/team-2-800x800.jpg'
 import { FaPager } from 'react-icons/fa'
 import { MdOutlineLogout } from 'react-icons/md'
