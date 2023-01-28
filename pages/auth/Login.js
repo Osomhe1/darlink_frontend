@@ -18,6 +18,7 @@ export default function Login() {
     password:'',
     username:''
    })
+   const [active, setActive] = useState(false)
    const route = useRouter()
 
    const userContext = useContext(UserContext)
@@ -25,33 +26,38 @@ export default function Login() {
    const handleSubmit = async (e) => {
      e.preventDefault()
      try {
+      setActive(true)
        const { data } = await api.post(USER_ENDPOINTS.LOGIN(), {
          ...values,
        })
+       setActive(true);
        if (data.success) {
-         
-       
         localStorage.setItem('username', data.user.username)
         localStorage.setItem('email', data.user.email)
         localStorage.setItem('role', data.user.role)
         localStorage.setItem('token', data.token)
          if (data.user.role === USER_TYPE.ADMIN())
             route.push('/admin/dashboard')
-       }
         if(data.user.role === USER_TYPE.USER()) {
           toast.success('success')
-         route.push('/dashboard')
+          route.push('/dashboard')
+        }
        }
      } catch (error) {
-      toast.error(error.response.data.error)
+      setActive(true)
+       if(error.name){
+        toast.error("Unauthorized domain");
+       }else{
 
-      if (error.response.data) {
-        const err = error.response.data.error
-        if (err.includes('username')) error.username = err
-
-        if (err.includes('password')) error.password = err
-        setError(error.response.data.error)
-      }
+         if (error.response) {
+           const err = error.response.data.error
+           if (err.includes('username')) error.username = err
+           
+           if (err.includes('password')) error.password = err
+           setError(err)
+           toast.error(err)
+        }
+       }
       }
    }
 
@@ -143,7 +149,7 @@ export default function Login() {
                 type="submit"
                 style={{ transition: 'all .15s ease' }}
               >
-                Login
+                {active ?"Authenticating..." : "Login"}
               </button>
             </div>
             <div className="text-center mt-6">
@@ -153,7 +159,7 @@ export default function Login() {
                 type="button"
                 style={{ transition: 'all .15s ease' }}
               >
-                <Link href="/auth/SignUp">or Create an Account</Link>
+                <Link href="/SignUp">or Create an Account</Link>
               </button>
             </div>
           </form>
