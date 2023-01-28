@@ -1,4 +1,4 @@
-import  {useState} from 'react'
+import  {useEffect, useState} from 'react'
 
 import { Bar } from 'react-chartjs-2'
 // import {BarChart} from '../components/BarChart'
@@ -7,10 +7,28 @@ import {
   barLegends,
 } from '../components/utility/Chartbar.js'
 import { Chart as ChartJS } from 'chart.js/auto'
+import { USER_ENDPOINTS } from './api/ACTIONS.JS'
+import api from './api/darlink'
+import {toast} from 'react-toastify'
 // import Post from '../components/Post'
 
 
 export default function Analytics() {
+
+  useEffect(() => {
+    const AuthenticateUser = async () => {
+      try {
+        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+        if (!data.success) router.push('/auth/Login')
+      } catch (error) {
+        toast.error(error.response.data.error)
+        router.push('/auth/Login')
+      }
+    }
+
+    AuthenticateUser();
+    // handleData()
+  }, [])
 
 
   return (
@@ -57,7 +75,7 @@ export default function Analytics() {
             <div className="w-1/2 border p-5 ">
               <h2 className="text-2xl p-3 ">Today</h2>
               <div className="p-5 ">
-                <h3 className="p-3  blur-lg bg-[#8BC940] text-white text-2xl w-[150px] ">
+                <h3 className="p-3  blur-lg bg-[#8BC940] text-white text-2xl max-w-[150px] ">
                   Click me
                 </h3>
               </div>
@@ -65,7 +83,7 @@ export default function Analytics() {
             <div className="w-1/2 border p-5 ">
               <h2 className="text-2xl p-3 ">All Time</h2>
               <div className="p-5  ">
-                <h3 className="p-3  blur-lg bg-[#8BC940] text-white text-2xl w-[150px] ">
+                <h3 className="p-3  blur-lg bg-[#8BC940] text-white text-2xl max-w-[150px] ">
                   Click me
                 </h3>
               </div>

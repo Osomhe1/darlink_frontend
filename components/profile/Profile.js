@@ -192,7 +192,7 @@ export default function Profile() {
           </div>
         </div>
         {/* links */}
-        <div className="flex justify-between xl:w-5/6 my-4">
+        <div className="flex flex-wrap justify-between xl:w-5/6 my-4">
           <div className="flex gap-3">
             <div className="">
               <button
@@ -229,7 +229,7 @@ export default function Profile() {
             </button>
           </div>
         </div>
-        <div className="bg-whit md:w-5/6">
+        <div className="bg-whit md:w-5/6 ">
           <section
             className="relative bg-white block"
             style={{ height: '200px', backgroundColor: 'white' }}
@@ -258,7 +258,7 @@ export default function Profile() {
               >
                 <div className="px-6 relative">
                   <form className="Avenir w-full  " onSubmit={handleSubmit}>
-                    <div className="grid md:flex flex-wrap justify-center">
+                    <div className="grid lg:flex flex-wrap justify-center">
                       <div className="w-full  px-4  flex justify-">
                         <div className="relative pt-8 md:pt-0 ">
                           <Box
@@ -306,7 +306,7 @@ export default function Profile() {
 
                     <div className="text- mt-1 pt-14 md:pt-0  ">
                       
-                      <div className="w-full  xl:w-3/4 md:ml-44 ">
+                      <div className="w-full   xl:w-3/4 xl:ml-44 ">
                         <div className="relative  mb-3 ">
                           <label className="ml-2 text-sm font-semibold text-gray-700">
                             Display Name
