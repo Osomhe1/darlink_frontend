@@ -172,7 +172,7 @@ export default function Profile() {
       }
     }
 
-    // AuthenticateUser();
+    AuthenticateUser();
     handleData()
 
   }, [])
