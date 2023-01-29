@@ -40,8 +40,8 @@ export default function SignUp() {
       }
     } catch (error) {
       setActive(false);
-      if(error.name){
-        generateError("Unauthorized domain");
+      if(error.name.toLowerCase() === "axioserror"){
+        generateError(error.message); 
       }
       if(error.response){
         generateError(error.response.data.error);
