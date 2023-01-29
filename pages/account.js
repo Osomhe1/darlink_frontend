@@ -33,8 +33,8 @@ export default function Account() {
     values.newPassword=''
     values.currentPassword=''
   }
-
- 
+const [active, setActive] = useState(false);
+ const generateError =(err) => toast.error(err);
 
 const handleChange = (e) => {
   setUser({...user, [e.target.name]:e.target.value});
@@ -47,35 +47,44 @@ const handleChange = (e) => {
           username:usernameRef.current.value,
           email:emailRef.current.value
         })
-        if (data.success) {         
+        if (data.success) {      
+          toast.success(data.msg);   
           router.push('/accounts')
         } 
-    } catch (error) {
-      // console.log(error)
-      // console.log(error.msg)
-      toast.error(error.response.data.error)
+    } catch (error) { 
+      if(error.response){
+        generateError(error.response.data.error);
+      }else if(error.name.toLowerCase() === "axioserror"){
+        generateError(error.message);
+      }
     }
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      setActive(true)
       if (values.newPassword !== values.cornfirm_newPassword) {
         setError(true)
+        generateError("Password mismatched")
       }else{
         const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
           ...values,
         })
-        // console.log(values, 'values')
+         
         if (data.success) {
+          toast.success(data.msg)
           formRef.current?.reset()
           clearData()
           router.push('/accounts')
         } 
       }
-    } catch (error) {
-      // console.log(error)
-      // console.log(error.msg)
-      toast.error(error.response.data.error)
+      setActive(false)
+    } catch (error) { 
+      if(error.response){
+        generateError(error.response.data.error);
+      }else if(error.name.toLowerCase() === "axioserror"){
+        generateError(error.message);
+      }
     }
   }
 
@@ -342,8 +351,9 @@ const handleChange = (e) => {
                        bottom-0 "
                       type="submit"
                       style={{ transition: 'all .15s ease' }}
+                      disabled={active}
                     >
-                      save
+                     {active ? "saving..." : "save"} 
                     </button>
                   </div>
                 </form>

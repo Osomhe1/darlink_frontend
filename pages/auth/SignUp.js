@@ -56,7 +56,6 @@ export default function SignUp() {
         <section>
           <form
             onSubmit={ handleSubmit}
-            // onSubmit={(e) => handleSubmit(e)}
             className='Avenir  lg:w-2/5 m-3 md:w-3/5 md:m-auto lg:m-auto  py-28 '
           >
             <h2 className='text-center font-bold text-3xl md:text-5xl py-5 '>
