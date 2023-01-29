@@ -26,7 +26,7 @@ export default function Analytics() {
       }
     }
 
-    // AuthenticateUser();
+    AuthenticateUser();
     // handleData()
   }, [])
 

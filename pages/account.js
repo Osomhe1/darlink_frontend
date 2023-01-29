@@ -93,7 +93,7 @@ const handleChange = (e) => {
     const infor = UserInfo();
     user.username = infor.username
     user.email = infor.email
-    // AuthenticateUser();
+    AuthenticateUser();
   }, [])
 
 
