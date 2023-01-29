@@ -29,8 +29,8 @@ export default function Login() {
       setActive(true)
        const { data } = await api.post(USER_ENDPOINTS.LOGIN(), {
          ...values,
-       })
-       setActive(true);
+       }) 
+       setActive(false);
        if (data.success) {
         localStorage.setItem('username', data.user.username)
         localStorage.setItem('email', data.user.email)
@@ -44,7 +44,7 @@ export default function Login() {
         }
        }
      } catch (error) {
-      setActive(true)
+      setActive(false)
        if(error.name){
         toast.error("Unauthorized domain");
        }else{
@@ -148,8 +148,9 @@ export default function Login() {
                    px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                 type="submit"
                 style={{ transition: 'all .15s ease' }}
+                disabled={active}
               >
-                {active ?"Authenticating..." : "Login"}
+                {active ? "Authenticating..." : "Login"}
               </button>
             </div>
             <div className="text-center mt-6">
