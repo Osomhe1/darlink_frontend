@@ -39,7 +39,7 @@ const MobileSidebar = () => {
        }
      }
 
-     AuthenticateUser();
+    //  AuthenticateUser();
    }, [])
 
   return (

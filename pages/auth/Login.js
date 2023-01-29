@@ -20,7 +20,6 @@ export default function Login() {
    })
    const [active, setActive] = useState(false)
    const route = useRouter()
-   const [isLoading, setIsLoading] = useState(false)
 
   //  const userContext = useContext(UserContext)
 

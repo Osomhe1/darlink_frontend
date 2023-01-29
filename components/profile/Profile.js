@@ -76,6 +76,8 @@ export default function Profile() {
  }
 
   const [isDisabled, setDisabled] = useState(true)
+     const [active, setActive] = useState(false)
+
 
 
   const handleFile = e => {
@@ -106,11 +108,14 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault() 
     try {
+
        if (previewSource) uploadImage(previewSource)
+       setActive(true)
       const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
         ...values,
         
       })  
+      setActive(false)
       if (data.success) {
         
         router.push('/dashboard')
@@ -118,6 +123,7 @@ export default function Profile() {
         handleData() 
       } 
     } catch (error) {
+      setActive(false)
      toast.error(error.response.data.error)
       if (error.response.status === 401) {
         Logout()
@@ -160,7 +166,7 @@ export default function Profile() {
       }
     }
 
-    AuthenticateUser();
+    // AuthenticateUser();
     handleData()
 
   }, [])
@@ -265,11 +271,7 @@ export default function Profile() {
                             component="img"
                             alt="..."
                             src={
-                              users.passportUrl ? (
-                                users.passportUrl
-                              ) : (
-                                <Avatar  />
-                              )
+                              users.passportUrl ? users.passportUrl : <Avatar />
                             }
                             // src={proileImage}
 
@@ -305,7 +307,6 @@ export default function Profile() {
                     </div>
 
                     <div className="text- mt-1 pt-14 md:pt-0  ">
-                      
                       <div className="w-full   xl:w-3/4 xl:ml-44 ">
                         <div className="relative  mb-3 ">
                           <label className="ml-2 text-sm font-semibold text-gray-700">
@@ -389,8 +390,9 @@ export default function Profile() {
                        bottom-0 "
                             type="submit"
                             style={{ transition: 'all .15s ease' }}
+                            disabled={active}
                           >
-                            save
+                            {active ? 'Saving...' : 'Save'}
                           </button>
                         </div>
                       </div>

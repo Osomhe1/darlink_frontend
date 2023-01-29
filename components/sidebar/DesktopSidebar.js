@@ -54,7 +54,7 @@ export default function Sidebar() {
         }
       }
 
-      AuthenticateUser();
+      // AuthenticateUser();
     }, [])
 
   return (

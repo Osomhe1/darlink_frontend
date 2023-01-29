@@ -44,7 +44,7 @@ const NewSidebar = () => {
        }
      }
 
-     AuthenticateUser();
+    //  AuthenticateUser();
    }, [])
   return (
     <>
