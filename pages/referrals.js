@@ -22,7 +22,7 @@ export default function Referrals() {
       }
     }
 
-    AuthenticateUser();
+    // AuthenticateUser();
     // handleData()
   }, [])
   return (

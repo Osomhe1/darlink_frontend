@@ -54,7 +54,7 @@ export default function Sidebar() {
         }
       }
 
-      AuthenticateUser();
+      // AuthenticateUser();
     }, [])
 
   return (
@@ -79,7 +79,7 @@ export default function Sidebar() {
                   UserInfo().passportUrl ? (
                     UserInfo().passportUrl
                   ) : (
-                    <Avatar src="/broken-image.jpg" />
+                    <Avatar  />
                   )
                 }
                 className=" h-auto  rounded-full align-middle  border-none shadow-xl   "

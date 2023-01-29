@@ -44,7 +44,7 @@ const NewSidebar = () => {
        }
      }
 
-     AuthenticateUser();
+    //  AuthenticateUser();
    }, [])
   return (
     <>
@@ -95,7 +95,7 @@ const NewSidebar = () => {
                     UserInfo().passportUrl ? (
                       UserInfo().passportUrl
                     ) : (
-                      <Avatar src="/broken-image.jpg" />
+                      <Avatar  />
                     )
                   }
                   className=" h-auto  rounded-full align-middle  border-none shadow-xl   "
