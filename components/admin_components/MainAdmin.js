@@ -12,6 +12,7 @@ import { UserContext } from '../../context/context'
 export default function Profile() {
 
   const [user, setUser] = useState()
+  const [users, setUsers] = useState([])
 
 
   const handleData = async () => {
@@ -30,6 +31,8 @@ export default function Profile() {
       }
     }
   }
+
+  
 
   useEffect(() => {
     

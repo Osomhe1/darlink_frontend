@@ -16,28 +16,38 @@ export default function SignUp() {
   const [error, setError] = useState('')
   const router = useRouter()
   // const notice = toast()
-
+  const [active, setActive] = useState(false);
+  const generateError = (err) => toast(err);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setActive(true);
       if(values.password !== values.confirm_password){
         setError(true)
+        generateError("Password mismatched");
+        setActive(false);
       }else{
         const {data} = await api.post(USER_ENDPOINTS.REGISTER(),{
           ...values,
         })
+        setActive(false);
         if(data.success){
           toast.success('success')
           router.push('/auth/Login')
-        }else{
-
-        }
+        } 
+        if(data.error)
+        generateError(data.error);
       }
     } catch (error) {
-      // console.log(error);
-      toast.error(error.response.data.error)
-
-      // console.log(error.msg);
+      setActive(false);
+      if(error.name){
+        generateError("Unauthorized domain");
+      }
+      if(error.response){
+        generateError(error.response.data.error);
+      }else{
+        generateError("An error occurred, please try again");
+      }
     }
   }
   return (
@@ -122,10 +132,11 @@ export default function SignUp() {
                    px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full'
                 type='submit'
                 style={{ transition: 'all .15s ease' }}
+                disabled={active}
               >
                 {/* Join for Free */}
                 {/* <Link href='/auth/Login'>Sign Up</Link> */}
-                Sign Up
+                {active ? "Processing...": "Sign Up"}
               </button>
             </div>
             <div className='text-center mt-6'>
@@ -135,7 +146,7 @@ export default function SignUp() {
                 type='button'
                 style={{ transition: 'all .15s ease' }}
               >
-                <Link href='/auth/Login'>or Sign In</Link>
+                <Link href='/Login'>or Sign In</Link>
               </button>
             </div>
           </form>

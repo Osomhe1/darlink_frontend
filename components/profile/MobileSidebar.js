@@ -13,6 +13,7 @@ import api from '../../pages/api/darlink'
 import UserInfo from '../verify'
 import { Avatar, Box } from '@mui/material'
 import { toast } from 'react-toastify'
+import CloseIcon from '@mui/icons-material/Close'
 
 
 
@@ -50,10 +51,10 @@ const NewSidebar = () => {
       <aside>
         {showSidebar ? (
           <button
-            className="flex text-2xl text-gray-400 items-center cursor-pointer fixed left-40 top-2 z-50"
+            className="flex text-2xl  text-gray-400 items-center cursor-pointer fixed left-44 md:left-56 top-6 z-[999999]"
             onClick={() => setShowSidebar(!showSidebar)}
           >
-            x
+           <CloseIcon />
           </button>
         ) : (
           <svg
@@ -73,7 +74,7 @@ const NewSidebar = () => {
         )}
 
         <div
-          className={`top-0 left-0 w-2/5 bg-white  p-10 pl-0 text- fixed h-[96%] z-40 
+          className={`top-0 left-0 w-3/5 md:w-2/5 bg-white  p-10 pl-0 text- shadow-3xl shadow hover:shadow-lg fixed h-[96%] z-[99999] 
             
          ease-in-out duration-300 ${showSidebar ? 'translate-x-0 ' : 'hidden'}`}
         >
@@ -88,13 +89,13 @@ const NewSidebar = () => {
 
               <div className="mt-5">
                 <Box
-                component='img'
+                  component="img"
                   alt="..."
                   src={
                     UserInfo().passportUrl ? (
                       UserInfo().passportUrl
                     ) : (
-                      <Avatar src="/broken-image.jpg" />
+                      <Avatar  />
                     )
                   }
                   className=" h-auto  rounded-full align-middle  border-none shadow-xl   "
