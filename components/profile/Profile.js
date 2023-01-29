@@ -268,7 +268,7 @@ export default function Profile() {
                               users.passportUrl ? (
                                 users.passportUrl
                               ) : (
-                                <Avatar src="/broken-image.jpg" />
+                                <Avatar  />
                               )
                             }
                             // src={proileImage}
