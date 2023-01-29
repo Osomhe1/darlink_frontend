@@ -23,6 +23,7 @@ export default function Account() {
   })
 
   const [isDisabled, setDisabled] = useState(true)
+  const [active, setActive] = useState(false)
 
   const [error, setError] = useState('')
   const router = useRouter()
@@ -43,16 +44,19 @@ const handleChange = (e) => {
   const handleEditUser = async (e) => {
     e.preventDefault()
     try { 
+      setActive(true)
         const { data } = await api.patch(USER.UPDATE_USER_INFO(), {
           username:usernameRef.current.value,
           email:emailRef.current.value
         })
+        setActive(false)
         if (data.success) {         
           router.push('/accounts')
         } 
     } catch (error) {
       // console.log(error)
       // console.log(error.msg)
+      setActive(false)
       toast.error(error.response.data.error)
     }
   }
@@ -62,10 +66,12 @@ const handleChange = (e) => {
       if (values.newPassword !== values.cornfirm_newPassword) {
         setError(true)
       }else{
+        setActive(true)
         const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
           ...values,
         })
         // console.log(values, 'values')
+        setActive(false)
         if (data.success) {
           formRef.current?.reset()
           clearData()
@@ -73,6 +79,7 @@ const handleChange = (e) => {
         } 
       }
     } catch (error) {
+      setActive(false)
       // console.log(error)
       // console.log(error.msg)
       toast.error(error.response.data.error)
@@ -93,7 +100,7 @@ const handleChange = (e) => {
     const infor = UserInfo();
     user.username = infor.username
     user.email = infor.email
-    AuthenticateUser();
+    // AuthenticateUser();
   }, [])
 
 
@@ -197,8 +204,9 @@ const handleChange = (e) => {
                        bottom-0 "
                       type="submit"
                       style={{ transition: 'all .15s ease' }}
+                      disabled={active}
                     >
-                      save
+                      {active ? 'Saving...' : 'Save'}
                     </button>
                   </div>
                 </form>
@@ -249,8 +257,9 @@ const handleChange = (e) => {
                        bottom-0 "
                         type="button"
                         style={{ transition: 'all .15s ease' }}
+                        disabled={active}
                       >
-                        save
+                        {active ? 'Saving...' : 'Save'}
                       </button>
                     </div>
                   </div>
@@ -342,8 +351,9 @@ const handleChange = (e) => {
                        bottom-0 "
                       type="submit"
                       style={{ transition: 'all .15s ease' }}
+                      disabled={active}
                     >
-                      save
+                      {active ? 'Saving...' : 'Save'}
                     </button>
                   </div>
                 </form>
