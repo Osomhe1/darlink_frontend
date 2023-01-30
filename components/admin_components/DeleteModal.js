@@ -28,6 +28,7 @@ export default function DeleteModal() {
        toast.error(error.response.data.error)
        if (error.response.status === 401) {
           ResetUser()
+          router.push('/auth/Login')
        }
      }
    }

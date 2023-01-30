@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
-import api from '../pages/api/darlink'
-import { USER_ENDPOINTS } from '../pages/api/ACTIONS.JS'
+import React, {  useEffect, useRef, useState } from 'react'
+import api from '../../api/darlink'
+import { USER_ENDPOINTS } from '../../api/ACTIONS.JS'
 import {useRouter} from 'next/router'
-import { USER } from './api/ACTIONS.JS'
-import UserInfo from '../components/verify'
-import DeleteModal from '../components/DeleteModal'
+import { USER } from '../../api/ACTIONS.JS'
+import UserInfo from '../../../components/verify'
+import DeleteModal from '../../../components/DeleteModal'
 import { toast } from 'react-toastify'
 
 
