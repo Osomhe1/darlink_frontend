@@ -8,10 +8,14 @@ import {useRouter} from 'next/router'
 import UserInfo from '../verify'
 import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
+import { LINK } from '../../pages/api/ACTIONS.JS'
+import { BUTTONS } from '../../pages/api/ACTIONS.JS'
 
 export default function Preview() {
 
   const [users, setUsers] = useState([])
+  const [link, setLink] = useState([])
+  const [buttons, setButtons] = useState([])
    let userData;
    const router = useRouter()
 
@@ -22,6 +26,34 @@ export default function Preview() {
       if (data.success) userData = { ...data.profile }
       localStorage.setItem('passportUrl', userData.passportUrl)
       setUsers(userData)
+    } catch (error) {
+      if (error.response.status === 401) {
+        toast.error(error.response.data.error)
+        ResetUser()
+        router.push('/auth/Login')
+      }
+    }
+  }
+  const handleLink = async () => {
+    try {
+      const { data } = await api.get(LINK.GET_LINK(), {})
+      if (data.success) userData = { ...data.Link }
+    //   localStorage.setItem('passportUrl', userData.passportUrl)
+      setLink(userData)
+    } catch (error) {
+      if (error.response.status === 401) {
+        toast.error(error.response.data.error)
+        ResetUser()
+        router.push('/auth/Login')
+      }
+    }
+  }
+  const handleButton = async () => {
+    try {
+      const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
+      if (data.success) userData = { ...data.button }
+    //   localStorage.setItem('passportUrl', userData.passportUrl)
+      setButtons(userData)
     } catch (error) {
       if (error.response.status === 401) {
         toast.error(error.response.data.error)
@@ -46,6 +78,8 @@ export default function Preview() {
 
     AuthenticateUser();
     handleData()
+    handleLink()
+    handleButton()
   }, [])
 
   return (
@@ -93,6 +127,15 @@ export default function Preview() {
               </div>
             </Stack>
           </div>
+          {/* links */}
+        </div>
+        <div className="bg-[#8BC940]   z-90 shadow-xl w-[90%]">
+          <p>{link?.title}</p>
+          <p>{link?.url}</p>
+        </div>
+        <div className="bg-[#8BC940]   z-90 shadow-xl w-[90%]">
+          <p>{buttons?.type}</p>
+          <p>{buttons?.data}</p>
         </div>
       </section>
     </div>
