@@ -101,7 +101,7 @@ export default function Sidebar() {
                     <Link
                       className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
                       // href='/account'
-                      href="/accounts"
+                      href="/admin/account"
                     >
                       <RiAccountBoxFill className="text-2xl" />
                       Account
