@@ -12,7 +12,8 @@ export default function Preview() {
       >
         <div
           className="absolute top-0 w-full h-full bg-center
-           flex justify-center items-center cursor-pointer bg-cover  bg-gradient-to-br from-[#8BC940]  to-black "
+           flex justify-center items-center cursor-pointer bg-cover  
+            from-[#8BC940]   bg-gradient-to-r  to-blue-500 "
           // style={{
           //   backgroundImage:
           //     "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
@@ -20,7 +21,7 @@ export default function Preview() {
           name="colour"
         >
           {/* <Modal /> */}
-          <div className="bg-red-500   z-90 shadow-xl w-[90%] items-center justify-center flex  bg-center ">
+          <div className="bg-[#8BC940]   z-90 shadow-xl w-[90%] items-center justify-center flex  bg-center ">
             <Stack>
               <div className=" z-90">
                 <Avatar

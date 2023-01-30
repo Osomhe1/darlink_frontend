@@ -3,9 +3,12 @@ import { Button } from '@mui/material'
 import { USER } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
+
 
 export default function DeleteModal() {
   const [showModal, setShowModal] = useState(false)
+   const router = useRouter()
 
    const handleDeleteAcc = async () => {
     setShowModal(false)

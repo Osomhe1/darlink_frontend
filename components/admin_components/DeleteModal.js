@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import { Button } from '@mui/material'
-// import { USER } from '../pages/api/ACTIONS.JS'
-// import api from '../pages/api/darlink'
 import api from '../../pages/api/darlink'
 import { toast } from 'react-toastify'
 import { GET_USERS } from '../../pages/api/ACTIONS.JS'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { useRouter } from 'next/router'
+
 
 
 export default function DeleteModal() {
   const [showModal, setShowModal] = useState(false)
+   const router = useRouter()
 
 
    const handleDeleteAcc = async () => {
     setShowModal(false)
      try {
-       const { data } = await api.get(GET_USERS.DELETE_ACC(), {})
+       const { data } = await api.delete(GET_USERS.DELETE_ACC(), {})
        if (data.success)
          //todo
          //populate UI
@@ -25,9 +26,9 @@ export default function DeleteModal() {
        // console.log(error.response.data.error)
        console.log(error, 'error')
        toast.error(error.response.data.error)
-       // if (error.response.status === 401) {
-       //   Logout()
-       // }
+       if (error.response.status === 401) {
+          ResetUser()
+       }
      }
    }
 

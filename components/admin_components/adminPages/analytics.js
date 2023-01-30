@@ -1,13 +1,35 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Bar } from 'react-chartjs-2'
 // import {BarChart} from '../components/BarChart'
 // import { barOptions, barLegends } from '../components/utility/Chartbar.js'
 import { barOptions, barLegends } from '../../../components/utility/Chartbar'
 import { Chart as ChartJS } from 'chart.js/auto'
+import { USER_ENDPOINTS } from '../../../pages/api/ACTIONS.JS'
+import api from '../../../pages/api/darlink'
+import {toast} from 'react-toastify'
 // import Post from '../components/Post'
+import { useRouter } from 'next/router'
+
 
 export default function Analytics() {
+
+  const router = useRouter()
+
+  useEffect(() =>{
+
+    const AuthenticateUser = async () => {
+      try {
+        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+        if (!data.success) router.push('/auth/Login')
+      } catch (error) {
+        toast.error(error.response.data.error)
+        router.push('/auth/Login')
+      }
+    }
+
+    AuthenticateUser();
+  })
   return (
     //    <Post>
     <div>

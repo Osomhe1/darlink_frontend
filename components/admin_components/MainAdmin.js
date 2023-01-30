@@ -7,19 +7,26 @@ import  AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded'
 import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
-import { UserContext } from '../../context/context'
+// import { UserContext } from '../../context/context'
+import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
+import { ResetUser } from '../../context/context'
+import UserInfo from '../verify'
+
+
 
 export default function Profile() {
 
   const [user, setUser] = useState()
   const [users, setUsers] = useState([])
+   const router = useRouter()
 
 
   const handleData = async () => {
     try {
       const { data } = await api.get(PROFILE.ADMIN_PROFILE(), {})
       console.log(data, 'data')
-      if (!data.success) navigate('/home')
+      if (data.success) 
       //todo
       //populate UI
       setUser(data.profile)
@@ -27,17 +34,30 @@ export default function Profile() {
       // console.log(error.response.data.error)
       console.log(error, 'error')
       if (error.response.status === 401) {
-        Logout()
+         ResetUser()
+          router.push('/auth/Login')
       }
     }
   }
 
+ const infor = UserInfo()
+
   
 
   useEffect(() => {
-    
+    const AuthenticateUser = async () => {
+      try {
+        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+        if (!data.success) router.push('/auth/Login')
+      } catch (error) {
+        toast.error(error.response.data.error)
+        router.push('/auth/Login')
+      }
+    }
+
+    AuthenticateUser();
+
     handleData()
-    
   }, [])
   
   return (

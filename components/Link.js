@@ -9,7 +9,7 @@ import { Box, Button, Typography } from '@mui/material'
 import { LINK } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import {useRouter} from 'next/router'
-import { UserContext } from '../context/context'
+import { ResetUser, UserContext } from '../context/context'
 import { toast } from 'react-toastify'
 
 export default function Link() {
@@ -55,7 +55,7 @@ export default function Link() {
       setActive(false)
       if (error.response.status === 401) {
         toast.error(error.response.data.error)
-        Logout()
+         ResetUser()
       }
     }
   }
@@ -85,6 +85,10 @@ export default function Link() {
      } catch (error) {
        //  console.log(error.response.data.error)
        toast.error(error.response.data.error)
+       if (error.response.status === 401) {
+         ResetUser()
+         router.push('/auth/Login')
+       }
      }
    }
 
