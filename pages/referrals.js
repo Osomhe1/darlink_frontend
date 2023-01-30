@@ -7,9 +7,12 @@ import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded'
 import { USER_ENDPOINTS } from './api/ACTIONS.JS'
 import api from './api/darlink'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
+
 
 
 export default function Referrals() {
+   const router = useRouter()
 
   useEffect(() => {
     const AuthenticateUser = async () => {

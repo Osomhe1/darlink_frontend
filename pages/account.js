@@ -8,6 +8,7 @@ import UserInfo from '../components/verify'
 import DeleteModal from '../components/DeleteModal'
 import { toast } from 'react-toastify'
 
+
 export default function Account() {
 
   const [values, setValues] = useState({

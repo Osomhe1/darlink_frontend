@@ -11,9 +11,12 @@ import { USER_ENDPOINTS } from './api/ACTIONS.JS'
 import api from './api/darlink'
 import {toast} from 'react-toastify'
 // import Post from '../components/Post'
+import { useRouter } from 'next/router'
+
 
 
 export default function Analytics() {
+   const router = useRouter()
 
   useEffect(() => {
     const AuthenticateUser = async () => {

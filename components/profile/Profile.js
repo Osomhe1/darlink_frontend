@@ -128,7 +128,7 @@ export default function Profile() {
       setActive(false)
      toast.error(error.response.data.error)
       if (error.response.status === 401) {
-        Logout()
+         ResetUser()
       }
     }
   }

@@ -11,9 +11,12 @@ import UserInfo from '../../verify'
 import { USER_ENDPOINTS } from '../../../pages/api/ACTIONS.JS'
 import api from '../../../pages/api/darlink'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
+
 
 const MobileSidebar = () => {
   const [showSidebar, setShowSidebar] = useState(false)
+   const router = useRouter()
 
    const handleLogout = async (e) => {
      try {
@@ -134,7 +137,7 @@ const MobileSidebar = () => {
                     </li>
 
                     <li className="items-center hover:bg-gray-200">
-                      <Link
+                      <button
                         className="text-blueGray-300 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
                         // href='/auth/Login'
                         // onClick={(e) => e.preventDefault()}
@@ -143,7 +146,7 @@ const MobileSidebar = () => {
                       >
                         <MdOutlineLogout className="text-2xl" />
                         Log Out
-                      </Link>
+                      </button>
                     </li>
                   </ul>
                 </div>

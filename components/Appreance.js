@@ -11,6 +11,9 @@ import { useState } from 'react'
 import  api from '../pages/api/darlink'
 import { APPREANCE } from '../pages/api/ACTIONS.JS'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
+import { ResetUser } from '../context/context'
+
 
 
 
@@ -24,6 +27,7 @@ export default function Appreance() {
     iconImage:'',
   })
   const [active, setActive] = useState(false)
+   const router = useRouter()
 
   const appreances = []
 
@@ -83,6 +87,10 @@ handleSubmit();
       //  console.log(error)
       //  console.log(error.msg)
       toast.error(error.response.data.error)
+      if (error.response.status === 401) {
+        ResetUser()
+        router.push('/auth/Login')
+      }
      }
    }
 
@@ -155,7 +163,7 @@ handleData()
                           >
                             Roboto Mono
                           </button>
-                          ? indicator :
+                          
                           <button
                             value={'Maitree'}
                             name={'font'}

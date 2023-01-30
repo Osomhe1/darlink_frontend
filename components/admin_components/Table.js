@@ -21,6 +21,7 @@ import response from '../utility/tableData'
 import { GET_USERS } from '../../pages/api/ACTIONS.JS'
 import DeleteModal from './DeleteModal'
 import {toast} from 'react-toastify'
+import { ResetUser } from '../../context/context'
 // make a copy of the data, for the second table
 const response2 = response.concat([])
 
@@ -59,11 +60,12 @@ function Tables() {
       //populate UI
       setUsers(data.user)
     } catch (error) {
-      // console.log(error.response.data.error)
+      console.log(error.response.data.error)
       console.log(error, 'error')
-      // if (error.response.status === 401) {
-      //   Logout()
-      // }
+      if (error.response.status === 401) {
+        ResetUser()
+        router.push('/auth/Login')
+      }
     }
   }
   const handleDeleteAcc = async () => {
