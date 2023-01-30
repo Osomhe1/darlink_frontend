@@ -68,25 +68,25 @@ function Tables() {
       }
     }
   }
-  const handleDeleteAcc = async () => {
-    try {
-      const { data } = await api.get(GET_USERS.DELETE_ACC(), {})
-      console.log(data, 'data')
-      if (data.success) 
-      //todo
-      //populate UI
-      // setUser(data.profile)
-      toast.success('user successful deleted')
-      handleData()
-    } catch (error) {
-      // console.log(error.response.data.error)
-      console.log(error, 'error')
-      toast.error(error.response.data.error)
-      // if (error.response.status === 401) {
-      //   Logout()
-      // }
-    }
-  }
+  // const handleDeleteAcc = async () => {
+  //   try {
+  //     const { data } = await api.get(GET_USERS.DELETE_ACC(), {})
+  //     console.log(data, 'data')
+  //     if (data.success) 
+  //     //todo
+  //     //populate UI
+  //     // setUser(data.profile)
+  //     toast.success('user successful deleted')
+  //     handleData()
+  //   } catch (error) {
+  //     // console.log(error.response.data.error)
+  //     console.log(error, 'error')
+  //     toast.error(error.response.data.error)
+  //     // if (error.response.status === 401) {
+  //     //   Logout()
+  //     // }
+  //   }
+  // }
 
 
 
@@ -103,8 +103,10 @@ function Tables() {
 
   // on page change, load new sliced data
   // here you would make another server request for new data
+  
+  
   useEffect(() => {
-    setDataTable2(
+    setUsers(
       response2.slice(
         (pageTable2 - 1) * resultsPerPage,
         pageTable2 * resultsPerPage
@@ -121,7 +123,7 @@ function Tables() {
           <TableHead>
             <tr>
               <TableCell>Client</TableCell>
-              <TableCell>Amount</TableCell>
+              <TableCell>Plan</TableCell>
               <TableCell>Role</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Date</TableCell>
@@ -129,35 +131,35 @@ function Tables() {
             </tr>
           </TableHead>
           <TableBody>
-            {dataTable2.map((users, i) => (
+            {users.map((user, i) => (
               <TableRow key={i}>
                 <TableCell>
                   <div className="flex items-center text-sm">
                     <Avatar
                       className="hidden mr-3 md:block"
-                      src={users.avatar}
+                      src={user.avatar}
                       alt="users avatar"
                     />
                     <div>
-                      <p className="font-semibold">{users.username}</p>
+                      <p className="font-semibold">{user.username}</p>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
-                        {users.job}
+                        {user.job}
                       </p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm">$ {users.amount}</span>
+                  <span className="text-sm"> {user.plan}</span>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm"> {users.role}</span>
+                  <span className="text-sm"> {user.role}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={users.status}>{users.status}</Badge>
+                  <Badge type={users.status}>{user.status}</Badge>
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">
-                    {new Date(users.createdAt).toLocaleDateString()}
+                    {new Date(user.createdAt).toLocaleDateString()}
                   </span>
                 </TableCell>
                 <TableCell>
@@ -167,7 +169,7 @@ function Tables() {
                       {/* <EditIcon className='w-5 h-5' aria-hidden='true' /> */}
                       <EditIcon />
                     </Button>
-                    <Button layout="link" size="icon"  aria-label="Delete">
+                    <Button layout="link" size="icon" aria-label="Delete">
                       {/* <DeleteIcon
                       /> */}
                       <DeleteModal />

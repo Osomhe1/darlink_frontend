@@ -1,9 +1,53 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Avatar, Box, Stack } from '@mui/material'
 import CallIcon from '@mui/icons-material/Call'
 import EmailIcon from '@mui/icons-material/Email'
+import { ResetUser } from '../../context/context'
+import {toast} from 'react-toastify'
+import {useRouter} from 'next/router'
+import UserInfo from '../verify'
+import { PROFILE } from '../../pages/api/ACTIONS.JS'
+import api from '../../pages/api/darlink'
 
 export default function Preview() {
+
+  const [users, setUsers] = useState([])
+   let userData;
+   const router = useRouter()
+
+
+  const handleData = async () => {
+    try {
+      const { data } = await api.get(PROFILE.USER_PROFILE(), {})
+      if (data.success) userData = { ...data.profile }
+      localStorage.setItem('passportUrl', userData.passportUrl)
+      setUsers(userData)
+    } catch (error) {
+      if (error.response.status === 401) {
+        toast.error(error.response.data.error)
+        ResetUser()
+        router.push('/auth/Login')
+      }
+    }
+  }
+
+  const infor = UserInfo()
+
+  useEffect(() => {
+    const AuthenticateUser = async () => {
+      try {
+        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+        if (!data.success) router.push('/auth/Login')
+      } catch (error) {
+        toast.error(error.response.data.error)
+        router.push('/auth/Login')
+      }
+    }
+
+    AuthenticateUser();
+    handleData()
+  }, [])
+
   return (
     <div>
       <section
@@ -30,22 +74,27 @@ export default function Preview() {
                            border-2 border-[#8BC940] absolute -mt-12 lg:-ml-6 xl:-ml-3  "
                   sx={{ width: 200, height: 200 }}
                   style={{ maxWidth: '200px', maxHeight: '200' }}
+                  src={users.passportUrl ? users.passportUrl : <Avatar />}
                 />
               </div>
-              <div className="text-center">
-                <p className='text-white'>My name</p>
+              <div className="text-center text-2xl">
+                <p className="text-white">{users?.displayName}</p>
               </div>
-              <div className="text-white text-center ">
-                <CallIcon />
-                <EmailIcon />
-                <CallIcon />
+              <div className="text-white text-center pb-4 flex flex-wrap items-center justify-center gap-3 ">
+                <button className="text-3xl">
+                  <CallIcon />
+                </button>
+                <button className="text-3xl">
+                  <EmailIcon />
+                </button>
+                <button className="text-3xl">
+                  <CallIcon />
+                </button>
               </div>
             </Stack>
           </div>
         </div>
-        
       </section>
-      
     </div>
   )
 }
