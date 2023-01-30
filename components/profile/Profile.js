@@ -306,6 +306,23 @@ export default function Profile() {
                                 height={100}
                                 width={100}
                               />
+                              {/* <input
+                                className="  hidden cursor-pointer 
+                              file:mr-5 file:py-2 file:px-6
+                              file:rounded-full file:border-0
+                              file:text-sm file:font-medium
+                              file:bg-blue-50 file:text-blue-700
+                              hover:file:cursor-pointer hover:file:bg-amber-50
+                              hover:file:text-amber-700 w-4
+                              //  "
+                              // className='hidden hover:grid cursor-pointer '
+                                type="file"
+                                onChange={handleFile}
+                                accept="image/*"
+                                value={users?.profileImage}
+                                ref={inputRef.profileImage}
+                                name="profileImage"
+                              /> */}
                             </div>
                             <div className="">
                               <label>
