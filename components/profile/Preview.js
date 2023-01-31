@@ -48,6 +48,7 @@ export default function Preview() {
       }
     }
   }
+
   const handleButton = async () => {
     try {
       const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
@@ -71,8 +72,11 @@ export default function Preview() {
         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
         if (!data.success) router.push('/auth/Login')
       } catch (error) {
-        toast.error(error.response.data.error)
-        router.push('/auth/Login')
+        if (error.response.status === 401) {
+          toast.error(error.response.data.error)
+          ResetUser()
+          router.push('/auth/Login')
+        }
       }
     }
 

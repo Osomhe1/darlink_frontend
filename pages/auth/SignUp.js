@@ -32,7 +32,7 @@ export default function SignUp() {
         })
         setActive(false);
         if(data.success){
-          toast.success('success')
+          // toast.success('success')
           router.push('/auth/Login')
         } 
         if(data.error)

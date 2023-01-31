@@ -41,6 +41,7 @@ export const BUTTONS = {
   ADD_BUTTON: () => '/user/button',
   GET_BUTTON: () => '/user/button',
   DELETE_BUTTON: () => '/user/button',
+  UPDATE_BUTTON: () => '/user/button',
 }
 
 export const APPREANCE = {

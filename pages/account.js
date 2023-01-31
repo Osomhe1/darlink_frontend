@@ -6,6 +6,7 @@ import { USER } from './api/ACTIONS.JS'
 import UserInfo from '../components/verify'
 import DeleteModal from '../components/DeleteModal'
 import { toast } from 'react-toastify'
+import { ResetUser } from '../context/context'
 
 
 export default function Account() {
@@ -58,6 +59,11 @@ const handleChange = (e) => {
       // console.log(error.msg)
       setActive(false)
       toast.error(error.response.data.error)
+      if (error.response.status === 401) {
+        toast.error(error.response.data.error)
+        ResetUser()
+        router.push('/auth/Login')
+      }
     }
   }
   const handleSubmit = async (e) => {
@@ -83,6 +89,11 @@ const handleChange = (e) => {
       // console.log(error)
       // console.log(error.msg)
       toast.error(error.response.data.error)
+      if (error.response.status === 401) {
+        toast.error(error.response.data.error)
+        ResetUser()
+        router.push('/auth/Login')
+      }
     }
   }
 

@@ -12,6 +12,7 @@ import { USER_ENDPOINTS } from '../../../pages/api/ACTIONS.JS'
 import api from '../../../pages/api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import { ResetUser } from '../../../context/context'
 
 
 const MobileSidebar = () => {
@@ -28,6 +29,10 @@ const MobileSidebar = () => {
        // console.log(error)
        // console.log(error.msg)
        toast.error(error.response.data.error)
+       if (error.response.status === 401) {
+         toast.error(error.response.data.error)
+         ResetUser()
+       }
      }
    }
 
@@ -38,7 +43,11 @@ const MobileSidebar = () => {
          const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
          if (!data.success) router.push('/auth/Login')
        } catch (error) {
-         router.push('/auth/Login')
+         console.log(error)
+         if (error.response) {
+           toast.error(error.response.data.error)
+           router.push('/auth/Login')
+         }
        }
      }
 

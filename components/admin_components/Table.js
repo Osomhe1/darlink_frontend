@@ -13,7 +13,7 @@ import {
   Avatar,
   Pagination,
 } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete'
+// import DeleteIcon from '@mui/icons-material/Delete'
 import EditIcon from '@mui/icons-material/Edit'
 import api from '../../pages/api/darlink'
 
@@ -58,7 +58,7 @@ function Tables() {
       if (data.success) 
       //todo
       //populate UI
-      setUsers(data.user)
+      setUsers(data.account)
     } catch (error) {
       console.log(error.response.data.error)
       console.log(error, 'error')
@@ -131,35 +131,35 @@ function Tables() {
             </tr>
           </TableHead>
           <TableBody>
-            {users.map((user, i) => (
+            {users.map((x, i) => (
               <TableRow key={i}>
                 <TableCell>
                   <div className="flex items-center text-sm">
                     <Avatar
                       className="hidden mr-3 md:block"
-                      src={user.avatar}
+                      src={x.avatar}
                       alt="users avatar"
                     />
                     <div>
-                      <p className="font-semibold">{user.username}</p>
+                      <p className="font-semibold">{x.username}</p>
                       <p className="text-xs text-gray-600 dark:text-gray-400">
-                        {user.job}
+                        {x.job}
                       </p>
                     </div>
                   </div>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm"> {user.plan}</span>
+                  <span className="text-sm"> {x.plan}</span>
                 </TableCell>
                 <TableCell>
-                  <span className="text-sm"> {user.role}</span>
+                  <span className="text-sm"> {x.role}</span>
                 </TableCell>
                 <TableCell>
-                  <Badge type={users.status}>{user.status}</Badge>
+                  <Badge type={x.status}>{x.status}</Badge>
                 </TableCell>
                 <TableCell>
                   <span className="text-sm">
-                    {new Date(user.createdAt).toLocaleDateString()}
+                    {new Date(x.startDate).toLocaleDateString()}
                   </span>
                 </TableCell>
                 <TableCell>

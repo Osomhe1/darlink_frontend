@@ -23,6 +23,7 @@ import { Avatar, Box } from '@mui/material'
 import Modal from '../Modal'
 import { toast } from 'react-toastify'
 import Preview from './Preview'
+import { reload } from '../sidebar/DesktopSidebar'
 
 
 
@@ -79,7 +80,7 @@ export default function Profile() {
 
   const [isDisabled, setDisabled] = useState(true)
      const [active, setActive] = useState(false)
-
+  const[state,setState] = useState("hidden")
 
 
   const handleFile = e => {
@@ -134,6 +135,15 @@ export default function Profile() {
   }
 
  const handleViewChange = (currentView) =>{
+  // try {
+  //   if(select === "discord"){
+  //     // the select state is in diffrent component, whis is the button components
+  //   }
+  //    const {data} = await 
+  //    api.get
+  // } catch (error) {
+    
+  // }
   setView(currentView)
  }
 
@@ -173,15 +183,17 @@ export default function Profile() {
     }
 
     AuthenticateUser();
-    handleData()
-
+    handleData()  
+    reload(); 
   }, [])
 
   return (
     <>
       <main className="profile-page mx- ">
         {/* pages */}
-        <div className="md:flex justify-between -mt-5 md:-mt-24 xl:w-5/6 my-  ">
+        <div
+          className={`md:flex justify-between -mt-5 md:-mt-24 xl:w-5/6 my-  `}
+        >
           <div className=" ml-20 md:ml-0">
             <h1 className="text-[#8BC940] font-bold text-5xl ">My Page</h1>
           </div>
@@ -268,6 +280,9 @@ export default function Profile() {
                   //     "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
                   // }}
                   name="colour"
+                  onMouseEnter={() => {
+                    setState('hidden')
+                  }}
                 >
                   <Modal />
                 </div>
@@ -285,11 +300,11 @@ export default function Profile() {
                     <div className="px-6 relative">
                       <form className="Avenir w-full  " onSubmit={handleSubmit}>
                         <div className="grid lg:flex flex-wrap justify-center">
-                          <div className="w-full  px-4  flex justify-">
-                            <div className="relative pt-8 md:pt-0 ">
+                          <div className="w-full  px-4   flex justify-">
+                            <div className="relative pt-8 py-8 lg:py-0 md:pt-0 ">
                               <Box
                                 component="img"
-                                alt="..."
+                                alt=""
                                 src={
                                   users.passportUrl ? (
                                     users.passportUrl
@@ -299,55 +314,46 @@ export default function Profile() {
                                 }
                                 // src={proileImage}
 
-                                className="shadow-md
+                                className="shadow-md cursor-pointer 
                            rounded-full h-auto align-middle  z-[99]
                            border-none absolute -m-12 -ml-20 lg:-ml-1 "
                                 style={{ maxWidth: '200px' }}
                                 height={100}
                                 width={100}
+                                onMouseEnter={() => {
+                                  setState('block')
+                                }}
                               />
-                              {/* <input
-                                className="  hidden cursor-pointer 
+                              <input
+                                className={
+                                  state === 'hidden'
+                                    ? 'hidden'
+                                    : `cursor-pointer z-[999] absolute rounded-full
                               file:mr-5 file:py-2 file:px-6
                               file:rounded-full file:border-0
-                              file:text-sm file:font-medium
-                              file:bg-blue-50 file:text-blue-700
+                              opacity-10 -bottom-10
                               hover:file:cursor-pointer hover:file:bg-amber-50
-                              hover:file:text-amber-700 w-4
-                              //  "
-                              // className='hidden hover:grid cursor-pointer '
+                               w-[90px] m-auto h-[80px]  rounded-full   flex items-center justify-center
+                                
+                                `
+                                }
                                 type="file"
                                 onChange={handleFile}
                                 accept="image/*"
                                 value={users?.profileImage}
                                 ref={inputRef.profileImage}
                                 name="profileImage"
-                              /> */}
-                            </div>
-                            <div className="">
-                              <label>
-                                <input
-                                  className="  cursor-pointer 
-                              file:mr-5 file:py-2 file:px-6
-                              file:rounded-full file:border-0
-                              file:text-sm file:font-medium
-                              file:bg-blue-50 file:text-blue-700
-                              hover:file:cursor-pointer hover:file:bg-amber-50
-                              hover:file:text-amber-700 w-4
-                               "
-                                  type="file"
-                                  onChange={handleFile}
-                                  accept="image/*"
-                                  value={users?.profileImage}
-                                  ref={inputRef.profileImage}
-                                  name="profileImage"
-                                />
-                              </label>
+                              />
                             </div>
                           </div>
                         </div>
 
-                        <div className="text- mt-1 pt-14 md:pt-0  ">
+                        <div
+                          className="text- mt-1 pt-14 md:pt-0  "
+                          onMouseEnter={() => {
+                            setState('hidden')
+                          }}
+                        >
                           <div className="w-full   xl:w-3/4 xl:ml-44 ">
                             <div className="relative  mb-3 ">
                               <label className="ml-2 text-sm font-semibold text-gray-700">
