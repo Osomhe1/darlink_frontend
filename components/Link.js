@@ -83,8 +83,6 @@ export default function Link() {
          //display error
        }
      } catch (error) {
-       //  console.log(error.response.data.error)
-       toast.error(error.response.data.error)
        if (error.response.status === 401) {
          ResetUser()
          router.push('/auth/Login')

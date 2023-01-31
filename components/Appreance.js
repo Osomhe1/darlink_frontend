@@ -67,8 +67,10 @@ handleSubmit();
        }
      } catch (error) {
       setActive(false)
-       console.log(error)
-       console.log(error.msg)
+      if (error.response.status === 401) {
+        ResetUser()
+        router.push('/auth/Login')
+      }
      }
    }
 
@@ -84,9 +86,7 @@ handleSubmit();
          
        }
      } catch (error) {
-      //  console.log(error)
-      //  console.log(error.msg)
-      toast.error(error.response.data.error)
+      // toast.error(error.response.data.error  )
       if (error.response.status === 401) {
         ResetUser()
         router.push('/auth/Login')

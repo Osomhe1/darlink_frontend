@@ -28,7 +28,7 @@ export default function Analytics() {
       }
     }
 
-    AuthenticateUser();
+    // AuthenticateUser();
   })
   return (
     //    <Post>

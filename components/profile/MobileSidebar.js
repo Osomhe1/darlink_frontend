@@ -14,6 +14,7 @@ import UserInfo from '../verify'
 import { Avatar, Box } from '@mui/material'
 import { toast } from 'react-toastify'
 import CloseIcon from '@mui/icons-material/Close'
+import { ResetUser } from '../../context/context'
 
 
 
@@ -29,9 +30,12 @@ const NewSidebar = () => {
          router.push('/auth/Login')
        }
      } catch (error) {
-      //  console.log(error)
-      //  console.log(error.msg)
       toast.error(error.response.data.error)
+      if (error.response.status === 401) {
+        toast.error(error.response.data.error)
+        ResetUser()
+        router.push('/auth/Login')
+      }
      }
    }
    useEffect(() =>{

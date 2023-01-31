@@ -15,15 +15,18 @@ import UserInfo from '../verify'
 import Avatar from '@mui/material/Avatar'
 import { Box } from '@mui/material'
 import { toast } from 'react-toastify'
+import { ResetUser } from '../../context/context'
 
 
-
-
+let imageUrl ;
+export const reload = () =>{
+      imageUrl = UserInfo().passportUrl?UserInfo().passportUrl:null;
+      console.log(imageUrl,"imagedta")
+        }
 export default function Sidebar() {
 
    const [showModal, setShowModal] = useState(false)
-   const [loggedin, setLoggedin] = useState(true)
-
+     const [url, setUrl] = useState("");
    const showtheModal = () => {
      setShowModal(!showModal)
    }
@@ -40,11 +43,15 @@ export default function Sidebar() {
         // console.log(error)
         // console.log(error.msg)
         toast.error(error.response.data.error)
+        if (error.response.status === 401) {
+          toast.error(error.response.data.error)
+          ResetUser()
+        }
+        
       }
     }
-
+    
     useEffect(() =>{
-      UserInfo()
       const AuthenticateUser = async () => {
         try {
           const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
@@ -53,7 +60,7 @@ export default function Sidebar() {
           router.push('/auth/Login')
         }
       }
-
+      setUrl(imageUrl)
       AuthenticateUser();
     }, [])
 
@@ -76,9 +83,7 @@ export default function Sidebar() {
                 component="img"
                 alt="..."
                 src={
-                  UserInfo().passportUrl ? (
-                    UserInfo().passportUrl
-                  ) : (
+                url ? url : (
                     <Avatar  />
                   )
                 }

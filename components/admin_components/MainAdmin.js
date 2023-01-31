@@ -5,13 +5,14 @@ import Tables from './Table'
 // import {ChatIcon} from '@mui/icons-material'
 import  AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded'
-import { PROFILE } from '../../pages/api/ACTIONS.JS'
+import { PROFILE, USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 // import { UserContext } from '../../context/context'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import { ResetUser } from '../../context/context'
 import UserInfo from '../verify'
+// import {USER_ENDPOINTS} from '../../'
 
 
 
@@ -40,7 +41,7 @@ export default function Profile() {
     }
   }
 
- const infor = UserInfo()
+//  const infor = UserInfo()
 
   
 
@@ -50,7 +51,9 @@ export default function Profile() {
         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
         if (!data.success) router.push('/auth/Login')
       } catch (error) {
-        toast.error(error.response.data.error)
+        if(error.response){
+          toast.error(error.response.data.error)
+        }
         router.push('/auth/Login')
       }
     }

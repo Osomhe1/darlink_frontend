@@ -36,18 +36,17 @@ export default function Login() {
         localStorage.setItem('email', data.user.email)
         localStorage.setItem('role', data.user.role)
         localStorage.setItem('token', data.token)
+      //  setActive(false);
+
          if (data.user.role === USER_TYPE.ADMIN())
             route.push('/admin/dashboard')
         if(data.user.role === USER_TYPE.USER()) {
-          toast.success('success')
           route.push('/dashboard')
         }
        }
      } catch (error) {
+      console.log(error, 'error')
       setActive(false)
-       if(error.name){
-        toast.error("Unauthorized domain");
-       }else{
 
          if (error.response) {
            const err = error.response.data.error
@@ -56,8 +55,11 @@ export default function Login() {
            if (err.includes('password')) error.password = err
            setError(err)
            toast.error(err)
+        }else if(error.name){
+          toast.error('unauthorised domain')
         }
-       }
+  
+       
       }
    }
 

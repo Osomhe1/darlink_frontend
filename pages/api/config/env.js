@@ -1,6 +1,6 @@
 const CONFIG = {
   baseUrl: () => 'https://darlink.onrender.com',
-  localUrl: () => 'http://127.0.0.1',
+  localUrl: () => 'http://localhost',
   port: () => 5000,
 }
 

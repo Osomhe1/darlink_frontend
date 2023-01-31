@@ -28,6 +28,7 @@ export default function Sidebar() {
        // console.log(error)
        // console.log(error.msg)
        toast.error(error.response.data.error)
+       
      }
    }
 
@@ -38,7 +39,11 @@ export default function Sidebar() {
        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
        if (!data.success) router.push('/auth/Login')
      } catch (error) {
-       router.push('/auth/Login')
+       console.log(error)
+       if (error.response) {
+         toast.error(error.response.data.error)
+         router.push('/auth/Login')
+       }
      }
    }
 
