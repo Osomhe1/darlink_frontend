@@ -58,12 +58,13 @@ const handleChange = (e) => {
       setActive(false)
       toast.error(error.response.data.error)
       if (error.response.status === 401) {
-        toast.error(error.response.data.error)
+        // toast.error(error.response.data.error)
         ResetUser()
         router.push('/auth/Login')
       }
     }
   }
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -74,7 +75,6 @@ const handleChange = (e) => {
         const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
           ...values,
         })
-        // console.log(values, 'values')
         setActive(false)
         if (data.success) {
           formRef.current?.reset()
@@ -86,7 +86,7 @@ const handleChange = (e) => {
       setActive(false)
       toast.error(error.response.data.error)
       if (error.response.status === 401) {
-        toast.error(error.response.data.error)
+        // toast.error(error.response.data.error)
         ResetUser()
         router.push('/auth/Login')
       }

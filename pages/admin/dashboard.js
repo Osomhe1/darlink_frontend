@@ -2,15 +2,8 @@ import React from 'react'
 import MobileSidebar from '../../components/admin_components/admin_sidebar/MobileSidebar'
 import DesktopSidebar from '../../components/admin_components/admin_sidebar/DesktopSidebar'
 import Admin from '../../components/admin_components/MainAdmin'
-import { UserContext } from '../../context/context'
 
-// check if user have valide cookie (authenticated):
-//todo 
-//sent a post reqrest with empty both
 
-//check if user have a session
-// if(!UserContext.role || !UserContext,email || !UserContext.username)
-//logut user 
 
 export default function Dashboard({}) {
   return (
