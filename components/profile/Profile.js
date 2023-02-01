@@ -328,7 +328,7 @@ export default function Profile() {
                                 className={
                                   state === 'hidden'
                                     ? 'hidden'
-                                    : `cursor-pointer z-[999] absolute rounded-full
+                                    : `cursor-pointer z-[999] absolute 
                               file:mr-5 file:py-2 file:px-6
                               file:rounded-full file:border-0
                               opacity-10 -bottom-10

@@ -16,7 +16,13 @@ export default function DeleteModal() {
    const handleDeleteAcc = async () => {
     setShowModal(false)
      try {
-       const { data } = await api.delete(GET_USERS.DELETE_ACC(), {})
+     const userId = localStorage.getItem('accountId')
+     console.log(userId, 'id')
+       const { data } = await api.delete(GET_USERS.DELETE_ACC(), {
+      
+      params:{
+        userId
+      } })
        if (data.success)
          //todo
          //populate UI
@@ -42,7 +48,7 @@ export default function DeleteModal() {
         type="button"
         onClick={() => setShowModal(true)}
       >
-        <DeleteIcon /> 
+        {/* <DeleteIcon />  */}
         Delete
       </button>
       {showModal ? (
@@ -53,7 +59,7 @@ export default function DeleteModal() {
               <div className="border-0 rounded-lg shadow-4xl relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <p className="p-6 flex-auto m-auto">Confirm delete account</p>
                 <div className="flex items-center justify-between p-6 border-t border-solid border-slate-200 rounded-b">
-                  <Button
+                  <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => handleDeleteAcc()}
@@ -61,8 +67,8 @@ export default function DeleteModal() {
                     value="yes"
                   >
                     Yes
-                  </Button>
-                  <Button
+                  </button>
+                  <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
@@ -70,7 +76,7 @@ export default function DeleteModal() {
                     value="no"
                   >
                     No
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>

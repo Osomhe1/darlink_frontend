@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-// import pic from '../../public/images/team-2-800x800.jpg'
 import { FaPager } from 'react-icons/fa'
 import { MdOutlineLogout } from 'react-icons/md'
 import { IoMdContacts } from 'react-icons/io'
@@ -26,8 +25,6 @@ const MobileSidebar = () => {
          router.push('/auth/Login')
        }
      } catch (error) {
-       // console.log(error)
-       // console.log(error.msg)
        toast.error(error.response.data.error)
        if (error.response.status === 401) {
          toast.error(error.response.data.error)

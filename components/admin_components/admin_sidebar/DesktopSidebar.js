@@ -10,7 +10,6 @@ import UserInfo from '../../verify'
 import { USER_ENDPOINTS } from '../../../pages/api/ACTIONS.JS'
 import api from '../../../pages/api/darlink'
 import { toast } from 'react-toastify'
-// import { Modal } from '../Modal'
 import { useRouter } from 'next/router'
 
 
@@ -25,8 +24,7 @@ export default function Sidebar() {
          router.push('/auth/Login')
        }
      } catch (error) {
-       // console.log(error)
-       // console.log(error.msg)
+     
        toast.error(error.response.data.error)
        
      }

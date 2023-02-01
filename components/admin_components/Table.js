@@ -13,15 +13,14 @@ import {
   Avatar,
   Pagination,
 } from '@mui/material'
-// import DeleteIcon from '@mui/icons-material/Delete'
-import EditIcon from '@mui/icons-material/Edit'
 import api from '../../pages/api/darlink'
-
 import response from '../utility/tableData'
 import { GET_USERS } from '../../pages/api/ACTIONS.JS'
-import DeleteModal from './DeleteModal'
 import {toast} from 'react-toastify'
 import { ResetUser } from '../../context/context'
+import { useRouter } from 'next/router'
+// import DeleteIcon from '@mui/icons-material/Delete'
+
 // make a copy of the data, for the second table
 const response2 = response.concat([])
 
@@ -32,78 +31,64 @@ function Tables() {
   const [pageTable2, setPageTable2] = useState(1)
 
   // setup data for every table
-  const [dataTable2, setDataTable2] = useState([])
+  // const [dataTable2, setDataTable2] = useState([])
   const [users, setUsers] = useState([])
+  // const [modal, setModal] = useState(false)
+  // const [open, setOpen] = useState(false)
+  const [update, setUpdate] = useState(null)
 
   // pagination setup
   const resultsPerPage = 20
   const totalResults = response.length
 
-  // pagination change control
-  // function onPageChangeTable1(p) {
-  //   setPageTable1(p)
-  // }
+  const router = useRouter()
+  
 
   // pagination change control
   function onPageChangeTable2(p) {
     setPageTable2(p)
   }
+  
 
   
 
   const handleData = async () => {
     try {
       const { data } = await api.get(GET_USERS.GET_USER(), {})
-      console.log(data, 'data')
       if (data.success) 
       //todo
       //populate UI
       setUsers(data.account)
     } catch (error) {
-      console.log(error.response.data.error)
-      console.log(error, 'error')
       if (error.response.status === 401) {
         ResetUser()
         router.push('/auth/Login')
       }
     }
   }
-  // const handleDeleteAcc = async () => {
-  //   try {
-  //     const { data } = await api.get(GET_USERS.DELETE_ACC(), {})
-  //     console.log(data, 'data')
-  //     if (data.success) 
-  //     //todo
-  //     //populate UI
-  //     // setUser(data.profile)
-  //     toast.success('user successful deleted')
-  //     handleData()
-  //   } catch (error) {
-  //     // console.log(error.response.data.error)
-  //     console.log(error, 'error')
-  //     toast.error(error.response.data.error)
-  //     // if (error.response.status === 401) {
-  //     //   Logout()
-  //     // }
-  //   }
-  // }
 
+ 
 
-
-  // on page change, load new sliced data
-  // here you would make another server request for new data
-  // useEffect(() => {
-  //   setDataTable1(
-  //     response.slice(
-  //       (pageTable1 - 1) * resultsPerPage,
-  //       pageTable1 * resultsPerPage
-  //     )
-  //   )
-  // }, [pageTable1])
-
-  // on page change, load new sliced data
-  // here you would make another server request for new data
-  
+  const deleteHandler = async (e) =>{
+     try {
+       const { data } = await api.delete(GET_USERS.DELETE_ACC(), {
+         params: {
+           userId:e.target.id,
+         },
+       })
+       if (data.success)
+         toast.success('user successful deleted')
+        setUpdate(data.account)
+     } catch (error) {
+       if(error.response){
+         toast.error(error.response.data.error)
+         if (error.response.status === 401) {
+           ResetUser()
+           router.push('/auth/Login')
+         }
+       }
+     }
+  }
   
   useEffect(() => {
     setUsers(
@@ -113,7 +98,7 @@ function Tables() {
       )
     )
     handleData()
-  }, [pageTable2])
+  }, [update])
 
   return (
     <>
@@ -164,16 +149,21 @@ function Tables() {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center space-x-4">
-                    <Button layout="link" size="icon" aria-label="Edit">
-                      {/* <EditIcon className='w-5 h-5' aria-hidden='true' /> */}
-                      {/* <EditIcon className='w-5 h-5' aria-hidden='true' /> */}
-                      <EditIcon />
-                    </Button>
-                    <Button layout="link" size="icon" aria-label="Delete">
-                      {/* <DeleteIcon
-                      /> */}
-                      <DeleteModal />
-                    </Button>
+                    
+                    <button
+                      type="button"
+                      id={x.id}
+                      onClick={(e) => {
+                        deleteHandler(e)
+                      }}
+                      size="icon"
+                      className="text-red-500 active:bg-pink-600 
+         font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
+         outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    >
+                      Delete
+                     
+                    </button>
                   </div>
                 </TableCell>
               </TableRow>
