@@ -5,7 +5,6 @@ import DesktopSidebar from '../components/sidebar/DesktopSidebar'
 
 export default function Dashboard({}) {
   return (
-    // <Post>
     <div>
       <section className='w-1/1 relative flex justify-between'>
         <div
@@ -21,6 +20,5 @@ export default function Dashboard({}) {
         </div>
       </section>
     </div>
-    //  {/* </Post> */}
   )
 }

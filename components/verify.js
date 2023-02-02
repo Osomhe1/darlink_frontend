@@ -12,6 +12,8 @@ const UserInfo =  () => {
      role,
      email,
      passportUrl,
+     link,
+     button,
    }
    return infor;
 }

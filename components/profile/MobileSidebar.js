@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import pic from '../../public/images/team-2-800x800.jpg'
 import { FaPager } from 'react-icons/fa'
 import { MdOutlineLogout } from 'react-icons/md'
 import { IoMdContacts } from 'react-icons/io'
@@ -64,8 +63,6 @@ const NewSidebar = () => {
           <svg
             onClick={() => setShowSidebar(!showSidebar)}
             className="absolute  z-20 flex items-center cursor-pointer left-10 top-10"
-            // className='fixed  z-20 flex items-center cursor-pointer left-10 top-6'
-            // fill='#2563EB'
             fill="#000"
             viewBox="0 0 100 80"
             width="40"
@@ -113,7 +110,6 @@ const NewSidebar = () => {
                 {/* Navigation */}
                 <div className="py-10">
                   <ul
-                  // className='md:flex-col md:min-w-full flex flex-col list-none  '
                   >
                     <li className="items-center hover:bg-gray-200 ">
                       <Link
@@ -128,7 +124,6 @@ const NewSidebar = () => {
                     <li className="items-center hover:bg-gray-200">
                       <Link
                         className="text-blueGray-700 hover:text-blueGray-500 text-xs flex  gap-2 items-center uppercase py-3 font-bold "
-                        // href='/analytics'
                         href="/analyticses"
                       >
                         <SiSimpleanalytics className="text-2xl" />
@@ -139,7 +134,6 @@ const NewSidebar = () => {
                     <li className="items-center hover:bg-gray-200">
                       <Link
                         className="text-blueGray-700 flex  gap-2 items-center hover:text-blueGray-500 text-xs uppercase py-3 font-bold "
-                        // href='/referrals'
                         href="/wallet"
                       >
                         <IoMdContacts className="text-2xl" />
@@ -150,7 +144,6 @@ const NewSidebar = () => {
                     <li className="items-center hover:bg-gray-200">
                       <Link
                         className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
-                        // href='/account'
                         href="/accounts"
                       >
                         <RiAccountBoxFill className="text-2xl" />
