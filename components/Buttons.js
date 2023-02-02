@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import twitter from '../public/images/twitter.svg'
 import twitter_black from '../public/images/twitter_black.svg'
 import twitter_origin from '../public/images/twitter-original.svg'
@@ -46,6 +46,7 @@ export default function Buttons() {
     music: '',
     contact: '',
     podcast: '',
+    buttonId:'',
   })
   
   const handleSelect = (e)=>{
@@ -80,19 +81,77 @@ localStorage.setItem('selectedPreview', item)
   const handleClick3 = () => {
     setOpen3(!open3)
   }
+const emailRef = useRef(null)
+const phoneRef = useRef(null)
+const telegramRef = useRef(null)
+const discordRef = useRef(null)
+  
+const handleChange = (e) => {
+  setInfor({ ...infor, [e.target.name]: e.target.value })
+}
 
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault()
+     
+  //   try {
+  //     // console.log(data)
+  //     const { data } = await api.post(BUTTONS.ADD_BUTTON(), {
+  //       ...infor,
+  //     })
+  //     console.log(data, 'data ')
+      
+  //     if (data.success) {
+  //       handleData()
+  //     } 
+  //   } catch (error) {
+  //     console.log(error)
+  //     if (error.response.status === 401) {
+  //       toast.error(error.response.data.error)
+  //       ResetUser()
+  //       router.push('/auth/Login')
+  //     }
+  //   }
+  // }
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // const buttonId = e.target.id
+    // console.log(e.target)
+    // if(buttonId === null || ''){
+    //   console.log('null')
+    // }else{
+    //   console.log(buttonId, 'button Id')
+    // }
+
     try {
       // console.log(data)
-      const { data } = await api.post(BUTTONS.ADD_BUTTON(), {
-        ...infor,
-      })
-      console.log(data, 'data ')
-      
-      if (data.success) {
-        handleData()
-      } 
+      const buttonId = e.target.id
+      console.log(buttonId, 'buttonid')
+      if (buttonId === undefined) {
+        const { data } = await api.post(BUTTONS.ADD_BUTTON(), {
+          ...infor,
+        })
+        // const { data } = await api.patch(BUTTONS.UPDATE_BUTTON(), {
+        //   ...infor,
+        // })
+        console.log(data.button, 'data ')
+
+        if (data.success) {
+          localStorage.setItem('button', data.button)
+          handleData()
+        }
+      } else {
+        const { data } = await api.post(BUTTONS.UPDATE_BUTTON(), {
+          ...infor,
+        })
+        console.log(data, 'data ')
+
+        if (data.success) {
+          localStorage.setItem('button', data.button)
+          handleData()
+        }
+      }
     } catch (error) {
       console.log(error)
       if (error.response.status === 401) {
@@ -127,28 +186,32 @@ localStorage.setItem('selectedPreview', item)
 
 
 
-   const getLinks =async () => {
-     try {
-       const { data } = await api.get(BUTTONS.GET_LINKS(), {})
-     
-       if(data.success ){
-        
-        data.button.map((cu)=> {
-          setInfor({...infor, [cu.type]:cu.data});
-        })
-       }
-     } catch (error) {
-       console.log(error, 'error')
-     }
-   }
+  //  const getLinks =async () => {
+  //    try {
+  //      const { data } = await api.get(BUTTONS.GET_LINKS(), {})
+  //      if(data.success ){
+  //       data.button.map((cu)=> {
+  //         setInfor({...infor, [cu.type]:cu.data});
+  //       })
+  //      }
+  //    } catch (error) {
+  //      console.log(error, 'error')
+  //    }
+  //  }
 
    const handleData = async () => {
      try {
        const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
        console.log(data, 'data')
-       if (data.success) 
+       if (data.success) {
+        console.log(data.button, 'data buttons')
+        console.log(data.buttonId, 'data buttonsid')
+         const buttonId = data.buttonId
+         console.log(buttonId, 'buttonId')
+       }
        //todo
        //populate UI
+       localStorage.setItem('button', data.button)
       console.log(data, 'data ')
        data.button.map((cu) => {
          setInfor({ ...infor, [cu.type]: cu.data })
@@ -212,7 +275,7 @@ localStorage.setItem('selectedPreview', item)
                 )}
               </ListItemButton>
               <Collapse in={open} timeout="auto" unmountOnExit>
-                <form onSubmit={handleSubmit} >
+                <form onSubmit={handleSubmit}>
                   <List component="div" disablePadding>
                     <ListItemButton sx={{ pl: 4 }}>
                       <ListItemText>
@@ -392,8 +455,8 @@ localStorage.setItem('selectedPreview', item)
                                     name="email"
                                     className="sr-only peer"
                                     onClick={handleSelect}
+                                    id={infor?.buttonId}
                                     // type='social'
-                                    
                                   />
                                   <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                 </label>
@@ -402,19 +465,16 @@ localStorage.setItem('selectedPreview', item)
                                     type="email"
                                     className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
                      text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring  w-full"
-                                    placeholder="UserName"
+                                    placeholder="email"
                                     style={{ transition: 'all .15s ease' }}
                                     name="email"
+                                    value={infor?.email}
+                                    ref={emailRef}
+                                    onChange={(e) => {
+                                      handleChange(e)
+                                    }}
                                   />
                                 ) : null}
-                                {/* <input
-                                type="email"
-                                className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
-                   text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring  w-full"
-                                placeholder="UserName"
-                                style={{ transition: 'all .15s ease' }}
-                                name="email"
-                              /> */}
                               </div>
                             </div>
                             <div className="py-1">
@@ -428,10 +488,11 @@ localStorage.setItem('selectedPreview', item)
                                 <label className="inline-flex relative items-center  cursor-pointer">
                                   <input
                                     type="checkbox"
-                                    value={infor.phone}
+                                    value={infor?.phone}
                                     className="sr-only peer"
                                     onClick={handleSelect}
                                     name="phone"
+                                    id={infor.buttonId}
                                     onChange={() => setToogle2(!toogle2)}
                                   />
                                   <div
@@ -449,9 +510,13 @@ localStorage.setItem('selectedPreview', item)
                                     type="phone"
                                     className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
                    text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring  w-full"
-                                    placeholder="UserName"
+                                    placeholder="phone"
                                     style={{ transition: 'all .15s ease' }}
                                     name="phone"
+                                    ref={phoneRef}
+                                    onChange={(e) => {
+                                      handleChange(e)
+                                    }}
                                   />
                                 ) : null}
                               </div>
@@ -471,6 +536,7 @@ localStorage.setItem('selectedPreview', item)
                                     className="sr-only peer"
                                     onClick={handleSelect}
                                     name="discord"
+                                    id={infor?.buttonId}
                                     onChange={() => setToogle3(!toogle3)}
                                   />
                                   <div
@@ -487,9 +553,14 @@ localStorage.setItem('selectedPreview', item)
                                     type="text"
                                     className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
                    text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring  w-full"
-                                    placeholder="UserName"
+                                    placeholder="discord"
                                     style={{ transition: 'all .15s ease' }}
                                     name="discord"
+                                    value={infor?.discord}
+                                    ref={discordRef}
+                                    onChange={(e) => {
+                                      handleChange(e)
+                                    }}
                                   />
                                 ) : null}
                               </div>
@@ -509,6 +580,7 @@ localStorage.setItem('selectedPreview', item)
                                     name="telegram"
                                     className="sr-only peer"
                                     onClick={handleSelect}
+                                    id={infor?.buttonId}
                                     onChange={() => setToogle4(!toogle4)}
                                   />
                                   <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
@@ -518,9 +590,14 @@ localStorage.setItem('selectedPreview', item)
                                     type="text"
                                     className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
                    text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring  w-full"
-                                    placeholder="UserName"
+                                    placeholder="telegram"
                                     style={{ transition: 'all .15s ease' }}
                                     name="telegram"
+                                    value={infor?.telegram}
+                                    ref={telegramRef}
+                                    onChange={(e) => {
+                                      handleChange(e)
+                                    }}
                                   />
                                 ) : null}
                               </div>
@@ -998,6 +1075,7 @@ localStorage.setItem('selectedPreview', item)
                        bottom-0 "
                             type="submit"
                             style={{ transition: 'all .15s ease' }}
+                            id={infor?.buttonId}
                           >
                             save
                           </button>

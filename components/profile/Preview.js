@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Avatar, Box, Stack } from '@mui/material'
 import CallIcon from '@mui/icons-material/Call'
 import EmailIcon from '@mui/icons-material/Email'
+import TelegramIcon from '@mui/icons-material/Telegram'
 import { ResetUser } from '../../context/context'
 import {toast} from 'react-toastify'
 import {useRouter} from 'next/router'
@@ -15,7 +16,12 @@ export default function Preview() {
 
   const [users, setUsers] = useState([])
   const [link, setLink] = useState([])
-  const [buttons, setButtons] = useState([])
+  const [buttons, setButtons] = useState({
+    email: '',
+    discord:'',
+    telegram:'',
+    phone:''
+  })
    let userData;
    const router = useRouter()
 
@@ -34,12 +40,18 @@ export default function Preview() {
       }
     }
   }
+
   const handleLink = async () => {
     try {
       const { data } = await api.get(LINK.GET_LINK(), {})
-      if (data.success) userData = { ...data.Link }
+      if (data.success) 
+      // userData = { ...data.Link }
+      userData = { ...data.Link }
     //   localStorage.setItem('passportUrl', userData.passportUrl)
-      setLink(userData)
+     localStorage.setItem('link', userData)
+    console.log(userData, 'link')
+      setLink(userData) 
+      console.log(link, 'linksssss')
     } catch (error) {
       if (error.response.status === 401) {
         toast.error(error.response.data.error)
@@ -64,26 +76,54 @@ export default function Preview() {
     }
   }
 
+   const handleButton2 = async () => {
+     try {
+       const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
+       console.log(data, 'data')
+       if (data.success) {
+         console.log(data.button, 'data buttons')
+         console.log(data.buttonId, 'data buttonsid')
+         const buttonId = data.buttonId
+         console.log(buttonId, 'buttonId')
+       }
+       //todo
+       //populate UI
+       console.log(data, 'data ')
+       data.button.map((cu) => {
+         setButtons({ ...buttons, [cu.type]: cu.data })
+       })
+       //  console.log(infor);
+       //  getLinks();
+     } catch (error) {
+       console.log(error, 'error')
+       if (error.response.status === 401) {
+         toast.error(error.response.data.error)
+         ResetUser()
+         router.push('/auth/Login')
+       }
+     }
+   }
+
   const infor = UserInfo()
 
   useEffect(() => {
-    const AuthenticateUser = async () => {
-      try {
-        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-        if (!data.success) router.push('/auth/Login')
-      } catch (error) {
-        if (error.response.status === 401) {
-          toast.error(error.response.data.error)
-          ResetUser()
-          router.push('/auth/Login')
-        }
-      }
-    }
+    // const AuthenticateUser = async () => {
+    //   try {
+    //     const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+    //     if (!data.success) router.push('/auth/Login')
+    //   } catch (error) {
+    //       // toast.error(error.response.data.error)
+    //       ResetUser()
+    //       router.push('/auth/Login')
+        
+    //   }
+    // }
 
-    AuthenticateUser();
+    // AuthenticateUser();
     handleData()
     handleLink()
-    handleButton()
+    // handleButton()
+    handleButton2()
   }, [])
 
   return (
@@ -116,7 +156,8 @@ export default function Preview() {
                 />
               </div>
               <div className="text-center text-2xl">
-                <p className="text-white">{users?.displayName}</p>
+                <p className="text-white">{infor?.displayName}</p>
+                <p className="text-white">{infor?.email}</p>
               </div>
               <div className="text-white text-center pb-4 flex flex-wrap items-center justify-center gap-3 ">
                 <button className="text-3xl">
@@ -128,18 +169,26 @@ export default function Preview() {
                 <button className="text-3xl">
                   <CallIcon />
                 </button>
+                <button className="text-3xl">
+                  <TelegramIcon />
+                </button>
               </div>
             </Stack>
           </div>
           {/* links */}
         </div>
-        <div className="bg-[#8BC940]   z-90 shadow-xl w-[90%]">
-          <p>{link?.title}</p>
-          <p>{link?.url}</p>
+        <div className="bg-[#8BC940]   z-[9999] shadow-xl w-[90%]">
+          <p>{infor?.title}</p>
+          <p>{infor?.url}</p>
+          <p>hehhhhh</p>
         </div>
-        <div className="bg-[#8BC940]   z-90 shadow-xl w-[90%]">
-          <p>{buttons?.type}</p>
-          <p>{buttons?.data}</p>
+        <div className="bg-black text-black  z-[999] shadow-xl w-[90%] h-auto ">
+          <p className="text-black">{buttons?.email}</p>
+          <p className="text-black">{buttons?.discord}</p>
+          <p className="text-black">{buttons?.telegram}</p>
+          <p className="text-black">{buttons?.phone}</p>
+          <p className="text-black">hello</p>
+          <p>hey</p>
         </div>
       </section>
     </div>

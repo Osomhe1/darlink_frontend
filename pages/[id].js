@@ -10,10 +10,10 @@ export default function Reset() {
   let email, emailId
   const [active, setActive] = useState(false)
   const [error, setError] = useState(false)
-//   let {params} = useParams()
+  //   let {params} = useParams()
 
-const router = useRouter
-// const { id } = params
+  const router = useRouter
+  // const { id } = params
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -22,9 +22,9 @@ const router = useRouter
       setActive(true)
       const { data } = await api.post(USER_ENDPOINTS.RECOVERY_MAIL(), {
         params: {
-        //   id: emailId,
-        //   email: email,
-        // id
+          //   id: emailId,
+          //   email: email,
+          // id
         },
       })
       setActive(false)
@@ -35,7 +35,6 @@ const router = useRouter
         // router.push(`/reset/${id}`)
         router.push(`/reset/${id}`)
         toast.success(data.msg)
-        
       }
       if (data.error) toast.error(data.error)
     } catch (error) {
@@ -54,7 +53,6 @@ const router = useRouter
     emailId = localStorage.getItem('emailId')
     if (!email || !emailId) {
       Router.push('/auth/forget_password')
-    
     }
   }, [])
 
@@ -66,13 +64,7 @@ const router = useRouter
             onSubmit={handleSubmit}
             className="Avenir  lg:w-2/5 m-3 md:w-3/5 md:m-auto lg:m-auto py-28 "
           >
-            <h2 className="text-center font-bold text-3xl md:text-5xl py-5 ">
-              Reset Password
-            </h2>
-            {/* <p className="text-center  text  py-5 ">
-              Enter your email or username below.
-            </p> */}
-
+           
             <div className="relative w-full mb-3">
               <input
                 className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
@@ -80,7 +72,7 @@ const router = useRouter
                 style={{ transition: 'all .15s ease' }}
                 value={email}
                 name="username"
-                disabled
+                
               />
             </div>
 
@@ -94,16 +86,7 @@ const router = useRouter
                 {active ? 'Sending...' : 'Get recoverying link'}
               </button>
             </div>
-            {/* <div className="text-center mt-6">
-              <button
-                className=" text-gray-300 hover:text-gray-500 active:bg-gray-700 text-sm font-bold uppercase
-                   px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                type="button"
-                style={{ transition: 'all .15s ease' }}
-              >
-                or Go Back
-              </button>
-            </div> */}
+           
           </form>
         </section>
       </div>
