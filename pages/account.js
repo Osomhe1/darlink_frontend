@@ -55,8 +55,6 @@ const handleChange = (e) => {
           router.push('/accounts')
         } 
     } catch (error) {
-      // console.log(error)
-      // console.log(error.msg)
       setActive(false)
       toast.error(error.response.data.error)
       if (error.response.status === 401) {
@@ -76,7 +74,6 @@ const handleChange = (e) => {
         const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
           ...values,
         })
-        // console.log(values, 'values')
         setActive(false)
         if (data.success) {
           formRef.current?.reset()
@@ -86,8 +83,6 @@ const handleChange = (e) => {
       }
     } catch (error) {
       setActive(false)
-      // console.log(error)
-      // console.log(error.msg)
       toast.error(error.response.data.error)
       if (error.response.status === 401) {
         toast.error(error.response.data.error)
@@ -181,7 +176,6 @@ const handleChange = (e) => {
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-4"
                             viewBox="0 0 20 20"
-                            //   fill='currentColor'
                             fill="#8BC940 "
                           >
                             <path

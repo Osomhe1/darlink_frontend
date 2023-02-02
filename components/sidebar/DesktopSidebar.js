@@ -1,7 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import pic from '../../public/images/team-2-800x800.jpg'
 import {FaPager} from 'react-icons/fa'
 import {MdOutlineLogout} from 'react-icons/md'
 import { IoMdContacts } from 'react-icons/io'
@@ -40,8 +39,6 @@ export default function Sidebar() {
             router.push('/auth/Login')
           }       
       } catch (error) {
-        // console.log(error)
-        // console.log(error.msg)
         toast.error(error.response.data.error)
         if (error.response.status === 401) {
           toast.error(error.response.data.error)
@@ -98,7 +95,6 @@ export default function Sidebar() {
               {/* Navigation */}
               <div className="py-10">
                 <ul
-                // className='md:flex-col md:min-w-full flex flex-col list-none  '
                 >
                   <li className="items-center hover:bg-gray-200 ">
                     <Link
@@ -113,7 +109,6 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <Link
                       className="text-blueGray-700 hover:text-blueGray-500 text-xs flex  gap-2 items-center uppercase py-3 font-bold "
-                      // href='/analytics'
                       href="/analyticses"
                     >
                       <SiSimpleanalytics className="text-2xl" />
@@ -124,7 +119,6 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <Link
                       className="text-blueGray-700 flex  gap-2 items-center hover:text-blueGray-500 text-xs uppercase py-3 font-bold "
-                      // href='/referrals'
                       href="/wallet"
                     >
                       <IoMdContacts className="text-2xl" />
@@ -135,7 +129,6 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <Link
                       className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
-                      // href='/account'
                       href="/accounts"
                     >
                       <RiAccountBoxFill className="text-2xl" />
@@ -153,7 +146,6 @@ export default function Sidebar() {
                       <MdOutlineLogout className="text-2xl" />
                       Log Out
                     </button>
-                    {/* </Link> */}
                   </li>
 
                   <li className="items-center hover:bg-gray-200">

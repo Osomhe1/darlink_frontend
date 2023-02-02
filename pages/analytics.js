@@ -1,7 +1,6 @@
 import  {useEffect, useState} from 'react'
 
 import { Bar } from 'react-chartjs-2'
-// import {BarChart} from '../components/BarChart'
 import {
   barOptions,
   barLegends,
@@ -10,7 +9,6 @@ import { Chart as ChartJS } from 'chart.js/auto'
 import { USER_ENDPOINTS } from './api/ACTIONS.JS'
 import api from './api/darlink'
 import {toast} from 'react-toastify'
-// import Post from '../components/Post'
 import { useRouter } from 'next/router'
 
 
@@ -35,7 +33,6 @@ export default function Analytics() {
 
 
   return (
-    //    <Post>
     <div>
       <section>
         <div className="-mt-5 md:-mt-24 xl:w-5/6 ml-20 md:ml-0 ">
@@ -95,7 +92,6 @@ export default function Analytics() {
         </div>
       </section>
     </div>
-    // {/* </Post> */}
   )
 }
 

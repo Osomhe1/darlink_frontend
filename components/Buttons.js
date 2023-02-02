@@ -29,6 +29,8 @@ export default function Buttons() {
     discord: '',
     telegram: '',
   })
+  const [active, setActive] = useState(false)
+
 
   const [toggle, setToggle] = useState([])
   const [toogle1, setToogle1] = useState(false)
@@ -126,6 +128,7 @@ const handleChange = (e) => {
 
     try {
       // console.log(data)
+      setActive(true)
       const buttonId = e.target.id
       console.log(buttonId, 'buttonid')
       if (buttonId === undefined) {
@@ -136,7 +139,7 @@ const handleChange = (e) => {
         //   ...infor,
         // })
         console.log(data.button, 'data ')
-
+        setActive(false)
         if (data.success) {
           localStorage.setItem('button', data.button)
           handleData()
@@ -146,7 +149,7 @@ const handleChange = (e) => {
           ...infor,
         })
         console.log(data, 'data ')
-
+        setActive(false)
         if (data.success) {
           localStorage.setItem('button', data.button)
           handleData()
@@ -1077,7 +1080,7 @@ const handleChange = (e) => {
                             style={{ transition: 'all .15s ease' }}
                             id={infor?.buttonId}
                           >
-                            save
+                            {active ? 'Saving...' : 'Save'}
                           </button>
                         </div>
                       </ListItemText>

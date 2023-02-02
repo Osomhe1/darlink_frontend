@@ -6,7 +6,6 @@ import Account from './account'
 export default function Accounts({}) {
   
   return (
-    // <Post>
     <div>
       <section className='w-1/1 relative flex justify-between'>
         <div className=' flex flex-col items-center justify-center min-h-screen py-2 lg:hidden '>
@@ -16,11 +15,9 @@ export default function Accounts({}) {
           <DesktopSidebar />
         </div>
         <div className='relative w-[90%] md:w-[70%] m-auto  md:pt-32 pb-32 pt-12  '>
-          {/* <Profile className='absolute   md:pt-32 pb-32 pt-12  ' /> */}
           <Account className='absolute   md:pt-32 pb-32 pt-12  ' />
         </div>
       </section>
     </div>
-    //  {/* </Post> */}
   )
 }

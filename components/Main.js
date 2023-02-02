@@ -18,7 +18,6 @@ export default function Main() {
   })
   const [error, setError] = useState('')
   const router = useRouter()
-  // const notice = toast()
   const [active, setActive] = useState(false)
   const generateError = (err) => toast(err)
 
@@ -36,7 +35,6 @@ export default function Main() {
          })
          setActive(false)
          if (data.success) {
-          //  toast.success('success')
            router.push('/auth/Login')
          }
          if (data.error) generateError(data.error)

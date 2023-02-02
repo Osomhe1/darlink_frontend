@@ -5,7 +5,6 @@ import Analytics from './analytics'
 
 export default function Analyticses({}) {
   return (
-    // <Post>
     <div>
       <section className='w-1/1 relative flex justify-between'>
         <div className=' flex flex-col items-center justify-center min-h-screen py-2 lg:hidden '>
@@ -19,6 +18,5 @@ export default function Analyticses({}) {
         </div>
       </section>
     </div>
-    //  {/* </Post> */}
   )
 }
