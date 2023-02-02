@@ -5,6 +5,8 @@ const UserInfo =  () => {
    const username = localStorage.getItem('username')
    const role =localStorage.getItem('role');
    const passportUrl = localStorage.getItem('passportUrl')
+   const button = localStorage.getItem('button')
+   const link = localStorage.getItem('link')
    const infor = {
      username,
      role,

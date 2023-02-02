@@ -126,6 +126,7 @@ export default function Profile() {
         handleData() 
       } 
     } catch (error) {
+      // console.log(error)
       setActive(false)
      toast.error(error.response.data.error)
       if (error.response.status === 401) {
@@ -135,15 +136,7 @@ export default function Profile() {
   }
 
  const handleViewChange = (currentView) =>{
-  // try {
-  //   if(select === "discord"){
-  //     // the select state is in diffrent component, whis is the button components
-  //   }
-  //    const {data} = await 
-  //    api.get
-  // } catch (error) {
-    
-  // }
+ 
   setView(currentView)
  }
 

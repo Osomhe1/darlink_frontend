@@ -75,10 +75,12 @@ export default function Link() {
       toast.error(error.response.data.error)
      }
    }
+
    const handleData = async (e) => {
      try {
        const { data } = await api.get(LINK.GET_LINK(), {})
        if (data.success) {
+         localStorage.setItem('link', data.Link)
        } else {
          //display error
        }
