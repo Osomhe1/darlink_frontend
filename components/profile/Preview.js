@@ -45,14 +45,14 @@ export default function Preview() {
     }
   }
 
-    const details = () => {
-      button.map((cur) => {
-        for (key in cur) {
-          buttons[key] = cur[key]
-        }
-        // setButtons({ ...buttons, [cur.type]: cur.data })
-      })
-    }
+    // const details = () => {
+    //   buttons.map((cur) => {
+    //     for (key in cur) {
+    //       buttons[key] = cur[key]
+    //     }
+    //     // setButtons({ ...buttons, [cur.type]: cur.data })
+    //   })
+    // }
 
   const handleLink = async () => {
     try {
@@ -94,10 +94,7 @@ export default function Preview() {
        const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
        console.log(data, 'data')
        if (data.success) {
-        //  console.log(data.button, 'data buttons')
-        //  console.log(data.buttonId, 'data buttonsid')
-        //  const buttonId = data.buttonId
-        //  console.log(buttonId, 'buttonId')
+        
        }
        //todo
        //populate UI
@@ -118,7 +115,9 @@ export default function Preview() {
    }
 
   const infor = UserInfo()
+  // const value = localStorage.getItem('selectedPreview')
 
+  // console.log(value, 'value')
   useEffect(() => {
     // const AuthenticateUser = async () => {
     //   try {
@@ -128,16 +127,15 @@ export default function Preview() {
     //       // toast.error(error.response.data.error)
     //       ResetUser()
     //       router.push('/auth/Login')
-        
     //   }
     // }
-
     // AuthenticateUser();
-    handleData()
-    handleLink()
+    // handleData()
+    // handleLink()
     // handleButton()
-    details()
-    handleButton2()
+    // details()
+    // handleButton2()
+    localStorage.getItem('selectedPreview')
   }, [])
 
   return (
@@ -170,7 +168,7 @@ export default function Preview() {
                 />
               </div>
               <div className="text-center text-2xl">
-                <p className="text-white">{infor?.displayName}</p>
+                <p className="text-white">{infor?.username}</p>
                 <p className="text-white">{infor?.email}</p>
               </div>
               <div className="text-white text-center pb-4 flex flex-wrap items-center justify-center gap-3 ">
@@ -188,11 +186,18 @@ export default function Preview() {
                 </button>
               </div>
             </Stack>
+            {/* <div className="">{value.map((x, index) =>{
+              <div className="">
+                <h1>{x.phone} </h1>
+                <h1>{x.discord} </h1>
+              </div>
+            })}</div> */}
+            {/* <h1> {infor.selectedPreview} </h1> */}
           </div>
           {/* links */}
         </div>
         <div className="bg-[#8BC940]   z-[9999] shadow-xl w-[90%]">
-          <p>{infor?.title}</p>
+          <p>{infor?.link}</p>
           <p>{infor?.url}</p>
           <p>hehhhhh</p>
         </div>
