@@ -38,7 +38,7 @@ export default function Buttons() {
   const [toogle3, setToogle3] = useState(false)
   const [toogle4, setToogle4] = useState(false)
 
-  const select =[];
+  // const select =[];
   const selectLinks = []
   const [infor, setInfor] = useState({
     email: '',
@@ -52,52 +52,51 @@ export default function Buttons() {
     buttonId:'',
   })
   
-//   const handleSelect = (e)=>{
-//     setToggle(!toggle) 
-//     // console.log(select, 'select')
-//     const value = e.target.value
-//     // const name =e.target.name;
-//     // console.log(name, 'name')
-//     // const value =e.target.value;
-//     console.log(value, 'value')
-//     let item
-//     if(toggle){
-//         item ={[e.target.name]:value };
-//     }else{
-//         item = select.find((x) => x.e.target.name === e.target.name)
-//       if(item)
-//       select.slice(item,1);
-//     }
-// select.push(item);
-// console.log(select, 'select')
-// localStorage.setItem('selectedPreview', item)
-
-//   }
-
-   const handleSelect = (e)=>{
-    setToggle(!toggle)
-    const value =e.target.value;
-  
-    for(let x=0; x<=selectLinks.length ;x++){
-      const links = selectLinks[x];
-      // console.log(links)
-      for(const key in links){
-        if(key === e.target.name){
-          item = x;
-        }
-      }
+  const handleSelect = (e)=>{
+    setToggle(!toggle) 
+    const value = e.target.value
+    const name =e.target.name;
+    console.log(value, 'value')
+    if(toggle){
+        item ={[e.target.name]:value };
+    }else{
+        item = selectLinks.find((x) => x.name === name)
+        // item = selectLinks.find((x) => x.name === e.target.name)
+      if(item)
+      selectLinks.slice(item,1);
     }
-    //  console.log(item)
+selectLinks.push(item);
+console.log(selectLinks, 'select')
+localStorage.setItem('selectedPreview', item) 
+
+  }
+
+
+
+//    const handleSelect = (e)=>{
+//     setToggle(!toggle)
+//     const value =e.target.value;
+  
+//     for(let x=0; x<=selectLinks.length ;x++){
+//       const links = selectLinks[x];
+//       // console.log(links)
+//       for(const key in links){
+//         if(key === e.target.name){
+//           item = x;
+//         }
+//       }
+//     }
+//     //  console.log(item)
       
-    item ={[e.target.name]:value };
-    // console.log(item)
-    // console.log(selectLinks.push({ [e.target.name]: value }))
-    selectLinks.push({ [e.target.name]: value })
+//     item ={[e.target.name]:value };
+//     // console.log(item)
+//     // console.log(selectLinks.push({ [e.target.name]: value }))
+//     selectLinks.push({ [e.target.name]: value })
      
       
-console.log(selectLinks, 'select')
-localStorage.setItem('selectedPreview', item)
-  }
+// console.log(selectLinks, 'select')
+// localStorage.setItem('selectedPreview', item)
+//   }
 
   const router = useRouter()
 

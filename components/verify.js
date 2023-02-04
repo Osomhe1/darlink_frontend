@@ -7,6 +7,7 @@ const UserInfo =  () => {
    const passportUrl = localStorage.getItem('passportUrl')
    const button = localStorage.getItem('button')
    const link = localStorage.getItem('link')
+  const selectedPreview = localStorage.getItem('selectedPreview')
    const infor = {
      username,
      role,
@@ -14,6 +15,7 @@ const UserInfo =  () => {
      passportUrl,
      link,
      button,
+     selectedPreview,
    }
    return infor;
 }
