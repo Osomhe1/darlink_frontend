@@ -6,10 +6,10 @@ import TelegramIcon from '@mui/icons-material/Telegram'
 import { ResetUser } from '../../context/context'
 import {toast} from 'react-toastify'
 import {useRouter} from 'next/router'
-import UserInfo from '../verify'
+import {UserInfo} from '../verify'
 import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
-import { LINK } from '../../pages/api/ACTIONS.JS'
+import { LINK, USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import { BUTTONS } from '../../pages/api/ACTIONS.JS'
 
 export default function Preview() {
@@ -29,113 +29,54 @@ export default function Preview() {
    let userData;
    const router = useRouter()
 
+const userLinks =[];
 
-  const handleData = async () => {
-    try {
-      const { data } = await api.get(PROFILE.USER_PROFILE(), {})
-      if (data.success) userData = { ...data.profile }
-      localStorage.setItem('passportUrl', userData.passportUrl)
-      setUsers(userData)
-    } catch (error) {
-      if (error.response.status === 401) {
-        toast.error(error.response.data.error)
-        ResetUser()
-        router.push('/auth/Login')
-      }
-    }
-  }
+  
+  
 
-    // const details = () => {
-    //   buttons.map((cur) => {
-    //     for (key in cur) {
-    //       buttons[key] = cur[key]
-    //     }
-    //     // setButtons({ ...buttons, [cur.type]: cur.data })
-    //   })
-    // }
-
-  const handleLink = async () => {
-    try {
-      const { data } = await api.get(LINK.GET_LINK(), {})
-      if (data.success) 
-      // userData = { ...data.Link }
-      userData = { ...data.Link }
-    //   localStorage.setItem('passportUrl', userData.passportUrl)
-     localStorage.setItem('link', userData)
-    console.log(userData, 'link')
-      setLink(userData) 
-      console.log(link, 'linksssss')
-    } catch (error) {
-      if (error.response.status === 401) {
-        toast.error(error.response.data.error)
-        ResetUser()
-        router.push('/auth/Login')
-      }
-    }
-  }
-
-  const handleButton = async () => {
-    try {
-      const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
-      if (data.success) userData = { ...data.button }
-    //   localStorage.setItem('passportUrl', userData.passportUrl)
-      setButtons(userData)
-    } catch (error) {
-      if (error.response.status === 401) {
-        toast.error(error.response.data.error)
-        ResetUser()
-        router.push('/auth/Login')
-      }
-    }
-  }
-
-   const handleButton2 = async () => {
+   const handleData = async () => {
      try {
-       const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
-       console.log(data, 'data')
+       const { data } = await api.get(LINK.GET_LINK(), {})
        if (data.success) {
-        
-       }
-       //todo
-       //populate UI
-       console.log(data, 'data ')
-       data.button.map((cu) => {
-         setButtons({ ...buttons, [cu.type]: cu.data })
-       })
-       //  console.log(infor);
-       //  getLinks();
-     } catch (error) {
-       console.log(error, 'error')
-       if (error.response.status === 401) {
-         toast.error(error.response.data.error)
-         ResetUser()
-         router.push('/auth/Login')
+         data.Link.map((cu) => {
+           console.log(cu)
+           for (const key in cu) {
+            userLinks.push({key:cur[key]})
+            }
+          })
+        }
+        console.log(userLinks)
+      } catch (error) {
+       if (error.response) {
+         if (error.response.status === 401) {
+           ResetUser()
+           router.push('/auth/Login')
+         }
        }
      }
    }
 
-  const infor = UserInfo()
-  // const value = localStorage.getItem('selectedPreview')
+  const infor = UserInfo().selectedPreview;
 
+  const value = UserInfo().link;
   // console.log(value, 'value')
+
+  // console.log(infor, 'infor')
   useEffect(() => {
-    // const AuthenticateUser = async () => {
-    //   try {
-    //     const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-    //     if (!data.success) router.push('/auth/Login')
-    //   } catch (error) {
-    //       // toast.error(error.response.data.error)
-    //       ResetUser()
-    //       router.push('/auth/Login')
-    //   }
-    // }
-    // AuthenticateUser();
-    // handleData()
-    // handleLink()
-    // handleButton()
-    // details()
-    // handleButton2()
-    localStorage.getItem('selectedPreview')
+    const AuthenticateUser = async () => {
+      try {
+        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+        if (!data.success) router.push('/auth/Login')
+      } catch (error) {
+        console.log(error)
+        toast.error(error.response.data.error)
+        router.push('/auth/Login')
+      }
+    }
+    AuthenticateUser();
+
+    handleData()
+    
   }, [])
 
   return (
@@ -157,7 +98,7 @@ export default function Preview() {
           {/* <Modal /> */}
           <div className="bg-[#8BC940]   z-90 shadow-xl w-[90%] items-center justify-center flex  bg-center ">
             <Stack>
-              <div className=" z-90">
+              <div className=" z-90 m-auto">
                 <Avatar
                   className="shadow-md
                            rounded-full h-auto align-middle  z-[99]
@@ -171,28 +112,36 @@ export default function Preview() {
                 <p className="text-white">{infor?.username}</p>
                 <p className="text-white">{infor?.email}</p>
               </div>
+
               <div className="text-white text-center pb-4 flex flex-wrap items-center justify-center gap-3 ">
-                <button className="text-3xl">
-                  <CallIcon />
-                </button>
-                <button className="text-3xl">
-                  <EmailIcon />
-                </button>
-                <button className="text-3xl">
-                  <CallIcon />
-                </button>
-                <button className="text-3xl">
-                  <TelegramIcon />
-                </button>
+                {infor?.phone && (
+                  <button className="text-3xl">
+                    <CallIcon /> Phone
+                  </button>
+                )}
+                {infor?.email && (
+                  <button className="text-3xl">
+                    <EmailIcon /> Emaill
+                  </button>
+                )}
+
+                {infor?.discord && (
+                  <button className="text-3xl">
+                    <CallIcon /> Discord
+                  </button>
+                )}
+
+                {infor?.telegram && (
+                  <button className="text-3xl">
+                    <TelegramIcon />
+                    Telegram
+                  </button>
+                )}
               </div>
+            <h1> {link.title} </h1>
+            <h1> {link.url} </h1>
             </Stack>
-            {/* <div className="">{value.map((x, index) =>{
-              <div className="">
-                <h1>{x.phone} </h1>
-                <h1>{x.discord} </h1>
-              </div>
-            })}</div> */}
-            {/* <h1> {infor.selectedPreview} </h1> */}
+
           </div>
           {/* links */}
         </div>
@@ -200,14 +149,6 @@ export default function Preview() {
           <p>{infor?.link}</p>
           <p>{infor?.url}</p>
           <p>hehhhhh</p>
-        </div>
-        <div className="bg-black text-black  z-[999] shadow-xl w-[90%] h-auto ">
-          <p className="text-black">{buttons?.email}</p>
-          <p className="text-black">{buttons?.discord}</p>
-          <p className="text-black">{buttons?.telegram}</p>
-          <p className="text-black">{buttons?.phone}</p>
-          <p className="text-black">hello</p>
-          <p>hey</p>
         </div>
       </section>
     </div>

@@ -25,7 +25,6 @@ export default function Link() {
     dataFile: '',
   })
   const router = useRouter()
-  const { Logout } = useContext(UserContext)
   const [active, setActive] = useState(false)
 
 
@@ -53,9 +52,11 @@ export default function Link() {
       // console.log(error)
       // console.log(error.msg)
       setActive(false)
-      if (error.response.status === 401) {
-        toast.error(error.response.data.error)
-         ResetUser()
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/auth/Login')
+        }
       }
     }
   }
@@ -76,24 +77,30 @@ export default function Link() {
      }
    }
 
-   const handleData = async (e) => {
-     try {
-       const { data } = await api.get(LINK.GET_LINK(), {})
-       if (data.success) {
-         localStorage.setItem('link', data.Link)
-       } else {
-         //display error
-       }
-     } catch (error) {
-       if (error.response.status === 401) {
-         ResetUser()
-         router.push('/auth/Login')
-       }
-     }
-   }
+  //  const handleData = async () => {
+  //    try {
+  //      const { data } = await api.get(LINK.GET_LINK(), {})
+  //      if (data.success) {
+  //       // const linkId = localStorage
+  //       console.log(data)
+  //         data.Link.map((cu) => {
+  //         for (const key in cu) {
+  //             infor[key] = cu[key]
+  //          }
+  //         })
+  //      } 
+  //    } catch (error) {
+  //     if(error.response){
+  //        if (error.response.status === 401) {
+  //          ResetUser()
+  //          router.push('/auth/Login')
+  //        }
+  //     }
+  //    }
+  //  }
 
    useEffect(() => {
-     handleData()  
+    //  handleData()  
    }, [])
 
   return (

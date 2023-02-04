@@ -19,7 +19,6 @@ import { GET_USERS } from '../../pages/api/ACTIONS.JS'
 import {toast} from 'react-toastify'
 import { ResetUser } from '../../context/context'
 import { useRouter } from 'next/router'
-// import DeleteIcon from '@mui/icons-material/Delete'
 
 // make a copy of the data, for the second table
 const response2 = response.concat([])
@@ -31,10 +30,7 @@ function Tables() {
   const [pageTable2, setPageTable2] = useState(1)
 
   // setup data for every table
-  // const [dataTable2, setDataTable2] = useState([])
   const [users, setUsers] = useState([])
-  // const [modal, setModal] = useState(false)
-  // const [open, setOpen] = useState(false)
   const [update, setUpdate] = useState(null)
 
   // pagination setup
@@ -42,16 +38,11 @@ function Tables() {
   const totalResults = response.length
 
   const router = useRouter()
-  
-
   // pagination change control
   function onPageChangeTable2(p) {
     setPageTable2(p)
   }
-  
-
-  
-
+ 
   const handleData = async () => {
     try {
       const { data } = await api.get(GET_USERS.GET_USER(), {})
@@ -60,9 +51,11 @@ function Tables() {
       //populate UI
       setUsers(data.account)
     } catch (error) {
-      if (error.response.status === 401) {
-        ResetUser()
-        router.push('/auth/Login')
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/auth/Login')
+        }
       }
     }
   }

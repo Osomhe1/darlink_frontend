@@ -86,10 +86,11 @@ handleSubmit();
          
        }
      } catch (error) {
-      // toast.error(error.response.data.error  )
-      if (error.response.status === 401) {
-        ResetUser()
-        router.push('/auth/Login')
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/auth/Login')
+        }
       }
      }
    }

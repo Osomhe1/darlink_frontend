@@ -6,7 +6,7 @@ import { MdOutlineLogout } from 'react-icons/md'
 import { IoMdContacts } from 'react-icons/io'
 import { SiSimpleanalytics } from 'react-icons/si'
 import { RiAccountBoxFill } from 'react-icons/ri'
-import UserInfo from '../../verify'
+import {UserInfo} from '../../verify'
 import { USER_ENDPOINTS } from '../../../pages/api/ACTIONS.JS'
 import api from '../../../pages/api/darlink'
 import { toast } from 'react-toastify'
@@ -42,7 +42,7 @@ const MobileSidebar = () => {
        } catch (error) {
          console.log(error)
          if (error.response) {
-           toast.error(error.response.data.error)
+          //  toast.error(error.response.data.error)
            router.push('/auth/Login')
          }
        }

@@ -7,27 +7,7 @@ export default function Modal() {
   const [showModal, setShowModal] = useState(false)
   const [color, setColor] = useState('#b32aa9')
 
-  //  const handleSubmit = async (e) => {
-  //    e.preventDefault()
-  //    try {
-  //      if (values.newPassword !== values.cornfirm_newPassword) {
-  //        setError(true)
-  //      } else {
-  //        const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
-  //          ...values,
-  //        })
-  //        console.log(values, 'values')
-  //        if (data.success) {
-  //          formRef.current?.reset()
-  //          clearData()
-  //          router.push('/accounts')
-  //        }
-  //      }
-  //    } catch (error) {
-  //      console.log(error)
-  //      console.log(error.msg)
-  //    }
-  //  }
+
 
   return (
     <>

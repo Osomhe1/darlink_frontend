@@ -8,14 +8,13 @@ import api from '../../pages/api/darlink'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import { ResetUser } from '../../context/context'
-import UserInfo from '../verify'
+import {UserInfo} from '../verify'
 
 
 
 export default function Profile() {
 
   const [user, setUser] = useState()
-  const [users, setUsers] = useState([])
    const router = useRouter()
 
 
@@ -27,9 +26,11 @@ export default function Profile() {
       //populate UI
       setUser(data.profile)
     } catch (error) {
-      if (error.response.status === 401) {
-         ResetUser()
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
           router.push('/auth/Login')
+        }
       }
     }
   }
