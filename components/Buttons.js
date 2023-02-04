@@ -30,7 +30,7 @@ export default function Buttons() {
     telegram: '',
   })
   const [active, setActive] = useState(false)
-
+ let item = null
 
   const [toggle, setToggle] = useState([])
   const [toogle1, setToogle1] = useState(false)
@@ -39,6 +39,7 @@ export default function Buttons() {
   const [toogle4, setToogle4] = useState(false)
 
   const select =[];
+  const selectLinks = []
   const [infor, setInfor] = useState({
     email: '',
     discord: '',
@@ -51,25 +52,51 @@ export default function Buttons() {
     buttonId:'',
   })
   
-  const handleSelect = (e)=>{
-    setToggle(!toggle) 
-    // console.log(select, 'select')
-    const name =e.target.name;
-    console.log(name, 'name')
-    const value =e.target.value;
-    console.log(value, 'value')
-    let item
-    if(toggle){
-        item ={name:value };
-    }else{
-        item = select.find((x)=>x.name ===e.target.name);
-      if(item)
-      select.slice(item,1);
-    }
-select.push(item);
-console.log(select, 'select')
-localStorage.setItem('selectedPreview', item)
+//   const handleSelect = (e)=>{
+//     setToggle(!toggle) 
+//     // console.log(select, 'select')
+//     const value = e.target.value
+//     // const name =e.target.name;
+//     // console.log(name, 'name')
+//     // const value =e.target.value;
+//     console.log(value, 'value')
+//     let item
+//     if(toggle){
+//         item ={[e.target.name]:value };
+//     }else{
+//         item = select.find((x) => x.e.target.name === e.target.name)
+//       if(item)
+//       select.slice(item,1);
+//     }
+// select.push(item);
+// console.log(select, 'select')
+// localStorage.setItem('selectedPreview', item)
 
+//   }
+
+   const handleSelect = (e)=>{
+    setToggle(!toggle)
+    const value =e.target.value;
+  
+    for(let x=0; x<=selectLinks.length ;x++){
+      const links = selectLinks[x];
+      // console.log(links)
+      for(const key in links){
+        if(key === e.target.name){
+          item = x;
+        }
+      }
+    }
+    //  console.log(item)
+      
+    item ={[e.target.name]:value };
+    // console.log(item)
+    // console.log(selectLinks.push({ [e.target.name]: value }))
+    selectLinks.push({ [e.target.name]: value })
+     
+      
+console.log(selectLinks, 'select')
+localStorage.setItem('selectedPreview', item)
   }
 
   const router = useRouter()
@@ -93,38 +120,9 @@ const handleChange = (e) => {
 }
 
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault()
-     
-  //   try {
-  //     // console.log(data)
-  //     const { data } = await api.post(BUTTONS.ADD_BUTTON(), {
-  //       ...infor,
-  //     })
-  //     console.log(data, 'data ')
-      
-  //     if (data.success) {
-  //       handleData()
-  //     } 
-  //   } catch (error) {
-  //     console.log(error)
-  //     if (error.response.status === 401) {
-  //       toast.error(error.response.data.error)
-  //       ResetUser()
-  //       router.push('/auth/Login')
-  //     }
-  //   }
-  // }
   
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // const buttonId = e.target.id
-    // console.log(e.target)
-    // if(buttonId === null || ''){
-    //   console.log('null')
-    // }else{
-    //   console.log(buttonId, 'button Id')
-    // }
 
     try {
       // console.log(data)
@@ -188,19 +186,6 @@ const handleChange = (e) => {
   }
 
 
-
-  //  const getLinks =async () => {
-  //    try {
-  //      const { data } = await api.get(BUTTONS.GET_LINKS(), {})
-  //      if(data.success ){
-  //       data.button.map((cu)=> {
-  //         setInfor({...infor, [cu.type]:cu.data});
-  //       })
-  //      }
-  //    } catch (error) {
-  //      console.log(error, 'error')
-  //    }
-  //  }
 
    const handleData = async () => {
      try {
@@ -452,7 +437,8 @@ const handleChange = (e) => {
                                 </h1>
                                 <label className="inline-flex relative items-center  cursor-pointer">
                                   <input
-                                    onChange={() => setToogle1(!toogle1)}
+                                    // onChange={() => setToogle1(!toogle1)}
+                                    onChange={() => setToggle(toggle)}
                                     type="checkbox"
                                     value={infor.email}
                                     name="email"
@@ -463,7 +449,8 @@ const handleChange = (e) => {
                                   />
                                   <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                 </label>
-                                {toogle1 ? (
+                                {/* {toogle1 ? ( */}
+                                {!toggle ? null : (
                                   <input
                                     type="email"
                                     className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
@@ -477,7 +464,7 @@ const handleChange = (e) => {
                                       handleChange(e)
                                     }}
                                   />
-                                ) : null}
+                                )}
                               </div>
                             </div>
                             <div className="py-1">
@@ -496,7 +483,8 @@ const handleChange = (e) => {
                                     onClick={handleSelect}
                                     name="phone"
                                     id={infor.buttonId}
-                                    onChange={() => setToogle2(!toogle2)}
+                                    // onChange={() => setToogle2(!toogle2)}
+                                    onChange={() => setToggle(toggle)}
                                   />
                                   <div
                                     className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4
@@ -508,7 +496,8 @@ const handleChange = (e) => {
                                 peer-checked:bg-blue-600"
                                   ></div>
                                 </label>
-                                {toogle2 ? (
+                                {/* {toogle2 ? ( */}
+                                {!toggle ? null : (
                                   <input
                                     type="phone"
                                     className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
@@ -521,7 +510,7 @@ const handleChange = (e) => {
                                       handleChange(e)
                                     }}
                                   />
-                                ) : null}
+                                )}
                               </div>
                             </div>
                             <div className="py-1">
@@ -540,7 +529,8 @@ const handleChange = (e) => {
                                     onClick={handleSelect}
                                     name="discord"
                                     id={infor?.buttonId}
-                                    onChange={() => setToogle3(!toogle3)}
+                                    // onChange={() => setToogle3(!toogle3)}
+                                    onChange={() => setToggle(toggle)}
                                   />
                                   <div
                                     className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 
@@ -551,7 +541,8 @@ const handleChange = (e) => {
                             peer-checked:bg-blue-600"
                                   ></div>
                                 </label>
-                                {toogle3 ? (
+                                {/* {toogle3 ? ( */}
+                                {!toggle ? null : (
                                   <input
                                     type="text"
                                     className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
@@ -565,7 +556,7 @@ const handleChange = (e) => {
                                       handleChange(e)
                                     }}
                                   />
-                                ) : null}
+                                )}
                               </div>
                             </div>
                             <div className="py-1">
@@ -584,11 +575,13 @@ const handleChange = (e) => {
                                     className="sr-only peer"
                                     onClick={handleSelect}
                                     id={infor?.buttonId}
-                                    onChange={() => setToogle4(!toogle4)}
+                                    // onChange={() => setToogle4(!toogle4)}
+                                    onChange={() => setToggle(toggle)}
                                   />
                                   <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                 </label>
-                                {toogle4 ? (
+                                {/* {toogle4 ? ( */}
+                                {!toggle ? null : (
                                   <input
                                     type="text"
                                     className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
@@ -602,7 +595,7 @@ const handleChange = (e) => {
                                       handleChange(e)
                                     }}
                                   />
-                                ) : null}
+                                )}
                               </div>
                             </div>
                           </div>

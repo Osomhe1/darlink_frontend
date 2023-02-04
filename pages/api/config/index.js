@@ -11,6 +11,3 @@ const getConfig = () =>{
     //one of the two lines of codes must be uncommented.
 }
 export default getConfig;
-
-// darlink.to
-// www.darlink.to
