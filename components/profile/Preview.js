@@ -18,9 +18,13 @@ export default function Preview() {
   const [link, setLink] = useState([])
   const [buttons, setButtons] = useState({
     email: '',
-    discord:'',
-    telegram:'',
-    phone:''
+    discord: '',
+    telegram: '',
+    phone: '',
+    social: '',
+    contact: '',
+    podcast: '',
+    music: '',
   })
    let userData;
    const router = useRouter()
@@ -40,6 +44,15 @@ export default function Preview() {
       }
     }
   }
+
+    const details = () => {
+      button.map((cur) => {
+        for (key in cur) {
+          buttons[key] = cur[key]
+        }
+        // setButtons({ ...buttons, [cur.type]: cur.data })
+      })
+    }
 
   const handleLink = async () => {
     try {
@@ -81,10 +94,10 @@ export default function Preview() {
        const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
        console.log(data, 'data')
        if (data.success) {
-         console.log(data.button, 'data buttons')
-         console.log(data.buttonId, 'data buttonsid')
-         const buttonId = data.buttonId
-         console.log(buttonId, 'buttonId')
+        //  console.log(data.button, 'data buttons')
+        //  console.log(data.buttonId, 'data buttonsid')
+        //  const buttonId = data.buttonId
+        //  console.log(buttonId, 'buttonId')
        }
        //todo
        //populate UI
@@ -123,6 +136,7 @@ export default function Preview() {
     handleData()
     handleLink()
     // handleButton()
+    details()
     handleButton2()
   }, [])
 
