@@ -16,9 +16,8 @@ import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import {useRouter} from 'next/router'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
-import {  ResetUser, UserContext } from '../../context/context'
-import UserInfo from '../verify'
-import pic from '../../public/images/team-2-800x800.jpg'
+import {  ResetUser } from '../../context/context'
+import {clearPreview, UserInfo} from '../verify'
 import { Avatar, Box } from '@mui/material'
 import Modal from '../Modal'
 import { toast } from 'react-toastify'
@@ -29,16 +28,7 @@ import { reload } from '../sidebar/DesktopSidebar'
 
 export default function Profile() {
 
-   const [open, setOpen] = useState(false)
-   const handleOpen = () =>{
-    console.log('open')
-     setOpen(true)
-     
-  }
-   const handleClose = () => {
-    console.log('close')
-    setOpen(false)
-  }
+  
   const [view, setView] = useState('edit')
 
   const [alignment, setAlignment] = useState('left')
@@ -120,13 +110,12 @@ export default function Profile() {
       })  
       setActive(false)
       if (data.success) {
-        
         router.push('/dashboard')
         setIsEditing(false)
         handleData() 
       } 
     } catch (error) {
-      // console.log(error)
+      console.log(error)
       setActive(false)
      toast.error(error.response.data.error)
       if (error.response.status === 401) {
@@ -170,7 +159,7 @@ export default function Profile() {
         if (!data.success) router.push('/auth/Login')
         
       } catch (error) {
-        toast.error(error.response.data.error)
+        // toast.error(error.response.data.error)
         router.push('/auth/Login')
       }
     }
@@ -201,6 +190,7 @@ export default function Profile() {
                 value="left"
                 onClick={() => {
                   handleViewChange('edit')
+                  clearPreview()
                 }}
                 aria-label="left aligned"
               >
@@ -224,15 +214,7 @@ export default function Profile() {
         <div className="flex flex-wrap justify-between xl:w-5/6 my-4">
           <div className="flex gap-3">
             <div className="">
-              <button
-                className="bg-[#8BC940]  text-white active:bg-gray-700 text-sm font-bold uppercase
-                       px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
-                       bottom-0 "
-                type="button"
-                style={{ transition: 'all .15s ease' }}
-              >
-                unsave
-              </button>
+              
             </div>
             <div className="">
               <button
@@ -247,15 +229,7 @@ export default function Profile() {
             </div>
           </div>
           <div className="">
-            <button
-              className="bg-[#8BC940]  text-white active:bg-gray-700 text-sm font-bold uppercase
-                       px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
-                       bottom-0 "
-              type="button"
-              style={{ transition: 'all .15s ease' }}
-            >
-              unsave
-            </button>
+            
           </div>
         </div>
         <div className="bg-whit md:w-5/6 ">
@@ -426,7 +400,7 @@ export default function Profile() {
                             <div className="text-center mt-6 float-right ">
                               <button
                                 className="bg-[#8BC940]  text-white active:bg-gray-700 absolute right-0 text-sm font-bold uppercase
-                       px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
+                       px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px] 
                        bottom-0 "
                                 type="submit"
                                 style={{ transition: 'all .15s ease' }}

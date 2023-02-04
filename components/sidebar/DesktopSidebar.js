@@ -10,7 +10,7 @@ import {Modal} from '../Modal'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import {  useRouter } from 'next/router'
-import UserInfo from '../verify'
+import {UserInfo} from '../verify'
 import Avatar from '@mui/material/Avatar'
 import { Box } from '@mui/material'
 import { toast } from 'react-toastify'
@@ -24,11 +24,8 @@ export const reload = () =>{
         }
 export default function Sidebar() {
 
-   const [showModal, setShowModal] = useState(false)
      const [url, setUrl] = useState("");
-   const showtheModal = () => {
-     setShowModal(!showModal)
-   }
+
    const router = useRouter()
 
     const handleLogout = async (e) => {
