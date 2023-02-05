@@ -10,17 +10,13 @@ import { Typography } from '@mui/material'
 import { useState } from 'react'
 import  api from '../pages/api/darlink'
 import { APPREANCE } from '../pages/api/ACTIONS.JS'
-import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import { ResetUser } from '../context/context'
-
-
 
 
 export default function Appreance() {
 
   const [open, setOpen] = useState(false)
-
   const [values, setValues] = useState({
     type:'',
     data:'',
@@ -28,9 +24,7 @@ export default function Appreance() {
   })
   const [active, setActive] = useState(false)
    const router = useRouter()
-
   const appreances = []
-
 
   const handleClick = () => {
     setOpen(!open)

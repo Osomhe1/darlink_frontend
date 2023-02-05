@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
@@ -25,8 +25,6 @@ export default function Link() {
   })
   const router = useRouter()
   const [active, setActive] = useState(false)
-
-
   const handleClick = () => {
     setOpen(!open)
   }

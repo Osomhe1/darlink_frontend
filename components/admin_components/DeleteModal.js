@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
-import { Button } from '@mui/material'
 import api from '../../pages/api/darlink'
 import { toast } from 'react-toastify'
 import { GET_USERS } from '../../pages/api/ACTIONS.JS'
-import DeleteIcon from '@mui/icons-material/Delete'
 import { useRouter } from 'next/router'
 
 
@@ -29,13 +27,14 @@ export default function DeleteModal() {
          // setUser(data.profile)
          toast.success('user successful deleted')
      } catch (error) {
-       // console.log(error.response.data.error)
-       console.log(error, 'error')
-       toast.error(error.response.data.error)
-       if (error.response.status === 401) {
-          ResetUser()
-          router.push('/auth/Login')
-       }
+      if(error.response){
+
+        toast.error(error.response.data.error)
+        if (error.response.status === 401) {
+           ResetUser()
+           router.push('/auth/Login')
+        }
+      }
      }
    }
 
@@ -48,7 +47,6 @@ export default function DeleteModal() {
         type="button"
         onClick={() => setShowModal(true)}
       >
-        {/* <DeleteIcon />  */}
         Delete
       </button>
       {showModal ? (

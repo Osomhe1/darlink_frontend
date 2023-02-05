@@ -13,6 +13,7 @@ import { Avatar, Box } from '@mui/material'
 import { toast } from 'react-toastify'
 import CloseIcon from '@mui/icons-material/Close'
 import { ResetUser } from '../../context/context'
+import { reload } from '../sidebar/DesktopSidebar'
 
 
 
@@ -47,6 +48,7 @@ const NewSidebar = () => {
      }
 
      AuthenticateUser();
+     reload()
    }, [])
   return (
     <>
