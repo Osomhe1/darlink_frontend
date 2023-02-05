@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { FaPager } from 'react-icons/fa'
@@ -91,7 +90,7 @@ const NewSidebar = () => {
               <div className="mt-5">
                 <Box
                   component="img"
-                  alt="..."
+                  alt=" "
                   src={
                     UserInfo().passportUrl ? (
                       UserInfo().passportUrl
