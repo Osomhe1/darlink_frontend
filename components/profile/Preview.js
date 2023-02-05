@@ -1,35 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar, Box, Stack } from '@mui/material'
+import { Avatar, Stack } from '@mui/material'
 import CallIcon from '@mui/icons-material/Call'
 import EmailIcon from '@mui/icons-material/Email'
 import TelegramIcon from '@mui/icons-material/Telegram'
 import { ResetUser } from '../../context/context'
-import {toast} from 'react-toastify'
 import {useRouter} from 'next/router'
 import {UserInfo} from '../verify'
-import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import { LINK, USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
-import { BUTTONS } from '../../pages/api/ACTIONS.JS'
+import Link from 'next/link'
 
 export default function Preview() {
 
   const [users, setUsers] = useState([])
-  
-   const router = useRouter()
+  const router = useRouter()
+  const [userLinks, setUserLinks]= useState([]);
 
-  let [userLinks, setUserLinks]= useState([]);
-  
-   const handleData = async () => {
+  const handleData = async () => {
      try {
        const { data } = await api.get(LINK.GET_LINK(), {})
-       
-       if (data.success) {
-    userLinks = data.Link.map((cu) => {
-      return cu
-    })
-        }
-        console.log(userLinks)
+    setUserLinks(data.Link)
       } catch (error) {
        if (error.response) {
          if (error.response.status === 401) {
@@ -40,8 +30,8 @@ export default function Preview() {
      }
    }
 
-  const infor = UserInfo().selectedPreview;
-  const value = UserInfo()
+   const infor = UserInfo().selectedPreview;
+   const value = UserInfo()
 
   useEffect(() => {
     const AuthenticateUser = async () => {
@@ -50,7 +40,6 @@ export default function Preview() {
         if (!data.success) router.push('/auth/Login')
       } catch (error) {
         console.log(error)
-        toast.error(error.response.data.error)
         router.push('/auth/Login')
       }
     }
@@ -60,13 +49,19 @@ export default function Preview() {
   }, [])
 
 const handleShow =(cur) => {
-  if(cur.url){
-    return (
-      <div className="">
-        <h1> {cur.title} </h1> <h1> {cur.url} </h1>{' '}
-      </div>
-    )
-  }else return null
+    if(cur.url){
+      console.log(cur, 'cur')
+      return (
+        <div className="">
+          <div className="bg-blue-500 p-3 m-3 rounded-md ">
+            <h1 className="text-white font-semibold"> {cur.title} </h1>
+            <Link href={cur.url} target={'_blank'}>
+              <button type="button"> {cur.url} </button>
+            </Link>
+          </div>
+        </div>
+      )
+    }else return null
 }
   return (
     <div>
@@ -75,7 +70,7 @@ const handleShow =(cur) => {
         style={{ height: '400px', backgroundColor: 'white' }}
       >
         <div
-          className="absolute top-0 w-full h-full bg-center
+          className="absolute top-0 w-full h-auto bg-center p-10
            flex justify-center items-center cursor-pointer bg-cover  
             from-[#8BC940]   bg-gradient-to-r  to-blue-500 "
           // style={{
@@ -85,7 +80,7 @@ const handleShow =(cur) => {
           name="colour"
         >
           {/* <Modal /> */}
-          <div className="bg-[#8BC940]   z-90 shadow-xl w-[90%] items-center justify-center flex  bg-center ">
+          <div className="bg-[#8BC940]   z-90 shadow-xl w-[90%] h-auto p-5 items-center justify-center flex  bg-center ">
             <Stack>
               <div className=" z-90 m-auto">
                 <Avatar
@@ -162,20 +157,17 @@ const handleShow =(cur) => {
                   </button>
                 )}
               </div>
+                
               {console.log(userLinks)}
-              {userLinks.map((cur) => {
-                console.log(cur)
+              {userLinks?.map((cur) => {
+                  
                 return handleShow(cur)
               })}
             </Stack>
           </div>
           {/* links */}
         </div>
-        <div className="bg-[#8BC940]   z-[9999] shadow-xl w-[90%]">
-          <p>{infor?.link}</p>
-          <p>{infor?.url}</p>
-          <p>hehhhhh</p>
-        </div>
+        
       </section>
     </div>
   )

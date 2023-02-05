@@ -156,7 +156,6 @@ const handleChange = (e) => {
      } catch (error) {
        if(error.response){
         if (error.response.status === 401) {
-          toast.error(error.response.data.error)
           ResetUser()
           router.push('/auth/Login')
         }
@@ -169,9 +168,7 @@ const handleChange = (e) => {
        const { data } = await api.delete(BUTTONS.DELETE_BUTTON(), {})
        if (data.success) {
          handleData()
-       } else {
-         //display error
-       }
+       } 
      } catch (error) {
        console.log(error.response.data.error)
      }
