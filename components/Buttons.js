@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, {  useEffect, useRef, useState } from 'react'
 import twitter from '../public/images/twitter.svg'
 import twitter_black from '../public/images/twitter_black.svg'
 import twitter_origin from '../public/images/twitter-original.svg'
@@ -14,7 +14,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import { Typography } from '@mui/material'
 import api from '../pages/api/darlink'
 import { BUTTONS } from '../pages/api/ACTIONS.JS'
-import { ResetUser, UserContext } from '../context/context'
+import { ResetUser } from '../context/context'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 
@@ -30,13 +30,6 @@ export default function Buttons() {
     telegram: '',
   })
   const [active, setActive] = useState(false)
- let item = null
-
-  const [toggle, setToggle] = useState(true)
-  const [toogle1, setToogle1] = useState(false)
-  const [toogle2, setToogle2] = useState(false)
-  const [toogle3, setToogle3] = useState(false)
-  const [toogle4, setToogle4] = useState(false)
 
   const [infor, setInfor] = useState({
     email: '',
@@ -56,12 +49,10 @@ export default function Buttons() {
    telegram: '',
  });
   const handleSelect = (e)=>{
-    
     const value = e.target.value
     const name =e.target.name;
     const exist = localStorage.getItem(`${e.target.name}`)
    
-      
     if(exist !==null ){
        localStorage.removeItem(`${e.target.name}`)
        setView({ ...view, [e.target.name]: '' })
@@ -70,10 +61,6 @@ export default function Buttons() {
        setView({ ...view, [e.target.name]: name })
     }
   }
-
-
-
-
   const router = useRouter()
 
   const handleClick = () => {
@@ -98,7 +85,6 @@ const handleChange = (e) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     try {
       const buttonId = localStorage.getItem('buttonId')
       if (buttonId === null) {
@@ -116,15 +102,12 @@ const handleChange = (e) => {
           ...infor,
           buttonId,
         })
-        // console.log(data, 'data ')
         setActive(false)
         if (data.success) {
-          // localStorage.setItem('button', data.button)
           handleData()
         }
       }
     } catch (error) {
-      console.log(error)
       if (error.response) {
         if (error.response.status === 401) {
           ResetUser()
@@ -171,10 +154,12 @@ const handleChange = (e) => {
          })
        } 
      } catch (error) {
-       if (error.response.status === 401) {
-         toast.error(error.response.data.error)
-         ResetUser()
-         router.push('/auth/Login')
+       if(error.response){
+        if (error.response.status === 401) {
+          toast.error(error.response.data.error)
+          ResetUser()
+          router.push('/auth/Login')
+        }
        }
      }
    }
@@ -194,7 +179,6 @@ const handleChange = (e) => {
 
    useEffect(() => {
      handleData()
-    // getLinks()
    }, [])
 
 

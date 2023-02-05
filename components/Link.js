@@ -9,7 +9,7 @@ import { Box, Button, Typography } from '@mui/material'
 import { LINK } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import {useRouter} from 'next/router'
-import { ResetUser, UserContext } from '../context/context'
+import { ResetUser } from '../context/context'
 import { toast } from 'react-toastify'
 
 export default function Link() {
@@ -21,7 +21,6 @@ export default function Link() {
     title: '',
     theme: '',
     subtitle: '',
-    // type: '',
     dataFile: '',
   })
   const router = useRouter()
@@ -45,12 +44,8 @@ export default function Link() {
      setActive(false)
       if (data.success) {
         router.push('/dashboard')
-        
-      } else {
-      }
+      } 
     } catch (error) {
-      // console.log(error)
-      // console.log(error.msg)
       setActive(false)
       if (error.response) {
         if (error.response.status === 401) {
@@ -77,27 +72,7 @@ export default function Link() {
      }
    }
 
-  //  const handleData = async () => {
-  //    try {
-  //      const { data } = await api.get(LINK.GET_LINK(), {})
-  //      if (data.success) {
-  //       // const linkId = localStorage
-  //       console.log(data)
-  //         data.Link.map((cu) => {
-  //         for (const key in cu) {
-  //             infor[key] = cu[key]
-  //          }
-  //         })
-  //      } 
-  //    } catch (error) {
-  //     if(error.response){
-  //        if (error.response.status === 401) {
-  //          ResetUser()
-  //          router.push('/auth/Login')
-  //        }
-  //     }
-  //    }
-  //  }
+ 
 
    useEffect(() => {
     //  handleData()  

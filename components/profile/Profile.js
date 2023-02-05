@@ -39,9 +39,9 @@ export default function Profile() {
     displayName: users.displayName,
     location: users.location,
     colour: '',
-    profileImage: "",
+    profileImage: '',
     bgImage: '',
-    discription: users.discription,
+    description: users.description,
   })
 
   const inputRef = useRef(null)
@@ -101,13 +101,15 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault() 
     try {
-
+      console.log(values)
        if (previewSource) uploadImage(previewSource)
        setActive(true)
       const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
         ...values,
         
       })  
+
+      // console.log()
       setActive(false)
       if (data.success) {
         router.push('/dashboard')
@@ -141,10 +143,11 @@ export default function Profile() {
        localStorage.setItem('passportUrl', userData.passportUrl)
       setUsers(userData)
     } catch (error) {
-      if (error.response.status === 401) {
-        toast.error(error.response.data.error)
-        ResetUser()
-        router.push('/auth/Login')
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/auth/Login')
+        }
       }
     }
   }

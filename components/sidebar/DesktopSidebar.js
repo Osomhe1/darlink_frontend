@@ -75,7 +75,7 @@ export default function Sidebar() {
             <div className="mt-5">
               <Box
                 component="img"
-                alt="..."
+                alt=" "
                 src={
                 url ? url : (
                     <Avatar  />
