@@ -44,7 +44,13 @@ export default function Profile() {
     description: users.description,
   })
 
+
+  // const [profileImage, setProfileImage] = useState(null)
+
   const inputRef = useRef(null)
+  const displayNameRef = useRef(null)
+  const locationRef = useRef(null)
+  const imgRef = useRef('')
 
   const [isEditing, setIsEditing] = useState(false)
   const router = useRouter()
@@ -62,11 +68,11 @@ export default function Profile() {
     setUsers({ ...users, [e.target.name]: e.target.value })
   }
 
- const handlefileRemove = () => {
-   setPreviewSource('')
-   values.profileImage='';
+//  const handlefileRemove = () => {
+//    setPreviewSource('')
+//    values.profileImage='';
  
- }
+//  }
 
   const [isDisabled, setDisabled] = useState(true)
      const [active, setActive] = useState(false)
@@ -76,6 +82,7 @@ export default function Profile() {
   const handleFile = e => {
      const file = e.target.files[0]
      previewFile(file) 
+    //  setProfileImage(file)
   }
    const previewFile = (file) => {
      const type = file.type
@@ -101,37 +108,55 @@ export default function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault() 
     try {
-      console.log(values)
-       if (previewSource) uploadImage(previewSource)
+      // console.log(values)
+      // const formData = new FormData()
+      // formData.append('displayName', values.displayName)
+      // formData.append('location', values.location)
+      // formData.append('bio', values.bio)
+      // formData.append('description', values.description)
+      // formData.append('colour', values.colour)
+      // formData.append('bgImage', values.bgImage)
+      // formData.append('profileImage', profileImage)
+      // console.log(formData, 'formdata')
+      // console.log(values.description, 'descrp')
+      
+      if (previewSource) uploadImage(previewSource)
        setActive(true)
       const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
         ...values,
-        
+        // formData
+      
       })  
-
-      // console.log()
+      console.log(formData)
       setActive(false)
       if (data.success) {
         router.push('/dashboard')
         setIsEditing(false)
-        handleData() 
+        // setTimeout(() => {
+          
+          handleData() 
+        // }, 9000);
       } 
     } catch (error) {
-      console.log(error)
-      setActive(false)
-     toast.error(error.response.data.error)
-      if (error.response.status === 401) {
-         ResetUser()
-      }
+        
+        console.log(error)
+        setActive(false)
+        if(error.response){
+
+          toast.error(error.response.data.error)
+           if (error.response.status === 401) {
+              ResetUser()
+           }
+        }
     }
   }
+
+  // console.log(values, 'values')
 
  const handleViewChange = (currentView) =>{
  
   setView(currentView)
  }
-
-
 
 
 
@@ -143,12 +168,15 @@ export default function Profile() {
        localStorage.setItem('passportUrl', userData.passportUrl)
       setUsers(userData)
     } catch (error) {
-      if (error.response) {
-        if (error.response.status === 401) {
-          ResetUser()
-          router.push('/auth/Login')
+      // setTimeout(() => {
+        
+        if (error.response) {
+          if (error.response.status === 401) {
+            ResetUser()
+            router.push('/auth/Login')
+          }
         }
-      }
+      // }, 9000);
     }
   }
 
@@ -216,9 +244,7 @@ export default function Profile() {
         {/* links */}
         <div className="flex flex-wrap justify-between xl:w-5/6 my-4">
           <div className="flex gap-3">
-            <div className="">
-              
-            </div>
+            <div className=""></div>
             <div className="">
               <button
                 className="bg-[#8BC940]  text-white active:bg-gray-700 text-sm font-bold uppercase
@@ -231,9 +257,7 @@ export default function Profile() {
               </button>
             </div>
           </div>
-          <div className="">
-            
-          </div>
+          <div className=""></div>
         </div>
         <div className="bg-whit md:w-5/6 ">
           {view === 'edit' ? (
@@ -268,7 +292,7 @@ export default function Profile() {
               rounded-lg -mt-20 "
                   >
                     <div className="px-6 relative">
-                      <form className="Avenir w-full  " onSubmit={handleSubmit}>
+                      <form className="Avenir w-full  " encType='multipart/form-data' onSubmit={handleSubmit}>
                         <div className="grid lg:flex flex-wrap justify-center">
                           <div className="w-full  px-4   flex justify-">
                             <div className="relative pt-8 py-8 lg:py-0 md:pt-0 ">
@@ -311,7 +335,7 @@ export default function Profile() {
                                 onChange={handleFile}
                                 accept="image/*"
                                 value={users?.profileImage}
-                                ref={inputRef.profileImage}
+                                ref={imgRef.profileImage}
                                 name="profileImage"
                               />
                             </div>
@@ -335,7 +359,7 @@ export default function Profile() {
                    text-gray-700 bg-gray-50 rounded text-sm shadow focus:outline-none focus:ring  w-full"
                                 placeholder="John Doe"
                                 style={{ transition: 'all .15s ease' }}
-                                ref={inputRef.displayName}
+                                ref={displayNameRef.displayName}
                                 onInput={handleChange}
                                 name="displayName"
                                 value={users?.displayName}
@@ -352,7 +376,7 @@ export default function Profile() {
                          text-sm shadow focus:outline-none focus:ring w-full"
                                 placeholder="Canada"
                                 style={{ transition: 'all .15s ease' }}
-                                ref={inputRef.location}
+                                ref={locationRef.location}
                                 onInput={handleChange}
                                 name="location"
                                 value={users?.location}
