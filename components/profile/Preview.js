@@ -39,7 +39,6 @@ export default function Preview() {
         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
         if (!data.success) router.push('/auth/Login')
       } catch (error) {
-        console.log(error)
         router.push('/auth/Login')
       }
     }
@@ -50,7 +49,6 @@ export default function Preview() {
 
 const handleShow =(cur) => {
     if(cur.url){
-      console.log(cur, 'cur')
       return (
         <div className="">
           <div className="bg-blue-500 p-3 m-3 rounded-md ">
@@ -158,7 +156,6 @@ const handleShow =(cur) => {
                 )}
               </div>
                 
-              {console.log(userLinks)}
               {userLinks?.map((cur) => {
                   
                 return handleShow(cur)
