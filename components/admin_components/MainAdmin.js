@@ -13,7 +13,6 @@ import {UserInfo} from '../verify'
 
 
 export default function Profile() {
-
   const [user, setUser] = useState()
    const router = useRouter()
 
@@ -36,7 +35,6 @@ export default function Profile() {
   }
 
   
-
   useEffect(() => {
     const AuthenticateUser = async () => {
       try {

@@ -15,7 +15,6 @@ import { Typography } from '@mui/material'
 import api from '../pages/api/darlink'
 import { BUTTONS } from '../pages/api/ACTIONS.JS'
 import { ResetUser } from '../context/context'
-import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 
 export default function Buttons() {
@@ -30,7 +29,6 @@ export default function Buttons() {
     telegram: '',
   })
   const [active, setActive] = useState(false)
-
   const [infor, setInfor] = useState({
     email: '',
     discord: '',
@@ -62,7 +60,6 @@ export default function Buttons() {
     }
   }
   const router = useRouter()
-
   const handleClick = () => {
     setOpen(!open)
   }
@@ -80,8 +77,6 @@ const discordRef = useRef(null)
 const handleChange = (e) => {
   setInfor({ ...infor, [e.target.name]: e.target.value })
 }
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -113,29 +108,6 @@ const handleChange = (e) => {
           ResetUser()
           router.push('/auth/Login')
         }
-      }
-    }
-  }
-
-
-  const handleUpdate = async (e) => {
-    e.preventDefault()
-    try {
-      // console.log(data)
-      const { data } = await api.patch(BUTTONS.UPDATE_BUTTON(), {
-        ...values,
-      })
-      console.log(data, 'data ')
-      
-      if (data.success) {
-        handleData()
-      } 
-    } catch (error) {
-      console.log(error)
-      if (error.response.status === 401) {
-        toast.error(error.response.data.error)
-        ResetUser()
-        router.push('/auth/Login')
       }
     }
   }
@@ -187,8 +159,6 @@ const handleChange = (e) => {
         <div className="">
           <section className="bg-white dark:bg-gray-800 dark:text-gray-100 container mx-auto relative">
             {/* container flex flex-col justify-center p-4 mx-auto md:p-8 */}
-
-            {/*  */}
 
             <List
               sx={{ width: '100%', bgcolor: 'background.paper' }}

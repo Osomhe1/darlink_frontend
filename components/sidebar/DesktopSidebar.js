@@ -1,12 +1,10 @@
 import React,{useEffect, useState} from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 import {FaPager} from 'react-icons/fa'
 import {MdOutlineLogout} from 'react-icons/md'
 import { IoMdContacts } from 'react-icons/io'
 import { SiSimpleanalytics } from 'react-icons/si'
 import { RiAccountBoxFill } from 'react-icons/ri'
-import {Modal} from '../Modal'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import {  useRouter } from 'next/router'
@@ -36,10 +34,13 @@ export default function Sidebar() {
             router.push('/auth/Login')
           }       
       } catch (error) {
-        toast.error(error.response.data.error)
-        if (error.response.status === 401) {
+        if(error.response){
+
           toast.error(error.response.data.error)
-          ResetUser()
+          if (error.response.status === 401) {
+            toast.error(error.response.data.error)
+            ResetUser()
+          }
         }
         
       }
@@ -56,6 +57,7 @@ export default function Sidebar() {
       }
       setUrl(imageUrl)
       AuthenticateUser();
+      reload()
     }, [])
 
   return (

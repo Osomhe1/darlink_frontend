@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { FaPager } from 'react-icons/fa'
@@ -42,7 +41,6 @@ const MobileSidebar = () => {
        } catch (error) {
          console.log(error)
          if (error.response) {
-          //  toast.error(error.response.data.error)
            router.push('/auth/Login')
          }
        }
@@ -56,7 +54,6 @@ const MobileSidebar = () => {
       <aside>
         {showSidebar ? (
           <button
-            // className='flex text-4xl text-white items-center cursor-pointer fixed left-10 top-6 z-50'
             className="flex text-2xl text-gray-400 items-center cursor-pointer fixed left-40 top-2 z-50"
             onClick={() => setShowSidebar(!showSidebar)}
           >
@@ -66,8 +63,6 @@ const MobileSidebar = () => {
           <svg
             onClick={() => setShowSidebar(!showSidebar)}
             className="absolute  z-20 flex items-center cursor-pointer left-10 top-10"
-            // className='fixed  z-20 flex items-center cursor-pointer left-10 top-6'
-            // fill='#2563EB'
             fill="#000"
             viewBox="0 0 100 80"
             width="40"
@@ -97,7 +92,6 @@ const MobileSidebar = () => {
                 {/* Navigation */}
                 <div className="py-10">
                   <ul
-                  // className='md:flex-col md:min-w-full flex flex-col list-none  '
                   >
                     <li className="items-center hover:bg-gray-200 ">
                       <Link
@@ -112,7 +106,6 @@ const MobileSidebar = () => {
                     <li className="items-center hover:bg-gray-200">
                       <Link
                         className="text-blueGray-700 hover:text-blueGray-500 text-xs flex  gap-2 items-center uppercase py-3 font-bold "
-                        // href='/analytics'
                         href="/admin/analytics"
                       >
                         <SiSimpleanalytics className="text-2xl" />
@@ -123,7 +116,6 @@ const MobileSidebar = () => {
                     <li className="items-center hover:bg-gray-200">
                       <Link
                         className="text-blueGray-700 flex  gap-2 items-center hover:text-blueGray-500 text-xs uppercase py-3 font-bold "
-                        // href='/referrals'
                         href="/admin/wallet"
                       >
                         <IoMdContacts className="text-2xl" />
@@ -134,7 +126,6 @@ const MobileSidebar = () => {
                     <li className="items-center hover:bg-gray-200">
                       <Link
                         className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
-                        // href='/account'
                         href="/admin/account"
                       >
                         <RiAccountBoxFill className="text-2xl" />
@@ -145,8 +136,6 @@ const MobileSidebar = () => {
                     <li className="items-center hover:bg-gray-200">
                       <button
                         className="text-blueGray-300 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
-                        // href='/auth/Login'
-                        // onClick={(e) => e.preventDefault()}
                         type="submit"
                         onClick={handleLogout}
                       >

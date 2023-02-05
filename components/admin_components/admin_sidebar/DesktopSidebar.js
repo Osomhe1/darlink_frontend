@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
-// import Image from 'next/image'
 import { FaPager } from 'react-icons/fa'
 import { MdOutlineLogout } from 'react-icons/md'
 import { IoMdContacts } from 'react-icons/io'
@@ -65,7 +64,6 @@ export default function Sidebar() {
               {/* Navigation */}
               <div className="py-10">
                 <ul
-                // className='md:flex-col md:min-w-full flex flex-col list-none  '
                 >
                   <li className="items-center hover:bg-gray-200 ">
                     <Link
@@ -80,7 +78,6 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <Link
                       className="text-blueGray-700 hover:text-blueGray-500 text-xs flex  gap-2 items-center uppercase py-3 font-bold "
-                      // href='/analytics'
                       href="/admin/analytics"
                     >
                       <SiSimpleanalytics className="text-2xl" />
@@ -91,7 +88,6 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <Link
                       className="text-blueGray-700 flex  gap-2 items-center hover:text-blueGray-500 text-xs uppercase py-3 font-bold "
-                      // href='/referrals'
                       href="/admin/wallet"
                     >
                       <IoMdContacts className="text-2xl" />
@@ -102,7 +98,6 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <Link
                       className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
-                      // href='/account'
                       href="/admin/account"
                     >
                       <RiAccountBoxFill className="text-2xl" />
@@ -113,10 +108,8 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <button
                       className="text-blueGray-300 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
-                      // href="/auth/Login"
                       type="submit"
                       onClick={handleLogout}
-                      // onClick={(e) => e.preventDefault()}
                     >
                       <MdOutlineLogout className="text-2xl" />
                       Log Out

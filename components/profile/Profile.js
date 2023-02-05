@@ -3,7 +3,6 @@ import React, {
   useState,
   useRef,
 } from 'react'
-import Image from 'next/image'
 import Appreance from '../Appreance'
 import Link from '../Link'
 import Buttons from '../Buttons'
@@ -38,23 +37,20 @@ export default function Profile() {
   const [values, setValues] = useState({
     displayName: users.displayName,
     location: users.location,
-    colour: '',
+    colour: users.colour,
     profileImage: '',
     bgImage: '',
     description: users.description,
   })
 
-
-  // const [profileImage, setProfileImage] = useState(null)
-
+  const [colour, setColour] = useState('[#100410]')
+  const selectColour = `absolute top-0 w-full h-full bg-center flex justify-center items-center cursor-pointer bg-cover bg-${colour}`;
   const inputRef = useRef(null)
   const displayNameRef = useRef(null)
   const locationRef = useRef(null)
   const imgRef = useRef('')
-
   const [isEditing, setIsEditing] = useState(false)
   const router = useRouter()
-
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment)
   }
@@ -68,11 +64,7 @@ export default function Profile() {
     setUsers({ ...users, [e.target.name]: e.target.value })
   }
 
-//  const handlefileRemove = () => {
-//    setPreviewSource('')
-//    values.profileImage='';
- 
-//  }
+
 
   const [isDisabled, setDisabled] = useState(true)
      const [active, setActive] = useState(false)
@@ -82,7 +74,6 @@ export default function Profile() {
   const handleFile = e => {
      const file = e.target.files[0]
      previewFile(file) 
-    //  setProfileImage(file)
   }
    const previewFile = (file) => {
      const type = file.type
@@ -107,42 +98,28 @@ export default function Profile() {
 
   const handleSubmit = async (e) => {
     e.preventDefault() 
+    
     try {
-      // console.log(values)
-      // const formData = new FormData()
-      // formData.append('displayName', values.displayName)
-      // formData.append('location', values.location)
-      // formData.append('bio', values.bio)
-      // formData.append('description', values.description)
-      // formData.append('colour', values.colour)
-      // formData.append('bgImage', values.bgImage)
-      // formData.append('profileImage', profileImage)
-      // console.log(formData, 'formdata')
-      // console.log(values.description, 'descrp')
+     const newColor = localStorage.getItem("colour");
+     if(newColor) 
+      values.colour =newColor;
       
       if (previewSource) uploadImage(previewSource)
        setActive(true)
       const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
         ...values,
-        // formData
       
       })  
-      console.log(formData)
       setActive(false)
       if (data.success) {
         router.push('/dashboard')
-        setIsEditing(false)
-        // setTimeout(() => {
-          
+        localStorage.removeItem('colour')
+        setIsEditing(false)          
           handleData() 
-        // }, 9000);
       } 
     } catch (error) {
-        
-        console.log(error)
         setActive(false)
         if(error.response){
-
           toast.error(error.response.data.error)
            if (error.response.status === 401) {
               ResetUser()
@@ -151,10 +128,8 @@ export default function Profile() {
     }
   }
 
-  // console.log(values, 'values')
 
  const handleViewChange = (currentView) =>{
- 
   setView(currentView)
  }
 
@@ -166,17 +141,19 @@ export default function Profile() {
       if (data.success) 
        userData = {...data.profile}
        localStorage.setItem('passportUrl', userData.passportUrl)
-      setUsers(userData)
-    } catch (error) {
-      // setTimeout(() => {
-        
-        if (error.response) {
-          if (error.response.status === 401) {
-            ResetUser()
-            router.push('/auth/Login')
-          }
+       localStorage.setItem('colour', userData.colour)
+       if(data.profile.colour !== null){
+         setColour(data.profile.colour);
         }
-      // }, 9000);
+      setUsers(userData)
+      reload()
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/auth/Login')
+        }
+      }
     }
   }
 
@@ -190,7 +167,6 @@ export default function Profile() {
         if (!data.success) router.push('/auth/Login')
         
       } catch (error) {
-        // toast.error(error.response.data.error)
         router.push('/auth/Login')
       }
     }
@@ -266,13 +242,15 @@ export default function Profile() {
                 className="relative bg-white block"
                 style={{ height: '200px', backgroundColor: 'white' }}
               >
-                {/* <Button onClick={handleOpen}>Open modal</Button> */}
                 <div
-                  className="absolute top-0 w-full h-full bg-center flex justify-center items-center cursor-pointer bg-cover bg-[#8BC940] "
-                  // style={{
-                  //   backgroundImage:
-                  //     "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
-                  // }}
+                  className={
+                    users.colour
+                      ? selectColour
+                      : `absolute top-0 w-full h-full bg-center flex justify-center items-center cursor-pointer bg-cover bg-[#8BC940]`
+                  }
+                  style={{
+                    backgroundColor: `${colour}`
+                  }}
                   name="colour"
                   onMouseEnter={() => {
                     setState('hidden')
@@ -292,7 +270,11 @@ export default function Profile() {
               rounded-lg -mt-20 "
                   >
                     <div className="px-6 relative">
-                      <form className="Avenir w-full  " encType='multipart/form-data' onSubmit={handleSubmit}>
+                      <form
+                        className="Avenir w-full  "
+                        encType="multipart/form-data"
+                        onSubmit={handleSubmit}
+                      >
                         <div className="grid lg:flex flex-wrap justify-center">
                           <div className="w-full  px-4   flex justify-">
                             <div className="relative pt-8 py-8 lg:py-0 md:pt-0 ">
@@ -306,7 +288,6 @@ export default function Profile() {
                                     <Avatar />
                                   )
                                 }
-                                // src={proileImage}
 
                                 className="shadow-md cursor-pointer 
                            rounded-full h-auto align-middle  z-[99]
