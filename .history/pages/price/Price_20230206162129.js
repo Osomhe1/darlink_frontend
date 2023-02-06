@@ -237,12 +237,11 @@ export default function Price() {
                   </li>
                 </ul>
                 <Link
-                  // href="/auth/SignUp"
-                  href="/#"
+                  href="/auth/SignUp"
                   className="text-white disabled bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  
                   font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                 >
-                  Comming Soon
+                 Comming Soon
                 </Link>
               </div>
               {/* <!-- Pricing Card --> */}
@@ -351,7 +350,7 @@ export default function Price() {
                 </ul>
                 <Link
                   // href="/auth/SignUp"
-                  href="/#"
+                  
                   className="text-white bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                 >
                   Comming Soon
