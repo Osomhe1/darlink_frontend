@@ -237,12 +237,11 @@ export default function Price() {
                   </li>
                 </ul>
                 <Link
-                  // href="/auth/SignUp"
-                  href="/#"
+                  href="/auth/SignUp"
                   className="text-white disabled bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  
                   font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                 >
-                  Comming Soon
+                 Comming Soon
                 </Link>
               </div>
               {/* <!-- Pricing Card --> */}
@@ -252,7 +251,7 @@ export default function Price() {
                   Relevant for multiple users, extended & premium support.
                 </p>
                 <div className="flex items-baseline justify-center my-8">
-                  <span className="mr-2 text-5xl font-extrabold">NGN 1500</span>
+                  <span className="mr-2 text-5xl font-extrabold">$99</span>
                   <span className="text-gray-500 dark:text-gray-400 dark:text-gray-400>">
                     /month
                   </span>
@@ -350,11 +349,10 @@ export default function Price() {
                   </li>
                 </ul>
                 <Link
-                  // href="/auth/SignUp"
-                  href="/#"
+                  href="/auth/SignUp"
                   className="text-white bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                 >
-                  Comming Soon
+                  Get started
                 </Link>
               </div>
               {/* <!-- Pricing Card --> */}
@@ -364,7 +362,7 @@ export default function Price() {
                   Best for large scale uses and extended redistribution rights.
                 </p>
                 <div className="flex items-baseline justify-center my-8">
-                  <span className="mr-2 text-5xl font-extrabold">NGN 2000</span>
+                  <span className="mr-2 text-5xl font-extrabold">$499</span>
                   <span className="text-gray-500 dark:text-gray-400">
                     /month
                   </span>
@@ -462,11 +460,10 @@ export default function Price() {
                   </li>
                 </ul>
                 <Link
-                  href="/#"
-                  // href="/auth/SignUp"
+                  href="/auth/SignUp"
                   className="text-white bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                 >
-                  Comming Soon
+                  Get started
                 </Link>
               </div>
             </div>

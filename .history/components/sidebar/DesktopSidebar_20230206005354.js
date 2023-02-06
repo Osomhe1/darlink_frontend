@@ -78,7 +78,11 @@ export default function Sidebar() {
               <Box
                 component="img"
                 alt=" "
-                src={url ? url : <Avatar />}
+                src={
+                url ? url : (
+                    <Avatar  />
+                  )
+                }
                 className=" h-auto  rounded-full align-middle  border-none shadow-xl   "
                 style={{ maxWidth: '150px' }}
                 height={100}
@@ -89,7 +93,8 @@ export default function Sidebar() {
             <div>
               {/* Navigation */}
               <div className="py-10">
-                <ul>
+                <ul
+                >
                   <li className="items-center hover:bg-gray-200 ">
                     <Link
                       className="text-[#8BC940]  hover:text-[#8BC940] flex  gap-2 items-center text-xs uppercase py-3 font-bold "
@@ -131,6 +136,7 @@ export default function Sidebar() {
                   </li>
 
                   <li className="items-center hover:bg-gray-200">
+                   
                     <button
                       type="submit"
                       onClick={handleLogout}
@@ -144,8 +150,7 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <button
                       className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
-                      // href="/upgrade"
-                      href="/#"
+                      href="/upgrade"
                     >
                       <i className="fas fa-tools text-blueGray-300 mr-2 text-sm"></i>{' '}
                       Upgrade
