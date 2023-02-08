@@ -1,10 +1,10 @@
 import React from 'react'
 import Link from 'next/link'
-import Layout from '../../components/Layout'
+// import Layout from '../../components/Layout'
 
-export default function Price() {
+export default function Payment() {
   return (
-    <Layout>
+    // <Layout>
       <div>
         {/* <!-- Start block --> */}
         <section className="bg-white dark:bg-gray-900">
@@ -472,6 +472,6 @@ export default function Price() {
         </section>
         {/* <!-- End block --> */}
       </div>
-    </Layout>
+    // </Layout>
   )
 }
