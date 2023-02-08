@@ -13,6 +13,7 @@ const UserInfo =  () => {
   const title = localStorage.getItem('title')
   const url = localStorage.getItem('url')
   const colour = localStorage.getItem('colour')
+  const profileId = localStorage.getItem('profileId')
 
  
    const infor = {
@@ -20,6 +21,7 @@ const UserInfo =  () => {
      role,
      email,
      passportUrl,
+     profileId,
      button,
      colour,
      selectedPreview: {

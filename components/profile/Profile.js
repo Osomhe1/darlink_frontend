@@ -101,22 +101,39 @@ export default function Profile() {
     
     try {
      const newColor = localStorage.getItem("colour");
+     const profileId = localStorage.getItem('profileId')
      if(newColor) 
       values.colour =newColor;
       
       if (previewSource) uploadImage(previewSource)
        setActive(true)
-      const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
-        ...values,
-      
-      })  
-      setActive(false)
-      if (data.success) {
-        router.push('/dashboard')
-        localStorage.removeItem('colour')
-        setIsEditing(false)          
-          handleData() 
-      } 
+
+       if(profileId === null){
+        values.profileId = profileId
+        const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
+          ...values,
+        })  
+        setActive(false)
+        if (data.success) {
+          router.push('/dashboard')
+          localStorage.removeItem('colour')
+          setIsEditing(false)          
+            handleData() 
+       }
+      } else{
+        handleData()
+        const { data } = await api.patch(PROFILE.UPDATE_USER_PROFILE(), {
+          ...values,
+          profileId,
+        })
+        setActive(false)
+        if (data.success) {
+          router.push('/dashboard')
+          localStorage.removeItem('colour')
+          setIsEditing(false)
+          handleData()
+        }
+      }
     } catch (error) {
         setActive(false)
         if(error.response){
@@ -142,6 +159,7 @@ export default function Profile() {
        userData = {...data.profile}
        localStorage.setItem('passportUrl', userData.passportUrl)
        localStorage.setItem('colour', userData.colour)
+       localStorage.setItem('profileId', userData.profileId)
        if(data.profile.colour !== null){
          setColour(data.profile.colour);
         }
@@ -150,6 +168,7 @@ export default function Profile() {
     } catch (error) {
       if (error.response) {
         if (error.response.status === 401) {
+          toast.error(error.response.data.error)
           ResetUser()
           router.push('/auth/Login')
         }

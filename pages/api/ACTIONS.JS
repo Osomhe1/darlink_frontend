@@ -29,6 +29,7 @@ export const PROFILE = {
   ADMIN_PROFILE: () => '/user/profiles',
   USER_PROFILE: () => '/user/profile',
   CREATE_USER_PROFILE: () => '/user/profile',
+  UPDATE_USER_PROFILE: () => '/user/profile',
 }
 
 export const LINK = {
