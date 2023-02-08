@@ -15,7 +15,6 @@ export default function SignUp() {
   })
   const [error, setError] = useState('')
   const router = useRouter()
-  // const notice = toast()
   const [active, setActive] = useState(false);
   const generateError = (err) => toast(err);
   const handleSubmit = async (e) => {
@@ -32,7 +31,6 @@ export default function SignUp() {
         })
         setActive(false);
         if(data.success){
-          // toast.success('success')
           router.push('/auth/Login')
         } 
         if(data.error)
@@ -56,7 +54,6 @@ export default function SignUp() {
         <section>
           <form
             onSubmit={ handleSubmit}
-            // onSubmit={(e) => handleSubmit(e)}
             className='Avenir  lg:w-2/5 m-3 md:w-3/5 md:m-auto lg:m-auto  py-28 '
           >
             <h2 className='text-center font-bold text-3xl md:text-5xl py-5 '>
@@ -74,7 +71,6 @@ export default function SignUp() {
                 placeholder='UserName'
                 style={{ transition: 'all .15s ease' }}
               />
-              {/* <small>hey</small> */}
             </div>
 
             <div className='relative w-full mb-3'>
@@ -89,7 +85,6 @@ export default function SignUp() {
                 placeholder='Email'
                 style={{ transition: 'all .15s ease' }}
               />
-              {/* <small>hey</small> */}
             </div>
             <div className='relative w-full mb-3 md:flex justify-between md:space-x-4 '>
               <div className='w-full'>
@@ -104,7 +99,6 @@ export default function SignUp() {
                   placeholder='Password'
                   style={{ transition: 'all .15s ease' }}
                 />
-                {/* <small>hey</small> */}
               </div>
               <div className='w-full my-3 md:m-0'>
                 <input
@@ -118,7 +112,6 @@ export default function SignUp() {
                   placeholder='Confirm Password'
                   style={{ transition: 'all .15s ease' }}
                 />
-                {/* <small>hey</small> */}
               </div>
             </div>
 
@@ -134,8 +127,6 @@ export default function SignUp() {
                 style={{ transition: 'all .15s ease' }}
                 disabled={active}
               >
-                {/* Join for Free */}
-                {/* <Link href='/auth/Login'>Sign Up</Link> */}
                 {active ? "Processing...": "Sign Up"}
               </button>
             </div>
@@ -146,7 +137,7 @@ export default function SignUp() {
                 type='button'
                 style={{ transition: 'all .15s ease' }}
               >
-                <Link href='/Login'>or Sign In</Link>
+                <Link href='/auth/Login'>or Sign In</Link>
               </button>
             </div>
           </form>
