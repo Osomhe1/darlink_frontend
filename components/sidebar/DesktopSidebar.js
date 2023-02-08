@@ -10,7 +10,6 @@ import api from '../../pages/api/darlink'
 import {  useRouter } from 'next/router'
 import {UserInfo} from '../verify'
 import Avatar from '@mui/material/Avatar'
-import { Box } from '@mui/material'
 import { toast } from 'react-toastify'
 import { ResetUser } from '../../context/context'
 
@@ -75,12 +74,11 @@ export default function Sidebar() {
             {/* Brand */}
 
             <div className="mt-5">
-              <Box
-                component="img"
-                alt=" "
+              <Avatar
                 src={url ? url : <Avatar />}
                 className=" h-auto  rounded-full align-middle  border-none shadow-xl   "
-                style={{ maxWidth: '150px' }}
+                sx={{ width: 200, height: 200 }}
+                style={{ maxWidth: '200px', maxHeight: '200' }}
                 height={100}
                 width={100}
               />
@@ -97,6 +95,15 @@ export default function Sidebar() {
                     >
                       <FaPager className="text-2xl" />
                       My Page
+                    </Link>
+                  </li>
+                  <li className="items-center hover:bg-gray-200">
+                    <Link
+                      className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                      href="/upgrade"
+                    >
+                      <i className="fas fa-tools text-blueGray-300 mr-2 text-sm"></i>{' '}
+                      Upgrade
                     </Link>
                   </li>
 
@@ -141,16 +148,6 @@ export default function Sidebar() {
                     </button>
                   </li>
 
-                  <li className="items-center hover:bg-gray-200">
-                    <button
-                      className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
-                      // href="/upgrade"
-                      href="/#"
-                    >
-                      <i className="fas fa-tools text-blueGray-300 mr-2 text-sm"></i>{' '}
-                      Upgrade
-                    </button>
-                  </li>
                 </ul>
               </div>
             </div>

@@ -249,7 +249,7 @@ export default function Profile() {
                       : `absolute top-0 w-full h-full bg-center flex justify-center items-center cursor-pointer bg-cover bg-[#8BC940]`
                   }
                   style={{
-                    backgroundColor: `${colour}`
+                    backgroundColor: `${colour}`,
                   }}
                   name="colour"
                   onMouseEnter={() => {
@@ -278,9 +278,7 @@ export default function Profile() {
                         <div className="grid lg:flex flex-wrap justify-center">
                           <div className="w-full  px-4   flex justify-">
                             <div className="relative pt-8 py-8 lg:py-0 md:pt-0 ">
-                              <Box
-                                component="img"
-                                alt=""
+                              <Avatar
                                 src={
                                   users.passportUrl ? (
                                     users.passportUrl
@@ -288,11 +286,11 @@ export default function Profile() {
                                     <Avatar />
                                   )
                                 }
-
                                 className="shadow-md cursor-pointer 
                            rounded-full h-auto align-middle  z-[99]
-                           border-none absolute -m-12 -ml-20 lg:-ml-1 "
-                                style={{ maxWidth: '200px' }}
+                           border-none absolute -m-12 -ml-20 lg:-ml-6 "
+                                sx={{ width: 200, height: 200 }}
+                                style={{ maxWidth: '200px', maxHeight: '200' }}
                                 height={100}
                                 width={100}
                                 onMouseEnter={() => {
@@ -308,8 +306,7 @@ export default function Profile() {
                               file:rounded-full file:border-0
                               opacity-10 -bottom-10
                               hover:file:cursor-pointer hover:file:bg-amber-50
-                               w-[90px] m-auto h-[80px]  rounded-full   flex items-center justify-center
-                                
+                               w-[180px] m-auto h-[180px]  rounded-full 
                                 `
                                 }
                                 type="file"

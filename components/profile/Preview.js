@@ -50,7 +50,7 @@ const handleShow =(cur, key) => {
     if(cur.url){
       return (
         <div className="">
-          <div className="bg-blue-500 p-3 m-3 rounded-md " key={key} >
+          <div className="bg-blue-500 p-3 m-3 rounded-md  " key={key} >
             <h1 className="text-white font-semibold"> {cur.title} </h1>
             <Link href={cur.url} target={'_blank'}>
               <button type="button"> {cur.url} </button>
@@ -64,7 +64,7 @@ const handleShow =(cur, key) => {
     <div>
       <section
         className="relative  block  "
-        style={{ height: '400px', backgroundColor: 'white' }}
+        style={{ height: '400px', backgroundColor: '[#8BC940]' }}
       >
         <div
           className={`absolute top-0 w-full h-auto bg-center p-10
@@ -73,12 +73,11 @@ const handleShow =(cur, key) => {
           style={{
             backgroundColor: `${value.colour}`
               ? `${value.colour}`
-              : 'from-[#8BC940]   bg-gradient-to-r  to-blue-500',
+              : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
           }}
           name="colour"
         >
-          {/* <Modal /> */}
-          <div className="bg-[#8BC940]   z-90 shadow-xl w-[90%] h-auto p-5 items-center justify-center flex  bg-center ">
+          <div className="bg-[#8BC940] z-90 shadow-xl max-w-[90%] h-auto p-5 items-center justify-center flex   ">
             <Stack>
               <div className=" z-90 m-auto">
                 <Avatar
@@ -94,7 +93,7 @@ const handleShow =(cur, key) => {
                 <p
                   className=" text-white bg-[#919191]
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
-                   outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                      mr- mb- w-[100%]  m-auto ease-linear transition-all duration-150"
                 >
                   {value?.username}
                 </p>
@@ -171,9 +170,8 @@ const handleShow =(cur, key) => {
           </div>
           {/* links */}
         </div>
-        <div className="">
-          
-        </div>
+        
+        <div className=""></div>
       </section>
     </div>
   )

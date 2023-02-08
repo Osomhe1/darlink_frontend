@@ -1,11 +1,10 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useContext, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import Layout from '../../components/Layout'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import { USER_TYPE } from '../../pages/api/ACTIONS.JS'
-// import { UserContext } from '../../context/context'
 import { toast } from 'react-toastify'
 
 
@@ -21,8 +20,6 @@ export default function Login() {
    const [active, setActive] = useState(false)
    const route = useRouter()
 
-  //  const userContext = useContext(UserContext)
-
    const handleSubmit = async (e) => {
      e.preventDefault()
      try {
@@ -36,7 +33,6 @@ export default function Login() {
         localStorage.setItem('email', data.user.email)
         localStorage.setItem('role', data.user.role)
         localStorage.setItem('token', data.token)
-      //  setActive(false);
 
          if (data.user.role === USER_TYPE.ADMIN())
             route.push('/admin/dashboard')
@@ -69,9 +65,6 @@ export default function Login() {
 
   return (
     <Layout>
-      {/* { isLoading  ? (
-        <p>Loading ...</p>
-      ) : ( */}
         <div>
           <section>
             <form
@@ -165,7 +158,7 @@ export default function Login() {
                 type="button"
                 style={{ transition: 'all .15s ease' }}
               >
-                <Link href="/SignUp">or Create an Account</Link>
+                <Link href="/auth/SignUp">or Create an Account</Link>
               </button>
             </div>
           </form>

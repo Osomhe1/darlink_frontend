@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import api from '../pages/api/darlink'
 import { USER_ENDPOINTS } from '../pages/api/ACTIONS.JS'
 import {useRouter} from 'next/router'
@@ -56,11 +56,12 @@ const handleChange = (e) => {
         } 
     } catch (error) {
       setActive(false)
-      toast.error(error.response.data.error)
-      if (error.response.status === 401) {
-        toast.error(error.response.data.error)
-        ResetUser()
-        router.push('/auth/Login')
+      if(error.response){
+        if (error.response.status === 401) {
+          toast.error(error.response.data.error)
+          ResetUser()
+          router.push('/auth/Login')
+        }
       }
     }
   }
@@ -83,11 +84,12 @@ const handleChange = (e) => {
       }
     } catch (error) {
       setActive(false)
-      toast.error(error.response.data.error)
-      if (error.response.status === 401) {
-        toast.error(error.response.data.error)
-        ResetUser()
-        router.push('/auth/Login')
+      if(error.response){
+        if (error.response.status === 401) {
+          toast.error(error.response.data.error)
+          ResetUser()
+          router.push('/auth/Login')
+        }
       }
     }
   }
@@ -251,7 +253,7 @@ const handleChange = (e) => {
                         className="border-0 px-3 py-5 focus:ring-[#8BC940]  placeholder-gray-400 text-gray-700 bg-gray-50 rounded
                          text-sm shadow focus:outline-none focus:ring w-full"
                         placeholder="USERNAME"
-                        value="airlink"
+                        value="darlink"
                         style={{ transition: 'all .15s ease' }}
                       />
                     </div>
@@ -344,9 +346,9 @@ const handleChange = (e) => {
                     </div>
                   </div>
                   <div className="border inline-block">
-                    <p className="p-1 mx-4 text-[#8BC940] font-normal text-sm">
+                    {/* <p className="p-1 mx-4 text-[#8BC940] font-normal text-sm">
                       Enable Two-Factor Authentication
-                    </p>
+                    </p> */}
                   </div>
 
                   <div className="text-center  mt-6 float- items-end ">

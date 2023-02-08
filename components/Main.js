@@ -1,56 +1,107 @@
-import Image from "next/image";
 import Layout from "./Layout";
 import Slide from "./Carousel";
 import { toast } from "react-toastify";
 import {USER_ENDPOINTS} from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function Main() {
  
-  const [values, setValues] = useState({
-    username: '',
-    password: '',
-    email: '',
-    confirm_password: '',
-  })
-  const [error, setError] = useState('')
-  const router = useRouter()
-  const [active, setActive] = useState(false)
-  const generateError = (err) => toast(err)
+  // const [values, setValues] = useState({
+  //   username: '',
+  //   password: '',
+  //   email: '',
+  //   confirm_password: '',
+  // })
+  // const [error, setError] = useState('')
+  // const router = useRouter()
+  // const [active, setActive] = useState(false)
+  // const generateError = (err) => toast(err)
+
+  //  const handleSubmit = async (e) => {
+  //    e.preventDefault()
+  //    try {
+  //      setActive(true)
+  //      if (values.password !== values.confirm_password) {
+  //        setError(true)
+  //        generateError('Password mismatched')
+  //        setActive(false)
+  //      } else {
+  //        const { data } = await api.post(USER_ENDPOINTS.REGISTER(), {
+  //          ...values,
+  //        })
+  //        setActive(false)
+  //        if (data.success) {
+  //          router.push('/auth/Login')
+  //        }
+  //        if (data.error) generateError(data.error)
+  //      }
+  //    } catch (error) {
+  //      setActive(false)
+  //      if (error.name) {
+  //        generateError('Unauthorized domain')
+  //      }
+  //      if (error.response) {
+  //        generateError(error.response.data.error)
+  //      } else {
+  //        generateError('An error occurred, please try again')
+  //      }
+  //    }
+  //  }
+
+   const [values, setValues] = useState({
+     username: '',
+     password: '',
+   })
+   const [error, setError] = useState({
+     password: '',
+     username: '',
+   })
+   const [active, setActive] = useState(false)
+   const route = useRouter()
 
    const handleSubmit = async (e) => {
      e.preventDefault()
      try {
        setActive(true)
-       if (values.password !== values.confirm_password) {
-         setError(true)
-         generateError('Password mismatched')
-         setActive(false)
-       } else {
-         const { data } = await api.post(USER_ENDPOINTS.REGISTER(), {
-           ...values,
-         })
-         setActive(false)
-         if (data.success) {
-           router.push('/auth/Login')
+       const { data } = await api.post(USER_ENDPOINTS.LOGIN(), {
+         ...values,
+       })
+       setActive(false)
+       if (data.success) {
+         localStorage.setItem('username', data.user.username)
+         localStorage.setItem('email', data.user.email)
+         localStorage.setItem('role', data.user.role)
+         localStorage.setItem('token', data.token)
+
+         if (data.user.role === USER_TYPE.ADMIN())
+           route.push('/admin/dashboard')
+         if (data.user.role === USER_TYPE.USER()) {
+           route.push('/dashboard')
          }
-         if (data.error) generateError(data.error)
        }
      } catch (error) {
+       console.log(error, 'error')
        setActive(false)
-       if (error.name) {
-         generateError('Unauthorized domain')
-       }
+
        if (error.response) {
-         generateError(error.response.data.error)
-       } else {
-         generateError('An error occurred, please try again')
+         const err = error.response.data.error
+         if (err.includes('username')) error.username = err
+
+         if (err.includes('password')) error.password = err
+         setError(err)
+         toast.error(err)
+       } else if (error.name) {
+         toast.error('unauthorised domain')
        }
      }
    }
+
+   useEffect(() => {
+     localStorage.clear()
+   }, [])
 
   return (
     <Layout>
@@ -67,7 +118,7 @@ export default function Main() {
 
             {/* <section> */}
             <form className="Avenir  xl:w-3/4" onSubmit={handleSubmit}>
-              <div className="relative w-full mb-3 ">
+              {/* <div className="relative w-full mb-3 ">
                 <input
                   type="email"
                   name="email"
@@ -79,7 +130,7 @@ export default function Main() {
                   placeholder="Email"
                   style={{ transition: 'all .15s ease' }}
                 />
-              </div>
+              </div> */}
 
               <div className="relative w-full mb-3">
                 <input
@@ -94,7 +145,7 @@ export default function Main() {
                   }}
                 />
               </div>
-              <div className="relative w-full mb-3 flex justify-between ">
+              <div className="relative w-full mb-3 fle justify-between ">
                 <div className="">
                   <input
                     type="password"
@@ -108,7 +159,7 @@ export default function Main() {
                     }}
                   />
                 </div>
-                <div className="">
+                {/* <div className="">
                   <input
                     name="confirm_password"
                     type="password"
@@ -120,7 +171,7 @@ export default function Main() {
                       setValues({ ...values, [e.target.name]: e.target.value })
                     }}
                   />
-                </div>
+                </div> */}
               </div>
 
               <div className="text-center mt-6">
@@ -130,7 +181,7 @@ export default function Main() {
                   type="submit"
                   style={{ transition: 'all .15s ease' }}
                 >
-                  Join for Free
+                  Login
                 </button>
                 <small>
                   By clicking, you agree to the Terms of Service & Privacy

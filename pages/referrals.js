@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react'
-import Image from 'next/image'
-import logo from '../public/images/PayPal-Logo.png'
-import airlink from '../public/images/solo_logo.jpeg'
 import InfoCard from '../components/admin_components/Card'
-import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded'
+// import AttachMoneyRoundedIcon from '@mui/icons-material/AttachMoneyRounded'
 import { USER_ENDPOINTS } from './api/ACTIONS.JS'
 import api from './api/darlink'
 import { toast } from 'react-toastify'
@@ -36,17 +33,23 @@ export default function Referrals() {
       <section>
         {/* <div class='flex flex-co items-center w-full max-w-screen-md p-6 pb-6 mt-10 gap-6 bg-white rounded-lg shadow-xl sm:p-8'> */}
         <div className="grid gap-6 mt-4 mb-8 md:grid-cols-2 xl:grid-cols-4 xl:w-5/6">
-          <InfoCard title="Total Balance" value="6389">
-            <AttachMoneyRoundedIcon />
+          <InfoCard title="Total Balance" value="0">
+            {/* <AttachMoneyRoundedIcon /> */}
+            <span className="text-2xl font-bold">&#8358;</span>
           </InfoCard>
-          <InfoCard title="Total Balance" value="6389">
-            <AttachMoneyRoundedIcon />
+          <InfoCard title="Total Balance" value="0">
+            <span className="text-2xl font-bold">&#8358;</span>
+            {/* <AttachMoneyRoundedIcon /> */}
+          </InfoCard>
+          <InfoCard title="Fund Wallet" value="0">
+            {/* <AttachMoneyRoundedIcon /> */}
+            <span className="text-2xl font-bold">&#8358;</span>
           </InfoCard>
         </div>
 
         {/* </div> */}
         {/* second box */}
-        <div class=" w-full max-w-screen-md p-6 pb-6 mt-10 bg-white rounded-lg shadow-xl sm:p-8">
+        {/* <div class=" w-full max-w-screen-md p-6 pb-6 mt-10 bg-white rounded-lg shadow-xl sm:p-8">
           <h1 className="text-3xl text-black py-3 font-semibold pb-8 mb-4 ">
             Affiliate Program
           </h1>
@@ -149,7 +152,7 @@ export default function Referrals() {
               (sign ups from your invite link will appear here)
             </p>
           </div>
-        </div>
+        </div> */}
       </section>
     </div>
   )

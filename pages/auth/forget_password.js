@@ -4,6 +4,7 @@ import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 export default function ForgetPassword() {
 
@@ -63,7 +64,6 @@ export default function ForgetPassword() {
 
             <div className="relative w-full mb-3">
               <input
-                // type="email"
                 className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
                    text-sm shadow focus:outline-none focus:ring w-full focus:ring-[#8BC940]"
                 placeholder="Enter email or username"
@@ -74,15 +74,6 @@ export default function ForgetPassword() {
                 name='username'
               />
             </div>
-            {/* <div className='relative w-full mb-3'>
-              <input
-                type='text'
-                className='border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
-                   text-sm shadow focus:outline-none focus:ring w-full focus:ring-[#8BC940]'
-                placeholder='username'
-                style={{ transition: 'all .15s ease' }}
-              />
-            </div> */}
 
             <div className="text-center mt-6">
               <button
@@ -95,6 +86,7 @@ export default function ForgetPassword() {
               </button>
             </div>
             <div className="text-center mt-6">
+              <Link href={'/'}>
               <button
                 className=" text-gray-300 hover:text-gray-500 active:bg-gray-700 text-sm font-bold uppercase
                    px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
@@ -103,6 +95,7 @@ export default function ForgetPassword() {
               >
                 or Go Back
               </button>
+              </Link>
             </div>
           </form>
         </section>
