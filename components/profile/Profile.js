@@ -66,8 +66,7 @@ export default function Profile() {
 
 
 
-  const [isDisabled, setDisabled] = useState(true)
-     const [active, setActive] = useState(false)
+   const [active, setActive] = useState(false)
   const[state,setState] = useState("hidden")
 
 
@@ -398,7 +397,7 @@ export default function Profile() {
                               </div>
                             </div>
                             <div>
-                              <label className=" items-center cursor-pointer ">
+                              {/* <label className=" items-center cursor-pointer ">
                                 <div className="">
                                   <label className="ml-2 text-sm font-semibold text-gray-700">
                                     Background Image
@@ -418,10 +417,10 @@ export default function Profile() {
                                     </label>
                                   </div>
                                 </div>
-                              </label>
+                              </label> */}
                             </div>
 
-                            <div className="text-center mt-6 float-right ">
+                            <div className="text-center mt-6 py-4 float-right ">
                               <button
                                 className="bg-[#8BC940]  text-white active:bg-gray-700 absolute right-0 text-sm font-bold uppercase
                        px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px] 
