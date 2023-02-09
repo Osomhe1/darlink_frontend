@@ -333,10 +333,11 @@ export default function Upgrade() {
                           <Link
                             href="#/"
                             // href="/checkout"
-                            className="text-white bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  
+                            disable
+                            className="text-white disable bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  
                   font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                           >
-                            Get started
+                            Coming Soon
                           </Link>
                         </div>
                       </ListItemText>
@@ -483,10 +484,11 @@ export default function Upgrade() {
                           <Link
                             href="#/"
                             // href="/checkout"
-                            className="text-white bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  
+                            disable
+                            className="text-white bg-[#8BC940] focus:ring-[#8BC940] disable hover:bg-[#97ff19] focus:ring-4  
                   font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                           >
-                            Get started
+                            Coming Soon
                           </Link>
                         </div>
                       </ListItemText>
@@ -633,10 +635,11 @@ export default function Upgrade() {
                           <Link
                             href="#/"
                             // href="/checkout"
-                            className="text-white bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  
+                            disable
+                            className="text-white disabled bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  
                   font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                           >
-                            Get started
+                            Coming Soon
                           </Link>
                         </div>
                       </ListItemText>

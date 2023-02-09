@@ -1,7 +1,7 @@
 import Layout from "./Layout";
 import Slide from "./Carousel";
 import { toast } from "react-toastify";
-import {USER_ENDPOINTS} from '../pages/api/ACTIONS.JS'
+import { USER_ENDPOINTS, USER_TYPE } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -181,7 +181,7 @@ export default function Main() {
                   type="submit"
                   style={{ transition: 'all .15s ease' }}
                 >
-                  Login
+                  {active ? 'Authenticating...' : 'Login'}
                 </button>
                 <small>
                   By clicking, you agree to the Terms of Service & Privacy
