@@ -92,6 +92,7 @@ export default function Profile() {
    }
  const uploadImage = (base64EncodedImage) => {
    values.profileImage= base64EncodedImage
+  
  }
  
 
@@ -298,11 +299,7 @@ export default function Profile() {
                             <div className="relative pt-8 py-8 lg:py-0 md:pt-0 ">
                               <Avatar
                                 src={
-                                  users.passportUrl ? (
-                                    users.passportUrl
-                                  ) : (
-                                    <Avatar />
-                                  )
+                                  !previewSource ? users.passportUrl : previewSource ? <Avatar /> : ''
                                 }
                                 className="shadow-md cursor-pointer 
                            rounded-full h-auto align-middle  z-[99]
@@ -330,7 +327,11 @@ export default function Profile() {
                                 type="file"
                                 onChange={handleFile}
                                 accept="image/*"
-                                value={users?.profileImage}
+                                value={
+                                  users.profileImage
+                                    ? previewSource
+                                    : users.profileImage
+                                }
                                 ref={imgRef.profileImage}
                                 name="profileImage"
                               />
