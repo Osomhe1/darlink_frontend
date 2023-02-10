@@ -64,11 +64,8 @@ export default function Profile() {
     setUsers({ ...users, [e.target.name]: e.target.value })
   }
 
-
-
-   const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false)
   const[state,setState] = useState("hidden")
-
 
   const handleFile = e => {
      const file = e.target.files[0]
@@ -122,6 +119,7 @@ export default function Profile() {
        }
       } else{
         handleData()
+        if (previewSource) uploadImage(previewSource)
         const { data } = await api.patch(PROFILE.UPDATE_USER_PROFILE(), {
           ...values,
           profileId,
@@ -149,8 +147,6 @@ export default function Profile() {
  const handleViewChange = (currentView) =>{
   setView(currentView)
  }
-
-
 
   const handleData = async () => {
     try {
@@ -299,8 +295,14 @@ export default function Profile() {
                             <div className="relative pt-8 py-8 lg:py-0 md:pt-0 ">
                               <Avatar
                                 src={
-                                  !previewSource ? users.passportUrl : previewSource ? <Avatar /> : ''
+                                  !previewSource ? 
+                                  users.passportUrl 
+                                  : previewSource 
+                                  
                                 }
+                                // src={
+                                //   !previewSource ? users.passportUrl : previewSource ? <Avatar /> : null
+                                // }
                                 className="shadow-md cursor-pointer 
                            rounded-full h-auto align-middle  z-[99]
                            border-none absolute -m-12 -ml-20 lg:-ml-6 "

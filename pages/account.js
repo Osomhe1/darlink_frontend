@@ -111,6 +111,10 @@ const handleChange = (e) => {
     AuthenticateUser();
   }, [])
 
+  const infor = UserInfo()
+  user.username = infor.username
+  user.email = infor.email
+
 
   return (
     <>
