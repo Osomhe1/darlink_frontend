@@ -52,7 +52,7 @@ const handleShow =(cur, key) => {
         <div className="">
           <div className="bg-blue-500 p-3 m-3 rounded-md  " key={key} >
             <h1 className="text-white font-semibold"> {cur.title} </h1>
-            <Link href={cur.url} target={'_blank'}>
+            <Link href={`https://${cur.url}`} target={'_blank'}>
               <button type="button"> {cur.url} </button>
             </Link>
           </div>
