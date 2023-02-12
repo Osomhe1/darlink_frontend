@@ -120,7 +120,6 @@ export default function Profile() {
       } else{
         handleData()
         if (previewSource) uploadImage(previewSource)
-        console.log(values, 'data')
         const { data } = await api.patch(PROFILE.UPDATE_USER_PROFILE(), {
           ...values,
           profileId,
@@ -134,7 +133,6 @@ export default function Profile() {
         }
       }
     } catch (error) {
-      console.log(error)
         setActive(false)
         if(error.response){
           toast.error(error.response.data.error)
