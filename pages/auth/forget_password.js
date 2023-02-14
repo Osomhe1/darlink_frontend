@@ -17,6 +17,7 @@ export default function ForgetPassword() {
   const [error, setError] = useState(false)
 
   const router = useRouter()
+  const { id } = router.query
 
    const handleSubmit = async (e) => {
      e.preventDefault()
@@ -26,14 +27,15 @@ export default function ForgetPassword() {
          params:{ 
           username:values.username,
           email: values.email,
-         }
+         } // here
          
        })
        setActive(false)
        if (data.success) {
          localStorage.setItem('email', data.user.email)
          localStorage.setItem('emailId', data.user.id)
-         router.push('/recovery')
+         localStorage.setItem('id', data.user.id)
+         router.push(`/recovery`)
         }
        if(data.error)
        toast.error(data.error)
@@ -47,6 +49,7 @@ export default function ForgetPassword() {
        } 
      }
    }
+
   return (
     <Layout>
       <div>

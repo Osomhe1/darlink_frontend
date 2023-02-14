@@ -8,7 +8,9 @@ export const USER_ENDPOINTS = {
   RESET_LOGIN: () => '/auth/reset',
   RECOVERY_MAIL: () => '/user/recovery-mail',
   CREATE_ADMIN: () => '/auth/create',
-  CHECK: ()=> '/auth/check',
+  CHECK: () => '/auth/check',
+  VERIFY_RESET: () => '/user/verify-reset',
+  RESET_PASSWORD: () => '/user/reset-password',
 }
 
 

@@ -14,12 +14,16 @@ const UserInfo =  () => {
   const url = localStorage.getItem('url')
   const colour = localStorage.getItem('colour')
   const profileId = localStorage.getItem('profileId')
+  const emailId = localStorage.getItem('emailId')
+  const id = localStorage.getItem('id')
 
  
    const infor = {
      username,
      role,
      email,
+     emailId,
+     id,
      passportUrl,
      profileId,
      button,
