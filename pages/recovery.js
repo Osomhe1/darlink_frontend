@@ -4,36 +4,50 @@ import { USER_ENDPOINTS } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
-import Router from 'next/router'
+import { UserInfo } from '../components/verify' //still hanging?
 
 export default function Recorvery() {
    
-let email,emailId;
+let email, emailId;
   const [active, setActive] = useState(false)
   const [error, setError] = useState(false)
 
-  const router = useRouter
+   const infor = UserInfo()
+  const router = useRouter()
+
+const userId = localStorage.getItem("id");
+const userEmail = localStorage.getItem("email"); 
+  console.log(userId, userEmail)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
       setActive(true)
-      const { data } = await api.post(USER_ENDPOINTS.RECOVERY_MAIL(), {
-        params: {
-          id: emailId,
-          email: email,
-        },
-      })
+      console.log(userId)
+      console.log(userEmail)
+      const { data } = await api.post(
+        USER_ENDPOINTS.RECOVERY_MAIL(),
+        {},
+        {
+          params: {
+            email: userEmail,
+            id: userId,
+          },
+        }
+      )
       setActive(false)
       if (data.success) {
         localStorage.clear('email')
         localStorage.clear('emailId')
+        localStorage.clear('id')
+        router.push(`/[id]${id}`)
         setActive(false) 
         toast.success(data.msg)
       }
       if (data.error) toast.error(data.error)
     } catch (error) {
+      console.log(error)
       setActive(false)
 
       if (error.response) {
@@ -44,11 +58,17 @@ let email,emailId;
     }
   }
 
+
+ 
+
+  console.log(infor.id)
+
   useEffect(() => {
      email= localStorage.getItem("email");
      emailId= localStorage.getItem("emailId");
-   if(!email || !emailId){
-       Router.push('/auth/forget_password')
+    //  id= localStorage.getItem("id");
+   if(!email || !emailId ){
+       router.push('/auth/forget_password')
    }
    
   }, [])
@@ -73,12 +93,11 @@ let email,emailId;
                 className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
                    text-sm shadow focus:outline-none focus:ring w-full focus:ring-[#8BC940]"
                 style={{ transition: 'all .15s ease' }}
-                value={email}
-                name="username"
+                value={infor.email}
+                name="email"
                 disabled
               />
             </div>
-           
 
             <div className="text-center mt-6">
               <button

@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../components/Layout'
-import { USER_ENDPOINTS } from '../pages/api/ACTIONS.JS'
-import api from '../pages/api/darlink'
+import Layout from '../../components/Layout'
+import { USER_ENDPOINTS } from '../api/ACTIONS.JS'
+import api from '../api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter, params } from 'next/router'
-import Router from 'next/router'
 
 export default function Reset() {
   let email, emailId
   const [active, setActive] = useState(false)
   const [error, setError] = useState(false)
-  //   let {params} = useParams()
 
-  const router = useRouter
-  // const { id } = params
+  const router = useRouter()
+  const { id } = router.query
+
+  console.log(id, 'id')
+  console.log(router, 'router')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
       setActive(true)
-      const { data } = await api.post(USER_ENDPOINTS.RECOVERY_MAIL(), {
+      // const { data } = await api.post(USER_ENDPOINTS.RECOVERY_MAIL(), {
+      const { data } = await api.get(USER_ENDPOINTS.VERIFY_RESET(), {
         params: {
           //   id: emailId,
           //   email: email,
@@ -33,7 +35,7 @@ export default function Reset() {
         // localStorage.clear('emailId')
         setActive(false)
         // router.push(`/reset/${id}`)
-        router.push(`/reset/${id}`)
+        router.push(`/reset?id=${id}`) 
         toast.success(data.msg)
       }
       if (data.error) toast.error(data.error)
@@ -48,12 +50,15 @@ export default function Reset() {
     }
   }
 
+  
+
   useEffect(() => {
     email = localStorage.getItem('email')
     emailId = localStorage.getItem('emailId')
     if (!email || !emailId) {
       Router.push('/auth/forget_password')
     }
+
   }, [])
 
   return (
