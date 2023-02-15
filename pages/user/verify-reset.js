@@ -44,7 +44,7 @@ export default function VerifyReset() {
     <Layout>
       <div>
         <section>
-            <h1 className='text-3xl text-[#8BC940] text-center h-screen '>
+            <h1 className='text-3xl m-auto w-[200px] text-[#8BC940] text-center h-screen '>
                 <svg
                           aria-hidden='true'
                           role='status'
