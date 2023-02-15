@@ -87,8 +87,8 @@ const handleChange = (e) => {
       // console.log(error)
       // console.log(error.msg)
       toast.error(error.response.data.error)
-    }}}
-  }
+    }}
+  
 
 
   useEffect(() =>{
