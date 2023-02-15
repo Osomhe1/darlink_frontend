@@ -16,7 +16,6 @@ export default function VerifyReset() {
   const router = useRouter()
 //   const { id } = router.query
 
-  console.log(id, 'id')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -24,7 +23,6 @@ export default function VerifyReset() {
 
     try {
       setActive(true)
-      // const { data } = await api.post(USER_ENDPOINTS.RECOVERY_MAIL(), {
       const { data } = await api.post(USER_ENDPOINTS.RESET_PASSWORD(), {
         ...values,
         id,
