@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import Layout from '../../components/Layout'
+import Layout from '../../../components/Layout'
 import { USER_ENDPOINTS } from '../api/ACTIONS.JS'
-import api from '../api/darlink'
+import api from '../../api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter, params } from 'next/router'
 
