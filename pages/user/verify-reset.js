@@ -51,16 +51,15 @@ export default function VerifyReset() {
   useEffect(() => {
     email = localStorage.getItem('email')
     emailId = localStorage.getItem('emailId')
-    if (!email || !emailId) {
-      router.push('/auth/forget_password')
-    }
+    // if (!email || !emailId) {
+    //   router.push('/auth/forget_password')
+    // }
   }, [])
 
   return (
     <Layout>
       <div>
         <section>
-          <h1>this is my {id}</h1>
           <form
             onSubmit={handleSubmit}
             className="Avenir  lg:w-2/5 m-3 md:w-3/5 md:m-auto lg:m-auto py-28 "
