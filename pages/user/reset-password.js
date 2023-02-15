@@ -6,16 +6,14 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 
 export default function VerifyReset() {
-  let email, emailId
   const [active, setActive] = useState(false)
   const [error, setError] = useState(false)
   const [values, setValues] = useState({
-    newPassword: ''
+    newPassword: '',
+    confirm_newPassword:'',
   })
-
+ const generateError = (err) => toast(err);
   const router = useRouter()
-//   const { id } = router.query
-
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -23,20 +21,26 @@ export default function VerifyReset() {
 
     try {
       setActive(true)
-      const { data } = await api.post(USER_ENDPOINTS.RESET_PASSWORD(), {
-        ...values,
-        id,
-      })
-      setActive(false)
-      if (data.success) {
+      if (values.newPassword !== values.confirm_newPassword) {
+        setError(true)
+        generateError('Password mismatched')
         setActive(false)
-        router.push(`/auth/Login`)
-        toast.success(data.msg)
+      } else {
+        const { data } = await api.post(USER_ENDPOINTS.RESET_PASSWORD(), {
+          ...values,
+          id,
+        })
+        setActive(false)
+        if (data.success) {
+          setActive(false)
+          router.push(`/auth/Login`)
+          toast.success(data.msg)
+        }
+        if (data.error) {
+          generateError(data.error)
+          router.push('/auth/forget_password')
+        }
       }
-      if (data.error) {
-        toast.error(data.error)
-        router.push('/auth/forget_password')
-    }
     } catch (error) {
       setActive(false)
          router.push('/auth/forget_password')
@@ -49,11 +53,7 @@ export default function VerifyReset() {
   }
 
   useEffect(() => {
-    // email = localStorage.getItem('email')
-    // emailId = localStorage.getItem('emailId')
-    // if (!email || !emailId) {
-    //   router.push('/auth/forget_password')
-    // }
+  
   }, [])
 
   return (
@@ -74,6 +74,20 @@ export default function VerifyReset() {
                   setValues({ ...values, [e.target.name]: e.target.value })
                 }}
                 placeholder="Enter your new password"
+                type='password'
+              />
+            </div>
+            <div className="relative w-full mb-3">
+              <input
+                className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
+                   text-sm shadow focus:outline-none focus:ring w-full focus:ring-[#8BC940]"
+                style={{ transition: 'all .15s ease' }}
+                name="confirm_newPassword"
+                onChange={(e) => {
+                  setValues({ ...values, [e.target.name]: e.target.value })
+                }}
+                placeholder="Confirm your new password"
+                type='password'
               />
             </div>
 

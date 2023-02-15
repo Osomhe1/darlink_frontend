@@ -4,7 +4,7 @@ import { USER_ENDPOINTS } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
-import { UserInfo } from '../components/verify' //still hanging?
+import { UserInfo } from '../components/verify' 
 
 export default function Recorvery() {
    
@@ -17,15 +17,11 @@ let email, emailId;
 
 const userId = localStorage.getItem("id");
 const userEmail = localStorage.getItem("email"); 
-  console.log(userId, userEmail)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
     try {
       setActive(true)
-      console.log(userId)
-      console.log(userEmail)
       const { data } = await api.post(
         USER_ENDPOINTS.RECOVERY_MAIL(),
         {},
@@ -47,9 +43,7 @@ const userEmail = localStorage.getItem("email");
       }
       if (data.error) toast.error(data.error)
     } catch (error) {
-      console.log(error)
       setActive(false)
-
       if (error.response) {
         const err = error.response.data.error
         setError(err)
@@ -84,10 +78,6 @@ const userEmail = localStorage.getItem("email");
             <h2 className="text-center font-bold text-3xl md:text-5xl py-5 ">
               Recover Password
             </h2>
-            {/* <p className="text-center  text  py-5 ">
-              Enter your email or username below.
-            </p> */}
-
             <div className="relative w-full mb-3">
               <input
                 className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
@@ -109,16 +99,7 @@ const userEmail = localStorage.getItem("email");
                 {active ? 'Sending...' : 'Get recoverying link'}
               </button>
             </div>
-            {/* <div className="text-center mt-6">
-              <button
-                className=" text-gray-300 hover:text-gray-500 active:bg-gray-700 text-sm font-bold uppercase
-                   px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                type="button"
-                style={{ transition: 'all .15s ease' }}
-              >
-                or Go Back
-              </button>
-            </div> */}
+            
           </form>
         </section>
       </div>

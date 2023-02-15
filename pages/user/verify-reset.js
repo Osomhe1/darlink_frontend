@@ -19,7 +19,6 @@ export default function VerifyReset() {
       })
       if (data.success) {
         localStorage.setItem('linkId', data.id)
-        toast.success(data.msg, 'Verification Successful')
         router.push(`/user/reset-password`)
       }
       if (data.error) {
@@ -44,7 +43,7 @@ export default function VerifyReset() {
     <Layout>
       <div>
         <section>
-            <h1 className='text-3xl m-auto w-[200px] text-[#8BC940] text-center h-screen '>
+            <h1 className='text-3xl py-auto my-auto text-[#8BC940] text-center h-screen '>
                 <svg
                           aria-hidden='true'
                           role='status'
