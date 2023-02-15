@@ -20,6 +20,7 @@ export default function Login() {
    })
    const [active, setActive] = useState(false)
    const route = useRouter()
+   const [isLoading, setIsLoading] = useState(false)
 
   //  const userContext = useContext(UserContext)
 
@@ -43,10 +44,10 @@ export default function Login() {
           route.push('/dashboard')
         }
        }
-     } catch (error) { 
+     } catch (error) {
       setActive(false)
-       if(error.name.toLowerCase() === "axioserror"){
-        toast.error(error.message);
+       if(error.name){
+        toast.error("Unauthorized domain");
        }else{
 
          if (error.response) {

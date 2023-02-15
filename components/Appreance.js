@@ -10,6 +10,7 @@ import { Typography } from '@mui/material'
 import { useState } from 'react'
 import  api from '../pages/api/darlink'
 import { APPREANCE } from '../pages/api/ACTIONS.JS'
+import { toast } from 'react-toastify'
 
 
 
@@ -22,6 +23,7 @@ export default function Appreance() {
     data:'',
     iconImage:'',
   })
+  const [active, setActive] = useState(false)
 
   const appreances = []
 
@@ -50,14 +52,17 @@ handleSubmit();
 
    const handleSubmit = async () => {
      try {
+      setActive(true)
          const { data } = await api.post(APPREANCE.ADD_APPREANCE(), {
            ...values,
          })
+         setActive(false)
          if (data.success) {
            router.push('/dashboard')
          
        }
      } catch (error) {
+      setActive(false)
        console.log(error)
        console.log(error.msg)
      }
@@ -332,8 +337,9 @@ handleData()
                        bottom-0 "
                           type="submit"
                           style={{ transition: 'all .15s ease' }}
+                          disabled={active}
                         >
-                          save
+                          {active ? 'Saving...' : 'Save'}
                         </button>
                       </div>
                     </form>

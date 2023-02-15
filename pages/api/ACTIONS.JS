@@ -61,3 +61,9 @@ export const USER = {
   GET_VERIFY: () => '/user/verify',
   DELETE_ACC: () => '/user/account',
 }
+
+export const GET_USERS = {
+  GET_USER: () => '/auth/users',
+  DELETE_ACC: () => '/auth/user',
+}
+

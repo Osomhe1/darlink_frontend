@@ -23,6 +23,7 @@ export default function Account() {
   })
 
   const [isDisabled, setDisabled] = useState(true)
+  const [active, setActive] = useState(false)
 
   const [error, setError] = useState('')
   const router = useRouter()
@@ -43,20 +44,22 @@ const handleChange = (e) => {
   const handleEditUser = async (e) => {
     e.preventDefault()
     try { 
+      setActive(true)
         const { data } = await api.patch(USER.UPDATE_USER_INFO(), {
           username:usernameRef.current.value,
           email:emailRef.current.value
         })
-        if (data.success) {      
-          toast.success(data.msg);   
+
+        setActive(false)
+        if (data.success) {         
           router.push('/accounts')
         } 
-    } catch (error) { 
-      if(error.response){
-        generateError(error.response.data.error);
-      }else if(error.name.toLowerCase() === "axioserror"){
-        generateError(error.message);
-      }
+    } catch (error) {
+      // console.log(error)
+      // console.log(error.msg)
+      setActive(false)
+      toast.error(error.response.data.error)
+
     }
   }
   const handleSubmit = async (e) => {
@@ -67,10 +70,11 @@ const handleChange = (e) => {
         setError(true)
         generateError("Password mismatched")
       }else{
+        setActive(true)
         const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
           ...values,
         })
-         
+        
         if (data.success) {
           toast.success(data.msg)
           formRef.current?.reset()
@@ -78,14 +82,13 @@ const handleChange = (e) => {
           router.push('/accounts')
         } 
       }
+
+    } catch (error) {
       setActive(false)
-    } catch (error) { 
-      if(error.response){
-        generateError(error.response.data.error);
-      }else if(error.name.toLowerCase() === "axioserror"){
-        generateError(error.message);
-      }
-    }
+      // console.log(error)
+      // console.log(error.msg)
+      toast.error(error.response.data.error)
+    }}}
   }
 
 
@@ -110,7 +113,7 @@ const handleChange = (e) => {
     <>
       <div>
         <div>
-          <div className="-mt-5 md:-mt-24 xl:w-5/6">
+          <div className="-mt-5 md:-mt-24 xl:w-5/6 ml-20 md:ml-0">
             <div className="">
               <h1 className="text-[#8BC940] font-semibold text-3xl">Account</h1>
               <div className=""></div>
@@ -206,8 +209,9 @@ const handleChange = (e) => {
                        bottom-0 "
                       type="submit"
                       style={{ transition: 'all .15s ease' }}
+                      disabled={active}
                     >
-                      save
+                      {active ? 'Saving...' : 'Save'}
                     </button>
                   </div>
                 </form>
@@ -258,8 +262,9 @@ const handleChange = (e) => {
                        bottom-0 "
                         type="button"
                         style={{ transition: 'all .15s ease' }}
+                        disabled={active}
                       >
-                        save
+                        {active ? 'Saving...' : 'Save'}
                       </button>
                     </div>
                   </div>
@@ -354,6 +359,7 @@ const handleChange = (e) => {
                       disabled={active}
                     >
                      {active ? "saving..." : "save"} 
+
                     </button>
                   </div>
                 </form>
@@ -361,9 +367,7 @@ const handleChange = (e) => {
             </div>
             <div className="flex justify-between py-16 bottom-1   xl:w-5/6 -mb-8 ">
               <div className="">
-                <p
-                  className="text-red-600 cursor-pointer underline"
-                >
+                <p className="text-red-600 cursor-pointer underline">
                   <DeleteModal />
                 </p>
               </div>
