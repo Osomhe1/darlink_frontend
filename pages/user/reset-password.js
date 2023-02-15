@@ -9,6 +9,9 @@ export default function VerifyReset() {
   let email, emailId
   const [active, setActive] = useState(false)
   const [error, setError] = useState(false)
+  const [values, setValues] = useState({
+    newPassword: ''
+  })
 
   const router = useRouter()
   const { id } = router.query
@@ -21,25 +24,23 @@ export default function VerifyReset() {
     try {
       setActive(true)
       // const { data } = await api.post(USER_ENDPOINTS.RECOVERY_MAIL(), {
-      const { data } = await api.get(USER_ENDPOINTS.VERIFY_RESET(), {
-        params: {
-          //   id: emailId,
-          //   email: email,
-          // id
-        },
+      const { data } = await api.post(USER_ENDPOINTS.RESET_PASSWORD(), {
+        ...values,
+        id,
       })
       setActive(false)
       if (data.success) {
         setActive(false)
-        // router.push(`/reset/${id}`)
-        // router.push(`/reset?id=${id}`)
-        router.push(`/verify-reset/[id]`)
+        router.push(`/auth/Login`)
         toast.success(data.msg)
       }
-      if (data.error) toast.error(data.error)
+      if (data.error) {
+        toast.error(data.error)
+        router.push('/auth/forget_password')
+    }
     } catch (error) {
       setActive(false)
-
+         router.push('/auth/forget_password')
       if (error.response) {
         const err = error.response.data.error
         setError(err)
@@ -49,8 +50,8 @@ export default function VerifyReset() {
   }
 
   useEffect(() => {
-    email = localStorage.getItem('email')
-    emailId = localStorage.getItem('emailId')
+    // email = localStorage.getItem('email')
+    // emailId = localStorage.getItem('emailId')
     // if (!email || !emailId) {
     //   router.push('/auth/forget_password')
     // }
@@ -69,8 +70,11 @@ export default function VerifyReset() {
                 className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
                    text-sm shadow focus:outline-none focus:ring w-full focus:ring-[#8BC940]"
                 style={{ transition: 'all .15s ease' }}
-                value={email}
-                name="username"
+                name="newPassword"
+                onChange={(e) => {
+                  setValues({ ...values, [e.target.name]: e.target.value })
+                }}
+                placeholder="Enter your new password"
               />
             </div>
 
@@ -81,7 +85,7 @@ export default function VerifyReset() {
                 type="submit"
                 style={{ transition: 'all .15s ease' }}
               >
-                {active ? 'Sending...' : 'Get recoverying link'}
+                {active ? 'Reseting...' : 'Reset'}
               </button>
             </div>
           </form>
