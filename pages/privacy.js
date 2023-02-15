@@ -23,7 +23,7 @@ export default function Privacy() {
                   Overview
                 </h2>
                 <p className='py-4'>
-                  Our solo.to web platform, herein referred to as the
+                  Our darlink.to web platform, herein referred to as the
                   “Platform”, provides a digital web service allowing users to
                   share curated links and content on their own personalized
                   pages. Our Privacy Policy informs both users and visitors of
@@ -31,7 +31,7 @@ export default function Privacy() {
                   personal information for anyone accessing the Platform.
                 </p>
                 <p className='py-4'>
-                  Our solo.to web platform, herein referred to as the
+                  Our darlink.to web platform, herein referred to as the
                   “Platform”, provides a digital web service allowing users to
                   share curated links and content on their own personalized
                   pages. Our Privacy Policy informs both users and visitors of

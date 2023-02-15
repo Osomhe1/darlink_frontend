@@ -2,7 +2,6 @@ import React from 'react'
 import DesktopSidebar from '../../components/admin_components/admin_sidebar/DesktopSidebar'
 import MobileSidebar from '../../components/admin_components/admin_sidebar/MobileSidebar'
 import Wallets from './adminPages/wallets'
-// import Analytics from './analytic'
 
 export default function Dashboard({}) {
   return (

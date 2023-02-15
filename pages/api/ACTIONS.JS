@@ -8,7 +8,9 @@ export const USER_ENDPOINTS = {
   RESET_LOGIN: () => '/auth/reset',
   RECOVERY_MAIL: () => '/user/recovery-mail',
   CREATE_ADMIN: () => '/auth/create',
-  CHECK: ()=> '/auth/check',
+  CHECK: () => '/auth/check',
+  VERIFY_RESET: () => '/user/verify-reset',
+  RESET_PASSWORD: () => '/user/reset-password',
 }
 
 
@@ -29,6 +31,7 @@ export const PROFILE = {
   ADMIN_PROFILE: () => '/user/profiles',
   USER_PROFILE: () => '/user/profile',
   CREATE_USER_PROFILE: () => '/user/profile',
+  UPDATE_USER_PROFILE: () => '/user/profile',
 }
 
 export const LINK = {
@@ -41,6 +44,7 @@ export const BUTTONS = {
   ADD_BUTTON: () => '/user/button',
   GET_BUTTON: () => '/user/button',
   DELETE_BUTTON: () => '/user/button',
+  UPDATE_BUTTON: () => '/user/button',
 }
 
 export const APPREANCE = {
@@ -61,3 +65,9 @@ export const USER = {
   GET_VERIFY: () => '/user/verify',
   DELETE_ACC: () => '/user/account',
 }
+
+export const GET_USERS = {
+  GET_USER: () => '/auth/users',
+  DELETE_ACC: () => '/auth/user',
+}
+

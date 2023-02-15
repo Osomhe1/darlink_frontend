@@ -4,6 +4,7 @@ import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import Layout from '../../components/Layout'
 import api from '../../pages/api/darlink'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 
 export default function SignUp() {
   const [values, setValues] = useState({
@@ -14,25 +15,37 @@ export default function SignUp() {
   })
   const [error, setError] = useState('')
   const router = useRouter()
-
+  const [active, setActive] = useState(false);
+  const generateError = (err) => toast(err);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setActive(true);
       if(values.password !== values.confirm_password){
         setError(true)
+        generateError("Password mismatched");
+        setActive(false);
       }else{
         const {data} = await api.post(USER_ENDPOINTS.REGISTER(),{
           ...values,
         })
+        setActive(false);
         if(data.success){
           router.push('/auth/Login')
-        }else{
-
-        }
+        } 
+        if(data.error)
+        generateError(data.error);
       }
     } catch (error) {
-      // console.log(error);
-      // console.log(error.msg);
+      setActive(false);
+      if(error.name){
+        generateError("Unauthorized domain");
+      }
+      if(error.response){
+        generateError(error.response.data.error);
+      }else{
+        generateError("An error occurred, please try again");
+      }
     }
   }
   return (
@@ -41,7 +54,6 @@ export default function SignUp() {
         <section>
           <form
             onSubmit={ handleSubmit}
-            // onSubmit={(e) => handleSubmit(e)}
             className='Avenir  lg:w-2/5 m-3 md:w-3/5 md:m-auto lg:m-auto  py-28 '
           >
             <h2 className='text-center font-bold text-3xl md:text-5xl py-5 '>
@@ -59,7 +71,6 @@ export default function SignUp() {
                 placeholder='UserName'
                 style={{ transition: 'all .15s ease' }}
               />
-              {/* <small>hey</small> */}
             </div>
 
             <div className='relative w-full mb-3'>
@@ -74,7 +85,6 @@ export default function SignUp() {
                 placeholder='Email'
                 style={{ transition: 'all .15s ease' }}
               />
-              {/* <small>hey</small> */}
             </div>
             <div className='relative w-full mb-3 md:flex justify-between md:space-x-4 '>
               <div className='w-full'>
@@ -89,7 +99,6 @@ export default function SignUp() {
                   placeholder='Password'
                   style={{ transition: 'all .15s ease' }}
                 />
-                {/* <small>hey</small> */}
               </div>
               <div className='w-full my-3 md:m-0'>
                 <input
@@ -103,7 +112,6 @@ export default function SignUp() {
                   placeholder='Confirm Password'
                   style={{ transition: 'all .15s ease' }}
                 />
-                {/* <small>hey</small> */}
               </div>
             </div>
 
@@ -117,10 +125,9 @@ export default function SignUp() {
                    px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full'
                 type='submit'
                 style={{ transition: 'all .15s ease' }}
+                disabled={active}
               >
-                {/* Join for Free */}
-                {/* <Link href='/auth/Login'>Sign Up</Link> */}
-                Sign Up
+                {active ? "Processing...": "Sign Up"}
               </button>
             </div>
             <div className='text-center mt-6'>

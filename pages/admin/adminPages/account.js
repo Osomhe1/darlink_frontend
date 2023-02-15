@@ -1,12 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
-import api from '../pages/api/darlink'
-import { USER_ENDPOINTS } from '../pages/api/ACTIONS.JS'
+import React, {  useEffect, useRef, useState } from 'react'
+import api from '../../api/darlink'
+import { USER_ENDPOINTS } from '../../api/ACTIONS.JS'
 import {useRouter} from 'next/router'
-import { USER } from './api/ACTIONS.JS'
-import {UserInfo} from '../components/verify'
-import DeleteModal from '../components/DeleteModal'
+import { USER } from '../../api/ACTIONS.JS'
+import UserInfo from '../../../components/verify'
+import DeleteModal from '../../../components/DeleteModal'
 import { toast } from 'react-toastify'
-import { ResetUser } from '../context/context'
+import { ResetUser } from '../../../context/context'
 
 
 export default function Account() {
@@ -56,15 +56,15 @@ const handleChange = (e) => {
         } 
     } catch (error) {
       setActive(false)
-      if(error.response){
-        if (error.response.status === 401) {
-          toast.error(error.response.data.error)
-          ResetUser()
-          router.push('/auth/Login')
-        }
+      toast.error(error.response.data.error)
+      if (error.response.status === 401) {
+        // toast.error(error.response.data.error)
+        ResetUser()
+        router.push('/auth/Login')
       }
     }
   }
+  
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -84,12 +84,11 @@ const handleChange = (e) => {
       }
     } catch (error) {
       setActive(false)
-      if(error.response){
-        if (error.response.status === 401) {
-          toast.error(error.response.data.error)
-          ResetUser()
-          router.push('/auth/Login')
-        }
+      toast.error(error.response.data.error)
+      if (error.response.status === 401) {
+        // toast.error(error.response.data.error)
+        ResetUser()
+        router.push('/auth/Login')
       }
     }
   }
@@ -110,10 +109,6 @@ const handleChange = (e) => {
     user.email = infor.email
     AuthenticateUser();
   }, [])
-
-  const infor = UserInfo()
-  user.username = infor.username
-  user.email = infor.email
 
 
   return (
@@ -182,6 +177,7 @@ const handleChange = (e) => {
                             xmlns="http://www.w3.org/2000/svg"
                             className="h-5 w-4"
                             viewBox="0 0 20 20"
+                            //   fill='currentColor'
                             fill="#8BC940 "
                           >
                             <path
@@ -257,7 +253,7 @@ const handleChange = (e) => {
                         className="border-0 px-3 py-5 focus:ring-[#8BC940]  placeholder-gray-400 text-gray-700 bg-gray-50 rounded
                          text-sm shadow focus:outline-none focus:ring w-full"
                         placeholder="USERNAME"
-                        value="darlink"
+                        value="airlink"
                         style={{ transition: 'all .15s ease' }}
                       />
                     </div>
@@ -350,9 +346,9 @@ const handleChange = (e) => {
                     </div>
                   </div>
                   <div className="border inline-block">
-                    {/* <p className="p-1 mx-4 text-[#8BC940] font-normal text-sm">
+                    <p className="p-1 mx-4 text-[#8BC940] font-normal text-sm">
                       Enable Two-Factor Authentication
-                    </p> */}
+                    </p>
                   </div>
 
                   <div className="text-center  mt-6 float- items-end ">

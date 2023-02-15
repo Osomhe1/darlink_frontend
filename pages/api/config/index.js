@@ -2,7 +2,7 @@ import CONFIG from "./env";
 
 const config = {
    API:()=>`${CONFIG.baseUrl()}/api/v1`,   
-    LOCAL_API:()=>`${CONFIG.localUrl()}:${CONFIG.port()}/api/v1`,  
+    LOCAL_API:()=>`${'http://localhost'}:${CONFIG.port()}/api/v1`,  
 }
 
 const getConfig = () =>{
@@ -11,6 +11,3 @@ const getConfig = () =>{
     //one of the two lines of codes must be uncommented.
 }
 export default getConfig;
-
-// darlink.to
-// www.darlink.to

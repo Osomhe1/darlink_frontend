@@ -1,24 +1,40 @@
 import React, { useState } from 'react'
-import { Button } from '@mui/material'
-import { USER } from '../pages/api/ACTIONS.JS'
-import api from '../pages/api/darlink'
+import api from '../../pages/api/darlink'
 import { toast } from 'react-toastify'
+import { GET_USERS } from '../../pages/api/ACTIONS.JS'
 import { useRouter } from 'next/router'
+
 
 
 export default function DeleteModal() {
   const [showModal, setShowModal] = useState(false)
    const router = useRouter()
 
+
    const handleDeleteAcc = async () => {
     setShowModal(false)
      try {
-       const { data } = await api.delete(USER.DELETE_ACC(), {})
-         if (data.success) {
-           router.push('/auth/Login')
-       }
+     const userId = localStorage.getItem('accountId')
+     console.log(userId, 'id')
+       const { data } = await api.delete(GET_USERS.DELETE_ACC(), {
+      
+      params:{
+        userId
+      } })
+       if (data.success)
+         //todo
+         //populate UI
+         // setUser(data.profile)
+         toast.success('user successful deleted')
      } catch (error) {
-       toast.error(error.response.data.error)
+      if(error.response){
+
+        toast.error(error.response.data.error)
+        if (error.response.status === 401) {
+           ResetUser()
+           router.push('/auth/Login')
+        }
+      }
      }
    }
 
@@ -41,7 +57,7 @@ export default function DeleteModal() {
               <div className="border-0 rounded-lg shadow-4xl relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <p className="p-6 flex-auto m-auto">Confirm delete account</p>
                 <div className="flex items-center justify-between p-6 border-t border-solid border-slate-200 rounded-b">
-                  <Button
+                  <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => handleDeleteAcc()}
@@ -49,8 +65,8 @@ export default function DeleteModal() {
                     value="yes"
                   >
                     Yes
-                  </Button>
-                  <Button
+                  </button>
+                  <button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={() => setShowModal(false)}
@@ -58,7 +74,7 @@ export default function DeleteModal() {
                     value="no"
                   >
                     No
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>

@@ -71,14 +71,14 @@ export default function Header() {
                   Pricing
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link
                   className='font-medium text-gray-600 hover:text-gray-900 px-5 py-1 flex items-center transition duration-150 ease-in-out'
                   href='/portals'
                 >
                   NFC Portals
                 </Link>
-              </li>
+              </li> */}
               <li className='py-1 md:py-0'>
                 <Link
                   className='inline-flex items-center px-4 py-2 mt-2 font-medium text-[#8BC940] transition

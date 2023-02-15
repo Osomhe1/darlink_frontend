@@ -1,12 +1,10 @@
-
-
 import React from 'react'
 import Link from 'next/link'
-import Layout from '../../components/Layout'
+// import Layout from '../../components/Layout'
 
-export default function Price() {
+export default function Payment() {
   return (
-    <Layout>
+    // <Layout>
       <div>
         {/* <!-- Start block --> */}
         <section className="bg-white dark:bg-gray-900">
@@ -126,7 +124,7 @@ export default function Price() {
                   </li>
                 </ul>
                 <Link
-                  href="/auth/SignUp"
+                  href="/checkout"
                   className="text-white bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                 >
                   Get started
@@ -474,7 +472,6 @@ export default function Price() {
         </section>
         {/* <!-- End block --> */}
       </div>
-    </Layout>
+    // </Layout>
   )
 }
-

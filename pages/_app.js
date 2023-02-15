@@ -6,6 +6,8 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import Context from '../context/context'
+import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from 'react-toastify'
 
 
 function MyApp({ Component, pageProps }) {
@@ -17,19 +19,26 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-
     <>
       {!loading ? (
         <React.Fragment>
           <LoadingScreen />
         </React.Fragment>
       ) : (
-        
         <Context>
-
           <Component {...pageProps} />
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </Context>
-
       )}
     </>
   )

@@ -10,21 +10,21 @@ import { Typography } from '@mui/material'
 import { useState } from 'react'
 import  api from '../pages/api/darlink'
 import { APPREANCE } from '../pages/api/ACTIONS.JS'
-
+import { useRouter } from 'next/router'
+import { ResetUser } from '../context/context'
 
 
 export default function Appreance() {
 
   const [open, setOpen] = useState(false)
-
   const [values, setValues] = useState({
     type:'',
     data:'',
     iconImage:'',
   })
-
+  const [active, setActive] = useState(false)
+   const router = useRouter()
   const appreances = []
-
 
   const handleClick = () => {
     setOpen(!open)
@@ -50,16 +50,21 @@ handleSubmit();
 
    const handleSubmit = async () => {
      try {
+      setActive(true)
          const { data } = await api.post(APPREANCE.ADD_APPREANCE(), {
            ...values,
          })
+         setActive(false)
          if (data.success) {
            router.push('/dashboard')
          
        }
      } catch (error) {
-       console.log(error)
-       console.log(error.msg)
+      setActive(false)
+      if (error.response.status === 401) {
+        ResetUser()
+        router.push('/auth/Login')
+      }
      }
    }
 
@@ -75,8 +80,12 @@ handleSubmit();
          
        }
      } catch (error) {
-      //  console.log(error)
-      //  console.log(error.msg)
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/auth/Login')
+        }
+      }
      }
    }
 
@@ -149,7 +158,7 @@ handleData()
                           >
                             Roboto Mono
                           </button>
-                          ? indicator :
+                          
                           <button
                             value={'Maitree'}
                             name={'font'}
@@ -331,8 +340,9 @@ handleData()
                        bottom-0 "
                           type="submit"
                           style={{ transition: 'all .15s ease' }}
+                          disabled={active}
                         >
-                          save
+                          {active ? 'Saving...' : 'Save'}
                         </button>
                       </div>
                     </form>

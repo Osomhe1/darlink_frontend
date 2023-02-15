@@ -1,30 +1,28 @@
 import React,{useEffect, useState} from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
-import pic from '../../public/images/team-2-800x800.jpg'
 import {FaPager} from 'react-icons/fa'
 import {MdOutlineLogout} from 'react-icons/md'
 import { IoMdContacts } from 'react-icons/io'
 import { SiSimpleanalytics } from 'react-icons/si'
 import { RiAccountBoxFill } from 'react-icons/ri'
-import {Modal} from '../Modal'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
 import {  useRouter } from 'next/router'
-import UserInfo from '../verify'
+import {UserInfo} from '../verify'
 import Avatar from '@mui/material/Avatar'
-import { Box } from '@mui/material'
+import { toast } from 'react-toastify'
+import { ResetUser } from '../../context/context'
 
 
-
+let imageUrl ;
+export const reload = () =>{
+      imageUrl = UserInfo().passportUrl?UserInfo().passportUrl:null;
+      console.log(imageUrl,"imagedta")
+        }
 export default function Sidebar() {
 
-   const [showModal, setShowModal] = useState(false)
-   const [loggedin, setLoggedin] = useState(true)
+     const [url, setUrl] = useState("");
 
-   const showtheModal = () => {
-     setShowModal(!showModal)
-   }
    const router = useRouter()
 
     const handleLogout = async (e) => {
@@ -35,13 +33,19 @@ export default function Sidebar() {
             router.push('/auth/Login')
           }       
       } catch (error) {
-        // console.log(error)
-        // console.log(error.msg)
+        if(error.response){
+
+          toast.error(error.response.data.error)
+          if (error.response.status === 401) {
+            toast.error(error.response.data.error)
+            ResetUser()
+          }
+        }
+        
       }
     }
-
+    
     useEffect(() =>{
-      UserInfo()
       const AuthenticateUser = async () => {
         try {
           const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
@@ -50,8 +54,9 @@ export default function Sidebar() {
           router.push('/auth/Login')
         }
       }
-
+      setUrl(imageUrl)
       AuthenticateUser();
+      reload()
     }, [])
 
   return (
@@ -69,18 +74,11 @@ export default function Sidebar() {
             {/* Brand */}
 
             <div className="mt-5">
-              <Box
-                component="img"
-                alt="..."
-                src={
-                  UserInfo().passportUrl ? (
-                    UserInfo().passportUrl
-                  ) : (
-                    <Avatar src="/broken-image.jpg" />
-                  )
-                }
+              <Avatar
+                src={url ? url : <Avatar />}
                 className=" h-auto  rounded-full align-middle  border-none shadow-xl   "
-                style={{ maxWidth: '150px' }}
+                sx={{ width: 200, height: 200 }}
+                style={{ maxWidth: '200px', maxHeight: '200' }}
                 height={100}
                 width={100}
               />
@@ -89,9 +87,7 @@ export default function Sidebar() {
             <div>
               {/* Navigation */}
               <div className="py-10">
-                <ul
-                // className='md:flex-col md:min-w-full flex flex-col list-none  '
-                >
+                <ul>
                   <li className="items-center hover:bg-gray-200 ">
                     <Link
                       className="text-[#8BC940]  hover:text-[#8BC940] flex  gap-2 items-center text-xs uppercase py-3 font-bold "
@@ -101,11 +97,19 @@ export default function Sidebar() {
                       My Page
                     </Link>
                   </li>
+                  <li className="items-center hover:bg-gray-200">
+                    <Link
+                      className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
+                      href="/upgrade"
+                    >
+                      <i className="fas fa-tools text-blueGray-300 mr-2 text-sm"></i>{' '}
+                      Upgrade
+                    </Link>
+                  </li>
 
                   <li className="items-center hover:bg-gray-200">
                     <Link
                       className="text-blueGray-700 hover:text-blueGray-500 text-xs flex  gap-2 items-center uppercase py-3 font-bold "
-                      // href='/analytics'
                       href="/analyticses"
                     >
                       <SiSimpleanalytics className="text-2xl" />
@@ -116,7 +120,6 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <Link
                       className="text-blueGray-700 flex  gap-2 items-center hover:text-blueGray-500 text-xs uppercase py-3 font-bold "
-                      // href='/referrals'
                       href="/wallet"
                     >
                       <IoMdContacts className="text-2xl" />
@@ -127,7 +130,6 @@ export default function Sidebar() {
                   <li className="items-center hover:bg-gray-200">
                     <Link
                       className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold flex  gap-2 items-center"
-                      // href='/account'
                       href="/accounts"
                     >
                       <RiAccountBoxFill className="text-2xl" />
@@ -136,7 +138,6 @@ export default function Sidebar() {
                   </li>
 
                   <li className="items-center hover:bg-gray-200">
-                   
                     <button
                       type="submit"
                       onClick={handleLogout}
@@ -145,18 +146,8 @@ export default function Sidebar() {
                       <MdOutlineLogout className="text-2xl" />
                       Log Out
                     </button>
-                    {/* </Link> */}
                   </li>
 
-                  <li className="items-center hover:bg-gray-200">
-                    <button
-                      className="text-blueGray-300 text-xs uppercase py-3 font-bold block"
-                      href="/upgrade"
-                    >
-                      <i className="fas fa-tools text-blueGray-300 mr-2 text-sm"></i>{' '}
-                      Upgrade
-                    </button>
-                  </li>
                 </ul>
               </div>
             </div>

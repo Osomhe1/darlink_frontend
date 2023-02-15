@@ -5,29 +5,15 @@ import { Button } from '@mui/material'
 
 export default function Modal() {
   const [showModal, setShowModal] = useState(false)
-  const [color, setColor] = useState('#b32aa9')
+  const [colour, setColour] = useState('#b32aa9')
 
-  //  const handleSubmit = async (e) => {
-  //    e.preventDefault()
-  //    try {
-  //      if (values.newPassword !== values.cornfirm_newPassword) {
-  //        setError(true)
-  //      } else {
-  //        const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
-  //          ...values,
-  //        })
-  //        console.log(values, 'values')
-  //        if (data.success) {
-  //          formRef.current?.reset()
-  //          clearData()
-  //          router.push('/accounts')
-  //        }
-  //      }
-  //    } catch (error) {
-  //      console.log(error)
-  //      console.log(error.msg)
-  //    }
-  //  }
+
+  const handleSelect = ()=>{
+    localStorage.setItem('colour', colour)
+    setShowModal(false)
+
+  }
+
 
   return (
     <>
@@ -49,19 +35,22 @@ export default function Modal() {
               <div className="border-0 rounded-lg shadow-4xl relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 {/*body*/}
                 <div className="relative p-6 flex-auto m-auto">
-                  <HexColorPicker color={color} onChange={setColor} />
-                  <div className="value" style={{ borderLeftColor: color }}>
-                    Current color is {color}
+                  <HexColorPicker color={colour} onChange={setColour} />
+                  <div className="value" style={{ borderLeftColor: colour }}>
+                    Current color is {colour}
                   </div>
                 </div>
                 <div className="flex flex-row-reverse gap-4">
-                  <Button color="secondary" onClick={() => setColor('#c6ad23')}>
+                  <Button
+                    color="secondary"
+                    onClick={() => setColour('#c6ad23')}
+                  >
                     Choose purple
                   </Button>
-                  <Button color="success" onClick={() => setColor('#556b2f')}>
+                  <Button color="success" onClick={() => setColour('#556b2f')}>
                     Choose green
                   </Button>
-                  <Button color="primary" onClick={() => setColor('#207bd7')}>
+                  <Button color="primary" onClick={() => setColour('#207bd7')}>
                     Choose blue
                   </Button>
                 </div>
@@ -70,9 +59,9 @@ export default function Modal() {
                   <Button
                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => handleSelect()}
                   >
-                    Save Changes
+                    Select
                   </Button>
                 </div>
               </div>

@@ -2,7 +2,6 @@ import Head from "next/head";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { NextSeo } from "next-seo";
-// import Link from "next/link";
 import Link from 'next/link'
 
 
@@ -10,11 +9,11 @@ export default function Contact() {
   return (
     <div className='text-black'>
       <NextSeo
-        title='404: nine4'
+        title='404: darlink'
         description='404 page for all our missing pages'
-        canonical='https://nine4-2.vercel.app/404'
+        canonical='https://darlink.to/404'
         openGraph={{
-          url: 'https://nine4-2.vercel.app/404',
+          url: 'https://darlink.to/404',
         }}
       />
       <Head>

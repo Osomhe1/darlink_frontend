@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
@@ -9,7 +9,8 @@ import { Box, Button, Typography } from '@mui/material'
 import { LINK } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import {useRouter} from 'next/router'
-import { UserContext } from '../context/context'
+import { ResetUser } from '../context/context'
+import { toast } from 'react-toastify'
 
 export default function Link() {
 
@@ -20,13 +21,10 @@ export default function Link() {
     title: '',
     theme: '',
     subtitle: '',
-    // type: '',
     dataFile: '',
   })
   const router = useRouter()
-  const { Logout } = useContext(UserContext)
-
-
+  const [active, setActive] = useState(false)
   const handleClick = () => {
     setOpen(!open)
   }
@@ -37,20 +35,21 @@ export default function Link() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      setActive(true)
       const { data } = await api.post(LINK.ADD_LINK(), {
         ...values, type:"link"
       })
-     
+     setActive(false)
       if (data.success) {
         router.push('/dashboard')
-        
-      } else {
-      }
+      } 
     } catch (error) {
-      // console.log(error)
-      // console.log(error.msg)
-      if (error.response.status === 401) {
-        Logout()
+      setActive(false)
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/auth/Login')
+        }
       }
     }
   }
@@ -67,11 +66,14 @@ export default function Link() {
        }
      } catch (error) {
       //  console.log(error.response.data.error)
+      toast.error(error.response.data.error)
      }
    }
 
+ 
+
    useEffect(() => {
-     handleData()
+    //  handleData()  
    }, [])
 
   return (
@@ -155,70 +157,66 @@ export default function Link() {
                                   New Link{' '}
                                 </span>
                               </label>
-                              <Collapse
-                                in={open2}
-                                timeout="auto"
-                                unmountOnExit
-                              >
-
-                              <Box className="py-2">
-                                <label htmlFor="url">URL</label>
-                                <input
-                                  type="link"
-                                  id="links"
-                                  placeholder="no links or embles"
-                                  className="bg-gray-50  text-center   border-gray-300 text-gray-900 text-sm 
+                              <Collapse in={open2} timeout="auto" unmountOnExit>
+                                <Box className="py-2">
+                                  <label htmlFor="url">URL</label>
+                                  <input
+                                    type="link"
+                                    id="links"
+                                    placeholder="no links or embles"
+                                    className="bg-gray-50  text-center   border-gray-300 text-gray-900 text-sm 
                           rounded-lg focus:ring-[#8BC940] focus:border-[#8BC940] block w-full p-2.5 py-5
                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
                             dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                  required
-                                  name="url"
-                                  onChange={(e) => {
-                                    setValues({
-                                      ...values,
-                                      [e.target.name]: e.target.value,
-                                    })
-                                  }}
-                                />
-                              </Box>
-                              <Box className="py-2">
-                                <label className="" htmlFor="title">
-                                  TITLE
-                                </label>
-                                <input
-                                  type="text"
-                                  id="links2"
-                                  placeholder="no links or embles"
-                                  className="bg-gray-50  text-center  border-gray-300 text-gray-900 text-sm 
+                                    required
+                                    name="url"
+                                    onChange={(e) => {
+                                      setValues({
+                                        ...values,
+                                        [e.target.name]: e.target.value,
+                                      })
+                                    }}
+                                  />
+                                </Box>
+                                <Box className="py-2">
+                                  <label className="" htmlFor="title">
+                                    TITLE
+                                  </label>
+                                  <input
+                                    type="text"
+                                    id="links2"
+                                    placeholder="no links or embles"
+                                    className="bg-gray-50  text-center  border-gray-300 text-gray-900 text-sm 
                           rounded-lg focus:ring-[#8BC940] focus:border-[#8BC940] block w-full p-2.5 py-5
                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400
                             dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                  required
-                                  name="title"
-                                  onChange={(e) => {
-                                    setValues({
-                                      ...values,
-                                      [e.target.name]: e.target.value,
-                                    })
-                                  }}
-                                />
-                              </Box>
-                            <div className="flex justify-between mt-4 py-6">
-                              <button
-                                color="error"
-                                className="text-red-500 text-lg w-[150px] border-2 p-2 border-red-500"
-                                variant="outlined"
-                                onClick={handleDelete}
-                              >
-                                Delete
-                              </button>
-                              <Button
-                                className=" text-lg w-[150px] border-2 p-2 "
-                                variant="outlined"
-                              >
-                                Done
-                              </Button>
-                            </div>
+                                    required
+                                    name="title"
+                                    onChange={(e) => {
+                                      setValues({
+                                        ...values,
+                                        [e.target.name]: e.target.value,
+                                      })
+                                    }}
+                                  />
+                                </Box>
+                                <div className="flex justify-between mt-4 py-6">
+                                  <button
+                                    color="error"
+                                    className="text-red-500 text-lg w-[150px] border-2 p-2 border-red-500"
+                                    variant="outlined"
+                                    onClick={handleDelete}
+                                  >
+                                    Delete
+                                  </button>
+                                  <Button
+                                    className=" text-lg w-[150px] border-2 p-2 "
+                                    variant="outlined"
+                                    onClick={handleClick2}
+                                  >
+                                    Done
+                                  </Button>
+                                </div>
                               </Collapse>
                             </div>
                           </div>
@@ -230,8 +228,9 @@ export default function Link() {
                        bottom-0 "
                               type="submit"
                               style={{ transition: 'all .15s ease' }}
+                              disabled={active}
                             >
-                              save
+                              {active ? 'Saving...' : 'Save'}
                             </button>
                           </div>
                         </form>
