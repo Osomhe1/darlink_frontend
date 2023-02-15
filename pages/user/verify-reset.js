@@ -6,64 +6,48 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 
 export default function VerifyReset() {
-//   let email, emailId
-//   const [active, setActive] = useState(false)
   const [error, setError] = useState(false)
-
   const router = useRouter()
   const { id } = router.query
 
-  console.log(id, 'id')
-
   const handleReset = async () => {
-    // e.preventDefault()
-
     try {
-    //   setActive(true)
       const { data } = await api.get(USER_ENDPOINTS.VERIFY_RESET(), {
         params: {
           id
         },
       })
-    //   setActive(false)
       if (data.success) {
-        // setActive(false)
         toast.success(data.msg, 'Verification Successful')
-        router.push(`/reset-password`)
+        router.push(`/user/reset-password`)
       }
       if (data.error) {
         toast.error(data.error)
-        router.push('auth/forget_password')
+        router.push('/auth/forget_password')
     }
     } catch (error) {
-    //   setActive(false)
       if (error.response) {
         const err = error.response.data.error
         setError(err)
         toast.error(err)
-        router.push('auth/forget_password')
+        router.push('/auth/forget_password')
       }
     }
   }
 
   useEffect(() => {
-    // email = localStorage.getItem('email')
-    // emailId = localStorage.getItem('emailId')
     handleReset()
-    // if (!email || !emailId) {
-    //   router.push('/auth/forget_password')
-    // }
   }, [])
 
   return (
     <Layout>
       <div>
         <section>
-            <h1 className='text-3xl text-[#8BC940] '>
+            <h1 className='text-3xl text-[#8BC940] text-center '>
                 <svg
                           aria-hidden='true'
                           role='status'
-                          class='inline mr-3 w-4 h-4 text-white animate-spin'
+                          className='inline mr-3 w-10 h-10 text-white animate-spin'
                           viewBox='0 0 100 101'
                           fill='none'
                           xmlns='http://www.w3.org/2000/svg'
@@ -76,36 +60,11 @@ export default function VerifyReset() {
                             d='M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z'
                             fill='currentColor'
                           />
-                          Verifying
              </svg>
+                          Verifying
              </h1>
             
-            
-          {/* <form
-            onSubmit={handleSubmit}
-            className="Avenir  lg:w-2/5 m-3 md:w-3/5 md:m-auto lg:m-auto py-28 "
-          >
-            <div className="relative w-full mb-3">
-              <input
-                className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
-                   text-sm shadow focus:outline-none focus:ring w-full focus:ring-[#8BC940]"
-                style={{ transition: 'all .15s ease' }}
-                value={email}
-                name="username"
-              />
-            </div>
-
-            <div className="text-center mt-6">
-              <button
-                className="bg-[#8BC940] hover:bg-[#5AB025] text-white active:bg-gray-700 text-sm font-bold uppercase
-                   px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                type="submit"
-                style={{ transition: 'all .15s ease' }}
-              >
-                {active ? 'Sending...' : 'Get recoverying link'}
-              </button>
-            </div>
-          </form> */}
+        
         </section>
       </div>
     </Layout>
