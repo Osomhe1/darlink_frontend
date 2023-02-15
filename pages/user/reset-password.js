@@ -14,12 +14,13 @@ export default function VerifyReset() {
   })
 
   const router = useRouter()
-  const { id } = router.query
+//   const { id } = router.query
 
   console.log(id, 'id')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const id = localStorage.getItem('linkId')
 
     try {
       setActive(true)

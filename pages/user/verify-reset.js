@@ -18,6 +18,7 @@ export default function VerifyReset() {
         },
       })
       if (data.success) {
+        localStorage.setItem('linkId', data.id)
         toast.success(data.msg, 'Verification Successful')
         router.push(`/user/reset-password`)
       }
