@@ -38,12 +38,12 @@ const userEmail = localStorage.getItem("email");
       )
       setActive(false)
       if (data.success) {
+        toast.success(data.msg, 'Please check you ermail for link')
         localStorage.clear('email')
         localStorage.clear('emailId')
         localStorage.clear('id')
         router.push(`/[id]${id}`)
         setActive(false) 
-        toast.success(data.msg)
       }
       if (data.error) toast.error(data.error)
     } catch (error) {
