@@ -30,8 +30,6 @@ export default function VerifyReset() {
       })
       setActive(false)
       if (data.success) {
-        // localStorage.clear('email')
-        // localStorage.clear('emailId')
         setActive(false)
         // router.push(`/reset/${id}`)
         // router.push(`/reset?id=${id}`)
@@ -54,7 +52,7 @@ export default function VerifyReset() {
     email = localStorage.getItem('email')
     emailId = localStorage.getItem('emailId')
     if (!email || !emailId) {
-      Router.push('/auth/forget_password')
+      router.push('/auth/forget_password')
     }
   }, [])
 
