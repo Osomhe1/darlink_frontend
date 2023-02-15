@@ -27,7 +27,7 @@ export default function ForgetPassword() {
          params:{ 
           username:values.username,
           email: values.email,
-         } // here
+         } 
          
        })
        setActive(false)
