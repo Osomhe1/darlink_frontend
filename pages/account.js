@@ -34,7 +34,6 @@ export default function Account() {
     values.newPassword=''
     values.currentPassword=''
   }
-const [active, setActive] = useState(false);
  const generateError =(err) => toast.error(err);
 
 const handleChange = (e) => {
