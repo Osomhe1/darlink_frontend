@@ -34,8 +34,7 @@ export default function Account() {
     values.newPassword=''
     values.currentPassword=''
   }
-
- 
+ const generateError =(err) => toast.error(err);
 
 const handleChange = (e) => {
   setUser({...user, [e.target.name]:e.target.value});
@@ -49,6 +48,7 @@ const handleChange = (e) => {
           username:usernameRef.current.value,
           email:emailRef.current.value
         })
+
         setActive(false)
         if (data.success) {         
           router.push('/accounts')
@@ -58,33 +58,37 @@ const handleChange = (e) => {
       // console.log(error.msg)
       setActive(false)
       toast.error(error.response.data.error)
+
     }
   }
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      setActive(true)
       if (values.newPassword !== values.cornfirm_newPassword) {
         setError(true)
+        generateError("Password mismatched")
       }else{
         setActive(true)
         const { data } = await api.patch(USER_ENDPOINTS.RESET_LOGIN(), {
           ...values,
         })
-        // console.log(values, 'values')
-        setActive(false)
+        
         if (data.success) {
+          toast.success(data.msg)
           formRef.current?.reset()
           clearData()
           router.push('/accounts')
         } 
       }
+
     } catch (error) {
       setActive(false)
       // console.log(error)
       // console.log(error.msg)
       toast.error(error.response.data.error)
-    }
-  }
+    }}
+  
 
 
   useEffect(() =>{
@@ -353,7 +357,8 @@ const handleChange = (e) => {
                       style={{ transition: 'all .15s ease' }}
                       disabled={active}
                     >
-                      {active ? 'Saving...' : 'Save'}
+                     {active ? "saving..." : "save"} 
+
                     </button>
                   </div>
                 </form>

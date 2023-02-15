@@ -43,10 +43,10 @@ export default function Login() {
           route.push('/dashboard')
         }
        }
-     } catch (error) {
+     } catch (error) { 
       setActive(false)
-       if(error.name){
-        toast.error("Unauthorized domain");
+       if(error.name.toLowerCase() === "axioserror"){
+        toast.error(error.message);
        }else{
 
          if (error.response) {
