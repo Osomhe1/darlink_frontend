@@ -1,4 +1,4 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
@@ -8,12 +8,14 @@ import ExpandMore from '@mui/icons-material/ExpandMore'
 import { Box, Button, Typography } from '@mui/material'
 import { LINK } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import { ResetUser } from '../context/context'
 import { toast } from 'react-toastify'
+import Link from 'next/link'
+import {BsThreeDotsVertical} from 'react-icons/bs'
 
-export default function Link() {
 
+export default function Links() {
   const [open, setOpen] = useState(false)
   const [open2, setOpen2] = useState(false)
   const [values, setValues] = useState({
@@ -25,6 +27,7 @@ export default function Link() {
   })
   const router = useRouter()
   const [active, setActive] = useState(false)
+  const [userLinks, setUserLinks] = useState([])
   const handleClick = () => {
     setOpen(!open)
   }
@@ -37,12 +40,13 @@ export default function Link() {
     try {
       setActive(true)
       const { data } = await api.post(LINK.ADD_LINK(), {
-        ...values, type:"link"
+        ...values,
+        type: 'link',
       })
-     setActive(false)
+      setActive(false)
       if (data.success) {
         router.push('/dashboard')
-      } 
+      }
     } catch (error) {
       setActive(false)
       if (error.response) {
@@ -54,28 +58,78 @@ export default function Link() {
     }
   }
 
- 
+  const handleData = async () => {
+    try {
+      const { data } = await api.get(LINK.GET_LINK(), {})
+      setUserLinks(data.Link)
+      // if(data.success)
+      // console.log(data.success, 'data.successs' )
+      localStorage.setItem('linksId', data.userLinks.linkId)
+      // console.log(userLinks.linkId, 'data')
+      // console.log(userLinks, 'links')
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/auth/Login')
+        }
+      }
+    }
+  }
 
-   const handleDelete = async (e) => {
-     try {
-       const { data } = await api.delete(LINK.DELETE_LINK(), {})
-       if (data.success) {
-         handleData()
-       } else {
-         //display error
-       }
-     } catch (error) {
+  console.log(userLinks)
+  console.log(userLinks.linkId, 'linkId')
+
+
+  const handleDelete = async (e) => {
+    const linkId = localStorage.getItem('linksId')
+    console.log(linkId)
+    try {
+      const { data } = await api.delete(LINK.DELETE_LINK(), {
+        params:{
+          linkId,
+        }
+      })
+      if (data.success) {
+        handleData()
+      } else {
+        //display error
+      }
+    } catch (error) {
       //  console.log(error.response.data.error)
       toast.error(error.response.data.error)
-     }
-   }
+    }
+  }
 
- 
+  useEffect(() => {
+    handleData()
+  }, [])
 
-   useEffect(() => {
-    //  handleData()  
-   }, [])
 
+
+
+  const showLink = (item) => {
+    if (!item) return null
+    return (
+      <div
+        className="bg-gray-500 p-3 m-3 rounded-md shadow-md hover:shadow-3xl flex items-center justify-between "
+        style={{ transition: 'all .15s ease', hover: '' }}
+        key={item.linkId}
+      >
+        <div className="">
+        <p>{item?.title}</p>
+        <Link href={`${item?.url}`} target={'_blank'}>
+          {item?.url}
+        </Link>
+        </div>
+        <div className="">
+          <button type='button' onClick={handleDelete}>
+          <BsThreeDotsVertical  className='text-3xl' />
+          </button>
+        </div>
+      </div>
+    )
+  }
   return (
     <div>
       <div className="">
@@ -220,8 +274,15 @@ export default function Link() {
                               </Collapse>
                             </div>
                           </div>
+                          <div className="">
+                            {/* {userLinks?.map((cur, key) => { */}
+                            {userLinks?.map((item) => {
+                              // console.log(item.url)
+                              return showLink(item)
+                            })}
+                          </div>
 
-                          <div className="text-center mt-6 float-right ">
+                          <div className="text-center mt-6 float-right py-8 ">
                             <button
                               className="bg-[#8BC940] text-white active:bg-gray-700 text-sm font-bold uppercase
                        px-6 py-5 rounded absolute right-0 shadow hover:shadow-lg outline-none focus:outline-none mr-1 -mb-1 w-[100px]
