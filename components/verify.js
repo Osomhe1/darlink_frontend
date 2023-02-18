@@ -17,6 +17,7 @@ const UserInfo =  () => {
   const emailId = localStorage.getItem('emailId')
   const id = localStorage.getItem('id')
   const urlId = localStorage.getItem('linkId')
+  const linkId = localStorage.getItem('linksId')
 
  
    const infor = {
@@ -37,9 +38,11 @@ const UserInfo =  () => {
        telegram,
      },
      buttonId,
-     link:{
-      title, url
-     }
+     link: {
+       title,
+       url,
+       linkId,
+     },
    }
    return infor;
 }

@@ -21,20 +21,15 @@ export default function Reset() {
 
     try {
       setActive(true)
-      // const { data } = await api.post(USER_ENDPOINTS.RECOVERY_MAIL(), {
       const { data } = await api.get(USER_ENDPOINTS.VERIFY_RESET(), {
         params: {
-          //   id: emailId,
-          //   email: email,
-          // id
+          
         },
       })
       setActive(false)
       if (data.success) {
-        // localStorage.clear('email')
-        // localStorage.clear('emailId')
+        
         setActive(false)
-        // router.push(`/reset/${id}`)
         router.push(`/reset?id=${id}`) 
         toast.success(data.msg)
       }
