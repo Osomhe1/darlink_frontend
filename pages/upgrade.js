@@ -8,6 +8,8 @@ import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import { Typography } from '@mui/material'
 import Link from 'next/link'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import { useRouter } from 'next/router'
 
 export default function Upgrade() {
 
@@ -29,13 +31,20 @@ export default function Upgrade() {
      setOpen4(!open4)
    }
 
+   const router = useRouter()
+
 
   return (
     <div>
       <div className="max-w-screen-xl m-auto">
         {/* <!-- Start block --> */}
         <div className="">
-          <div className="">
+          <div className="flex items-center text-center justify-around">
+            <button className='text-3xl' type='button' onClick={() => {
+              router.push('/dashboard')
+            }} >
+              <ArrowBackIcon style={{fontSize: '50px'}} />
+            </button>
             <Typography variant="h2" className="text-[#8BC940] text-center">
               Upgrade
             </Typography>

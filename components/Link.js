@@ -37,6 +37,7 @@ export default function Links() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    const linkId = localStorage.getitem('linkId')
     try {
       setActive(true)
       const { data } = await api.post(LINK.ADD_LINK(), {
@@ -61,12 +62,12 @@ export default function Links() {
   const handleData = async () => {
     try {
       const { data } = await api.get(LINK.GET_LINK(), {})
-      setUserLinks(data.Link)
-      // if(data.success)
-      // console.log(data.success, 'data.successs' )
-      localStorage.setItem('linksId', data.userLinks.linkId)
-      // console.log(userLinks.linkId, 'data')
-      // console.log(userLinks, 'links')
+      if(data.success){
+        setUserLinks(data.Link)
+
+        localStorage.setItem('linkId', userLinks[0]?.linkId)
+      }
+      
     } catch (error) {
       if (error.response) {
         if (error.response.status === 401) {
@@ -77,12 +78,9 @@ export default function Links() {
     }
   }
 
-  console.log(userLinks)
-  console.log(userLinks.linkId, 'linkId')
-
 
   const handleDelete = async (e) => {
-    const linkId = localStorage.getItem('linksId')
+    const linkId = localStorage.getItem('linkId')
     console.log(linkId)
     try {
       const { data } = await api.delete(LINK.DELETE_LINK(), {
@@ -92,11 +90,9 @@ export default function Links() {
       })
       if (data.success) {
         handleData()
-      } else {
-        //display error
-      }
+        toast.success(data.msg)
+      } 
     } catch (error) {
-      //  console.log(error.response.data.error)
       toast.error(error.response.data.error)
     }
   }
@@ -106,14 +102,12 @@ export default function Links() {
   }, [])
 
 
-
-
   const showLink = (item) => {
     if (!item) return null
     return (
       <div
         className="bg-gray-500 p-3 m-3 rounded-md shadow-md hover:shadow-3xl flex items-center justify-between "
-        style={{ transition: 'all .15s ease', hover: '' }}
+        style={{ transition: 'all .15s ease',}}
         key={item.linkId}
       >
         <div className="">
@@ -130,6 +124,7 @@ export default function Links() {
       </div>
     )
   }
+
   return (
     <div>
       <div className="">
@@ -275,9 +270,7 @@ export default function Links() {
                             </div>
                           </div>
                           <div className="">
-                            {/* {userLinks?.map((cur, key) => { */}
                             {userLinks?.map((item) => {
-                              // console.log(item.url)
                               return showLink(item)
                             })}
                           </div>

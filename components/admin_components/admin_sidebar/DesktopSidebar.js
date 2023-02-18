@@ -15,7 +15,6 @@ import { useRouter } from 'next/router'
 export default function Sidebar() {
    const router = useRouter()
 
-
    const handleLogout = async (e) => {
      try {
        const { data } = await api.post(USER_ENDPOINTS.LOGOUT(), {})

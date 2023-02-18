@@ -33,6 +33,7 @@
     "flowbite-react": "^0.3.7",
     "next": "13.0.5",
     "next-seo": "^5.14.1",
+    "paystack": "^2.0.1",
     "react": "18.2.0",
     "react-chartjs-2": "^5.0.1",
     "react-color": "^2.19.3",

@@ -17,7 +17,7 @@ const UserInfo =  () => {
   const emailId = localStorage.getItem('emailId')
   const id = localStorage.getItem('id')
   const urlId = localStorage.getItem('linkId')
-  const linkId = localStorage.getItem('linksId')
+  const linkId = localStorage.getItem('linkId')
 
  
    const infor = {
