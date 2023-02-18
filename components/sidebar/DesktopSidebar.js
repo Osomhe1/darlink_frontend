@@ -17,12 +17,9 @@ import { ResetUser } from '../../context/context'
 let imageUrl ;
 export const reload = () =>{
       imageUrl = UserInfo().passportUrl?UserInfo().passportUrl:null;
-      console.log(imageUrl,"imagedta")
         }
 export default function Sidebar() {
-
      const [url, setUrl] = useState("");
-
    const router = useRouter()
 
     const handleLogout = async (e) => {
@@ -34,7 +31,6 @@ export default function Sidebar() {
           }       
       } catch (error) {
         if(error.response){
-
           toast.error(error.response.data.error)
           if (error.response.status === 401) {
             toast.error(error.response.data.error)

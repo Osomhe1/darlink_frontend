@@ -39,7 +39,6 @@ const MobileSidebar = () => {
          const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
          if (!data.success) router.push('/auth/Login')
        } catch (error) {
-         console.log(error)
          if (error.response) {
            router.push('/auth/Login')
          }

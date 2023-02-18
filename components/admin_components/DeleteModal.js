@@ -15,7 +15,6 @@ export default function DeleteModal() {
     setShowModal(false)
      try {
      const userId = localStorage.getItem('accountId')
-     console.log(userId, 'id')
        const { data } = await api.delete(GET_USERS.DELETE_ACC(), {
       
       params:{
@@ -24,7 +23,6 @@ export default function DeleteModal() {
        if (data.success)
          //todo
          //populate UI
-         // setUser(data.profile)
          toast.success('user successful deleted')
      } catch (error) {
       if(error.response){

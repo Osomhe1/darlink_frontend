@@ -19,9 +19,7 @@ import { reload } from '../sidebar/DesktopSidebar'
 
 const NewSidebar = () => {
   const [showSidebar, setShowSidebar] = useState(false)
-
    const router = useRouter()
-
    const handleLogout = async (e) => {
      try {
        const { data } = await api.post(USER_ENDPOINTS.LOGOUT(), {})

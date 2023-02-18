@@ -6,8 +6,6 @@ import { Button } from '@mui/material'
 export default function Modal() {
   const [showModal, setShowModal] = useState(false)
   const [colour, setColour] = useState('#b32aa9')
-
-
   const handleSelect = ()=>{
     localStorage.setItem('colour', colour)
     setShowModal(false)
