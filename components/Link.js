@@ -37,7 +37,6 @@ export default function Links() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const linkId = localStorage.getitem('linkId')
     try {
       setActive(true)
       const { data } = await api.post(LINK.ADD_LINK(), {
@@ -46,6 +45,7 @@ export default function Links() {
       })
       setActive(false)
       if (data.success) {
+        handleData()
         router.push('/dashboard')
       }
     } catch (error) {
@@ -81,7 +81,6 @@ export default function Links() {
 
   const handleDelete = async (e) => {
     const linkId = localStorage.getItem('linkId')
-    console.log(linkId)
     try {
       const { data } = await api.delete(LINK.DELETE_LINK(), {
         params:{
