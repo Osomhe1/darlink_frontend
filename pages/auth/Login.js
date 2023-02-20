@@ -142,7 +142,6 @@ export default function Login() {
             </div>
 
             <div className="text-center mt-6">
-            
               <Button
                 type="submit"
                 disabled={active}
