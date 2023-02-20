@@ -12,6 +12,7 @@ import  api from '../pages/api/darlink'
 import { APPREANCE } from '../pages/api/ACTIONS.JS'
 import { useRouter } from 'next/router'
 import { ResetUser } from '../context/context'
+import Button from '../container/button'
 
 
 export default function Appreance() {
@@ -101,7 +102,6 @@ handleData()
 
       <div className="">
         <section className="bg-white container mx-auto dark:bg-gray-800 dark:text-gray-100 relative ">
-          {/* container flex flex-col justify-center p-4 mx-auto md:p-8 */}
 
           <List
             sx={{ width: '100%', bgcolor: 'background.paper' }}
@@ -134,7 +134,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -149,7 +148,7 @@ handleData()
                             type="button"
                             onClick={(e) => {
                               handleSelect(e)
-                            }} //network?
+                            }} 
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -158,7 +157,7 @@ handleData()
                           >
                             Roboto Mono
                           </button>
-                          
+
                           <button
                             value={'Maitree'}
                             name={'font'}
@@ -166,7 +165,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white- hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -182,7 +180,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -198,7 +195,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -218,7 +214,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -234,7 +229,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -250,7 +244,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -270,7 +263,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -286,7 +278,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -306,7 +297,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-blue-400 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -322,7 +312,6 @@ handleData()
                             onClick={(e) => {
                               handleSelect(e)
                             }}
-                            // className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
                             className={
                               appreances.find((s) => s.type === name)
                                 ? indicator
@@ -334,16 +323,12 @@ handleData()
                         </div>
                       </div>
                       <div className="text-center mt-6 float-right ">
-                        <button
-                          className="bg-[#8BC940] text-white active:bg-gray-700 text-sm font-bold uppercase
-                       px-6 py-5 rounded absolute right-0 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
-                       bottom-0 "
+                        
+                        <Button
                           type="submit"
-                          style={{ transition: 'all .15s ease' }}
                           disabled={active}
-                        >
-                          {active ? 'Saving...' : 'Save'}
-                        </button>
+                          label={active ? 'Saving...' : 'Save'}
+                        />
                       </div>
                     </form>
                   </ListItemText>

@@ -5,6 +5,7 @@ import Layout from '../../components/Layout'
 import api from '../../pages/api/darlink'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
+import Button from '../../container/button'
 
 export default function SignUp() {
   const [values, setValues] = useState({
@@ -53,63 +54,63 @@ export default function SignUp() {
       <div>
         <section>
           <form
-            onSubmit={ handleSubmit}
-            className='Avenir  lg:w-2/5 m-3 md:w-3/5 md:m-auto lg:m-auto  py-28 '
+            onSubmit={handleSubmit}
+            className="Avenir  lg:w-2/5 m-3 md:w-3/5 md:m-auto lg:m-auto  py-28 "
           >
-            <h2 className='text-center font-bold text-3xl md:text-5xl py-5 '>
+            <h2 className="text-center font-bold text-3xl md:text-5xl py-5 ">
               Create Account
             </h2>
-            <div className='relative  mb-3 '>
+            <div className="relative  mb-3 ">
               <input
-                name='username'
-                type='name'
+                name="username"
+                type="name"
                 onChange={(e) => {
                   setValues({ ...values, [e.target.name]: e.target.value })
                 }}
-                className='border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
-                   text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring  w-full'
-                placeholder='UserName'
+                className="border-0 px-3 py-5 placeholder-gray-400 focus:ring-[#8BC940]
+                   text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring  w-full"
+                placeholder="UserName"
                 style={{ transition: 'all .15s ease' }}
               />
             </div>
 
-            <div className='relative w-full mb-3'>
+            <div className="relative w-full mb-3">
               <input
-                name='email'
-                type='email'
+                name="email"
+                type="email"
                 onChange={(e) => {
                   setValues({ ...values, [e.target.name]: e.target.value })
                 }}
-                className='border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
-                focus:ring-[#8BC940]   text-sm shadow focus:outline-none focus:ring w-full'
-                placeholder='Email'
+                className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
+                focus:ring-[#8BC940]   text-sm shadow focus:outline-none focus:ring w-full"
+                placeholder="Email"
                 style={{ transition: 'all .15s ease' }}
               />
             </div>
-            <div className='relative w-full mb-3 md:flex justify-between md:space-x-4 '>
-              <div className='w-full'>
+            <div className="relative w-full mb-3 md:flex justify-between md:space-x-4 ">
+              <div className="w-full">
                 <input
-                  name='password'
-                  type='password'
+                  name="password"
+                  type="password"
                   onChange={(e) => {
                     setValues({ ...values, [e.target.name]: e.target.value })
                   }}
-                  className='border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
-                   text-sm shadow focus:ring-[#8BC940] focus:outline-none focus:ring w-full'
-                  placeholder='Password'
+                  className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
+                   text-sm shadow focus:ring-[#8BC940] focus:outline-none focus:ring w-full"
+                  placeholder="Password"
                   style={{ transition: 'all .15s ease' }}
                 />
               </div>
-              <div className='w-full my-3 md:m-0'>
+              <div className="w-full my-3 md:m-0">
                 <input
-                  name='confirm_password'
-                  type='password'
+                  name="confirm_password"
+                  type="password"
                   onChange={(e) => {
                     setValues({ ...values, [e.target.name]: e.target.value })
                   }}
-                  className='border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
-                  focus:ring-[#8BC940]  text-sm shadow focus:outline-none focus:ring w-full'
-                  placeholder='Confirm Password'
+                  className="border-0 px-3 py-5 placeholder-gray-400 text-gray-700 bg-white rounded
+                  focus:ring-[#8BC940]  text-sm shadow focus:outline-none focus:ring w-full"
+                  placeholder="Confirm Password"
                   style={{ transition: 'all .15s ease' }}
                 />
               </div>
@@ -119,25 +120,22 @@ export default function SignUp() {
               By clicking, you agree to the Terms of Service & Privacy Policy
               for Darlink.to.
             </small>
-            <div className='text-center mt-6'>
-              <button
-                className='bg-[#8BC940] hover:bg-[#5AB025] text-white active:bg-gray-700 text-sm font-bold uppercase
-                   px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full'
-                type='submit'
-                style={{ transition: 'all .15s ease' }}
+            <div className="text-center mt-6">
+             
+              <Button
+                type="submit"
                 disabled={active}
-              >
-                {active ? "Processing...": "Sign Up"}
-              </button>
+                label={active ? 'Processing...' : 'Sign Up'}
+              />
             </div>
-            <div className='text-center mt-6'>
+            <div className="text-center mt-6">
               <button
-                className=' text-gray-300 hover:bg-[#5AB025] hover:text-gray-500 active:bg-gray-700 text-sm font-bold uppercase
-                   px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full'
-                type='button'
+                className=" text-gray-300 hover:bg-[#5AB025] hover:text-gray-500 active:bg-gray-700 text-sm font-bold uppercase
+                   px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                type="button"
                 style={{ transition: 'all .15s ease' }}
               >
-                <Link href='/auth/Login'>or Sign In</Link>
+                <Link href="/auth/Login">or Sign In</Link>
               </button>
             </div>
           </form>

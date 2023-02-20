@@ -5,7 +5,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
-import { Box, Button, Typography } from '@mui/material'
+import { Box,  Typography } from '@mui/material'
 import { LINK } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
 import { useRouter } from 'next/router'
@@ -13,6 +13,7 @@ import { ResetUser } from '../context/context'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
 import {BsThreeDotsVertical} from 'react-icons/bs'
+import Button from '../container/button'
 
 
 export default function Links() {
@@ -257,13 +258,13 @@ export default function Links() {
                                   >
                                     Delete
                                   </button>
-                                  <Button
-                                    className=" text-lg w-[150px] border-2 p-2 "
+                                  <button
+                                    className=" text-lg w-[150px] border-2 p-2 bg-blue-600 text-white "
                                     variant="outlined"
                                     onClick={handleClick2}
                                   >
                                     Done
-                                  </Button>
+                                  </button>
                                 </div>
                               </Collapse>
                             </div>
@@ -275,7 +276,7 @@ export default function Links() {
                           </div>
 
                           <div className="text-center mt-6 float-right py-8 ">
-                            <button
+                            {/* <button
                               className="bg-[#8BC940] text-white active:bg-gray-700 text-sm font-bold uppercase
                        px-6 py-5 rounded absolute right-0 shadow hover:shadow-lg outline-none focus:outline-none mr-1 -mb-1 w-[100px]
                        bottom-0 "
@@ -284,7 +285,12 @@ export default function Links() {
                               disabled={active}
                             >
                               {active ? 'Saving...' : 'Save'}
-                            </button>
+                            </button> */}
+                            <Button
+                              type="submit"
+                              disabled={active}
+                              label={active ? 'Saving...' : 'Save'}
+                            />
                           </div>
                         </form>
                       </div>

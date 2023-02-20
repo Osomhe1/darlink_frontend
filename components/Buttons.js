@@ -16,6 +16,7 @@ import api from '../pages/api/darlink'
 import { BUTTONS } from '../pages/api/ACTIONS.JS'
 import { ResetUser } from '../context/context'
 import { useRouter } from 'next/router'
+import Button from '../container/button'
 
 export default function Buttons() {
 
@@ -81,6 +82,7 @@ const handleChange = (e) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
+      setActive(true)
       const buttonId = localStorage.getItem('buttonId')
       if (buttonId === null) {
         infor.buttonId = buttonId
@@ -158,7 +160,6 @@ const handleChange = (e) => {
 
         <div className="">
           <section className="bg-white dark:bg-gray-800 dark:text-gray-100 container mx-auto relative">
-            {/* container flex flex-col justify-center p-4 mx-auto md:p-8 */}
 
             <List
               sx={{ width: '100%', bgcolor: 'background.paper' }}
@@ -263,7 +264,6 @@ const handleChange = (e) => {
                                                     height={20}
                                                     w={20}
                                                     alt=""
-                                                    //   className='mx-auto'
                                                   />
                                                   Email
                                                 </button>
@@ -290,7 +290,6 @@ const handleChange = (e) => {
                                                     w={20}
                                                     alt=""
                                                     className="text-blue-500"
-                                                    //   className='mx-auto'
                                                   />
                                                   Email
                                                 </button>
@@ -339,7 +338,6 @@ const handleChange = (e) => {
                             </Collapse>
                           </List>
                           {/* end of first inner */}
-                          {/* this is where I am working from */}
                           <div className="py-4 my-4">
                             <div className="py-1">
                               <div className="">
@@ -351,19 +349,15 @@ const handleChange = (e) => {
                                 </h1>
                                 <label className="inline-flex relative items-center  cursor-pointer">
                                   <input
-                                    // onChange={() => setToogle1(!toogle1)}
-                                    // onChange={() => setToggle(toggle)}
                                     type="checkbox"
                                     value={infor.email}
                                     name="email"
                                     className="sr-only peer"
                                     onClick={handleSelect}
                                     id={infor?.buttonId}
-                                    // type='social'
                                   />
                                   <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                 </label>
-                                {/* {toogle1 ? ( */}
                                 {view?.email && (
                                   <input
                                     type="email"
@@ -397,8 +391,6 @@ const handleChange = (e) => {
                                     onClick={handleSelect}
                                     name="phone"
                                     id={infor.buttonId}
-                                    // onChange={() => setToogle2(!toogle2)}
-                                    // onChange={() => setToggle(toggle)}
                                   />
                                   <div
                                     className="w-11 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4
@@ -410,7 +402,6 @@ const handleChange = (e) => {
                                 peer-checked:bg-blue-600"
                                   ></div>
                                 </label>
-                                {/* {toogle2 ? ( */}
                                 {view?.phone && (
                                   <input
                                     type="phone"
@@ -444,8 +435,6 @@ const handleChange = (e) => {
                                     onClick={handleSelect}
                                     name="discord"
                                     id={infor?.buttonId}
-                                    // onChange={() => setToogle3(!toogle3)}
-                                    // onChange={() => setToggle(toggle)}
                                   />
                                   <div
                                     className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 
@@ -489,12 +478,9 @@ const handleChange = (e) => {
                                     className="sr-only peer"
                                     onClick={handleSelect}
                                     id={infor?.buttonId}
-                                    // onChange={() => setToogle4(!toogle4)}
-                                    // onChange={() => setToggle(toggle)}
                                   />
                                   <div className="w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
                                 </label>
-                                {/* {toogle4 ? ( */}
                                 {view?.telegram && (
                                   <input
                                     type="text"
@@ -644,7 +630,6 @@ const handleChange = (e) => {
                                                     height={15}
                                                     w={15}
                                                     alt=""
-                                                    //   className='mx-auto'
                                                   />
                                                   Follow
                                                 </button>
@@ -748,7 +733,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -770,7 +754,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -792,7 +775,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -814,7 +796,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -836,7 +817,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -858,7 +838,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -880,7 +859,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -902,7 +880,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -924,7 +901,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -946,7 +922,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -968,7 +943,6 @@ const handleChange = (e) => {
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
                                     d="M12 4.5v15m7.5-7.5h-15"
-                                    // className=' fill-blue-500'
                                     className="fill-blue-500 text-blue-500"
                                   />
                                 </svg>
@@ -979,16 +953,13 @@ const handleChange = (e) => {
                         {/* end of last inner */}
 
                         <div className="text-center mt-6 float-right ">
-                          <button
-                            className="bg-[#8BC940] text-white active:bg-gray-700 text-sm font-bold uppercase
-                       px-6 py-5 rounded absolute right-0 shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
-                       bottom-0 "
+                       
+                          <Button
                             type="submit"
-                            style={{ transition: 'all .15s ease' }}
+                            disabled={active}
+                            label={active ? 'Saving...' : 'Save'}
                             id={infor?.buttonId}
-                          >
-                            {active ? 'Saving...' : 'Save'}
-                          </button>
+                          />
                         </div>
                       </ListItemText>
                     </ListItemButton>
