@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
 import Appreance from '../Appreance'
-// import Link from '../Link'
 import Buttons from '../Buttons'
 import Integrations from '../Integrations'
 import ToggleButton from '@mui/material/ToggleButton'
@@ -13,14 +12,14 @@ import { useRouter } from 'next/router'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
 import { ResetUser } from '../../context/context'
 import { clearPreview, UserInfo } from '../verify'
-import { Avatar, Box } from '@mui/material'
+import { Avatar } from '@mui/material'
 import Modal from '../Modal'
 import { toast } from 'react-toastify'
 import Preview from './Preview'
 import { reload } from '../sidebar/DesktopSidebar'
 import CopyButton from '../CopyButton'
-// import Links from '../Link'
 import Links from '../Link'
+import Button from '../../container/button'
 
 export default function Profile() {
   const [view, setView] = useState('edit')
@@ -241,11 +240,7 @@ export default function Profile() {
                   {`darlink.to/${infor?.username}`}
                 </button>
               )}
-              {copy === true && (
-                  <CopyButton
-                    onMouseLeave={handleMouseEnter}
-                  />
-              )}
+              {copy === true && <CopyButton onMouseLeave={handleMouseEnter} />}
             </div>
           </div>
           <div className=""></div>
@@ -423,16 +418,12 @@ export default function Profile() {
                             </div>
 
                             <div className="text-center mt-6 py-4 float-right ">
-                              <button
-                                className="bg-[#8BC940]  text-white active:bg-gray-700 absolute right-0 text-sm font-bold uppercase
-                       px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px] 
-                       bottom-0 "
+                            
+                              <Button
                                 type="submit"
-                                style={{ transition: 'all .15s ease' }}
                                 disabled={active}
-                              >
-                                {active ? 'Saving...' : 'Save'}
-                              </button>
+                                label={active ? 'Saving...' : 'Save'}
+                              />
                             </div>
                           </div>
                         </div>

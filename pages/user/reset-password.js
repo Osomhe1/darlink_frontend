@@ -4,6 +4,7 @@ import { USER_ENDPOINTS } from '../api/ACTIONS.JS'
 import api from '../api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
+import Button from '../../container/button'
 
 export default function VerifyReset() {
   const [active, setActive] = useState(false)
@@ -74,7 +75,7 @@ export default function VerifyReset() {
                   setValues({ ...values, [e.target.name]: e.target.value })
                 }}
                 placeholder="Enter your new password"
-                type='password'
+                type="password"
               />
             </div>
             <div className="relative w-full mb-3">
@@ -87,19 +88,17 @@ export default function VerifyReset() {
                   setValues({ ...values, [e.target.name]: e.target.value })
                 }}
                 placeholder="Confirm your new password"
-                type='password'
+                type="password"
               />
             </div>
 
             <div className="text-center mt-6">
-              <button
-                className="bg-[#8BC940] hover:bg-[#5AB025] text-white active:bg-gray-700 text-sm font-bold uppercase
-                   px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+             
+              <Button
                 type="submit"
-                style={{ transition: 'all .15s ease' }}
-              >
-                {active ? 'Reseting...' : 'Reset'}
-              </button>
+                disabled={active}
+                label={active ? 'Reseting...' : 'Reset'}
+              />
             </div>
           </form>
         </section>
