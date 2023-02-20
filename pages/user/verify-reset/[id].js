@@ -14,9 +14,6 @@ export default function Reset() {
   const router = useRouter()
   const { id } = router.query
 
-  console.log(id, 'id')
-  console.log(router, 'router')
-
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -52,7 +49,7 @@ export default function Reset() {
     email = localStorage.getItem('email')
     emailId = localStorage.getItem('emailId')
     if (!email || !emailId) {
-      Router.push('/auth/forget_password')
+      Router.push('/forget_password')
     }
 
   }, [])

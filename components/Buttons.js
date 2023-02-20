@@ -108,14 +108,12 @@ const handleChange = (e) => {
       if (error.response) {
         if (error.response.status === 401) {
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }
   }
-
-
-
+  
    const handleData = async () => {
      try {
        const { data } = await api.get(BUTTONS.GET_BUTTON(), {})
@@ -131,7 +129,7 @@ const handleChange = (e) => {
        if(error.response){
         if (error.response.status === 401) {
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
        }
      }

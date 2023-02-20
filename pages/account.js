@@ -61,11 +61,12 @@ const handleChange = (e) => {
         if (error.response.status === 401) {
           toast.error(error.response.data.error)
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -89,7 +90,7 @@ const handleChange = (e) => {
         if (error.response.status === 401) {
           toast.error(error.response.data.error)
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }
@@ -100,10 +101,10 @@ const handleChange = (e) => {
     const AuthenticateUser = async () => {
       try {
         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-        if (!data.success) router.push('/auth/Login')
+        if (!data.success) router.push('/Login')
       } catch (error) {
         toast.error(error.response.data.error)
-        router.push('/auth/Login')
+        router.push('/Login')
       }
     }
     const infor = UserInfo();

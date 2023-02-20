@@ -48,7 +48,7 @@ export default function Reset() {
     email = localStorage.getItem('email')
     emailId = localStorage.getItem('emailId')
     if (!email || !emailId) {
-      Router.push('/auth/forget_password')
+      Router.push('/forget_password')
     }
 
   }, [])

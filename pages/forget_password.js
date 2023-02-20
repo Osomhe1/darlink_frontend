@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import Layout from '../../components/Layout'
+import Layout from '../components/Layout'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
-import api from '../../pages/api/darlink'
+import api from './api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Button from '../../container/button'
+import Button from '../container/button'
 
 export default function ForgetPassword() {
 

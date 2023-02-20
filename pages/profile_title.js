@@ -22,7 +22,7 @@ export default function PageTitle() {
       if (error.response) {
         if (error.response.status === 401) {
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }
@@ -35,9 +35,9 @@ export default function PageTitle() {
     const AuthenticateUser = async () => {
       try {
         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-        if (!data.success) router.push('/auth/Login')
+        if (!data.success) router.push('/Login')
       } catch (error) {
-        router.push('/auth/Login')
+        router.push('/Login')
       }
     }
     AuthenticateUser()

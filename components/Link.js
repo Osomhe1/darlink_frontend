@@ -54,7 +54,7 @@ export default function Links() {
       if (error.response) {
         if (error.response.status === 401) {
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }
@@ -73,7 +73,7 @@ export default function Links() {
       if (error.response) {
         if (error.response.status === 401) {
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }

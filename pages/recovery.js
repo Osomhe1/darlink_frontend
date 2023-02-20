@@ -55,14 +55,12 @@ const userEmail = localStorage.getItem("email");
 
  
 
-  console.log(infor.id)
-
   useEffect(() => {
      email= localStorage.getItem("email");
      emailId= localStorage.getItem("emailId");
     //  id= localStorage.getItem("id");
    if(!email || !emailId ){
-       router.push('/auth/forget_password')
+       router.push('/forget_password')
    }
    
   }, [])

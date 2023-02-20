@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
-import Layout from '../../components/Layout'
-import api from '../../pages/api/darlink'
+import { USER_ENDPOINTS } from './api/ACTIONS.JS'
+import Layout from '../components/Layout'
+import api from './api/darlink'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
-import Button from '../../container/button'
+import Button from '../container/button'
 
 export default function SignUp() {
   const [values, setValues] = useState({
@@ -32,7 +32,7 @@ export default function SignUp() {
         })
         setActive(false);
         if(data.success){
-          router.push('/auth/Login')
+          router.push('/Login')
         } 
         if(data.error)
         generateError(data.error);
@@ -135,7 +135,7 @@ export default function SignUp() {
                 type="button"
                 style={{ transition: 'all .15s ease' }}
               >
-                <Link href="/auth/Login">or Sign In</Link>
+                <Link href="/Login">or Sign In</Link>
               </button>
             </div>
           </form>
