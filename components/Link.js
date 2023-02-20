@@ -107,18 +107,25 @@ export default function Links() {
     return (
       <div
         className="bg-gray-500 p-3 m-3 rounded-md shadow-md hover:shadow-3xl flex items-center justify-between "
-        style={{ transition: 'all .15s ease',}}
+        style={{ transition: 'all .15s ease' }}
         key={item.linkId}
       >
         <div className="">
-        <p>{item?.title}</p>
-        <Link href={`${item?.url}`} target={'_blank'}>
-          {item?.url}
-        </Link>
+          <p>{item?.title}</p>
+          <Link
+            href={
+              item?.url.includes('https')
+               ? `${item?.url}`
+                : `https://${item.url}`
+            }
+            target={'_blank'}
+          >
+            {item?.url}
+          </Link>
         </div>
         <div className="">
-          <button type='button' onClick={handleDelete}>
-          <BsThreeDotsVertical  className='text-3xl' />
+          <button type="button" onClick={handleDelete}>
+            <BsThreeDotsVertical className="text-3xl" />
           </button>
         </div>
       </div>
