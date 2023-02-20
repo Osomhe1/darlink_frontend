@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Layout from '../components/Layout'
-import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
+import { USER_ENDPOINTS } from './api/ACTIONS.JS'
 import api from './api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
