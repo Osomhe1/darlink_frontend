@@ -17,9 +17,7 @@ a {
   box-sizing: border-box;
 }
 
-.g327 {
-  border-color: #302f30;
-}
+
 
 @font-face {
   font-family: "AvenirNextW10-Bold";
@@ -53,14 +51,9 @@ a {
   transition: 0.4s;
 }
 
-.ggt{
-  color: blue;
-}
+
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* @import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities'; */
