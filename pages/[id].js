@@ -32,15 +32,15 @@ export default function PageTitle() {
   const value = UserInfo()
 
   useEffect(() => {
-    const AuthenticateUser = async () => {
-      try {
-        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-        if (!data.success) router.push('/Login')
-      } catch (error) {
-        router.push('/Login')
-      }
-    }
-    AuthenticateUser()
+    // const AuthenticateUser = async () => {
+    //   try {
+    //     const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
+    //     if (!data.success) router.push('/Login')
+    //   } catch (error) {
+    //     router.push('/Login')
+    //   }
+    // }
+    // AuthenticateUser()
     handleData()
   }, [])
 
@@ -62,7 +62,7 @@ export default function PageTitle() {
   return (
     <div>
       <section
-        className="relative  block  "
+        className="relative  block bg-'[#8BC940]'  "
         style={{ height: '400px', backgroundColor: '[#8BC940]' }}
       >
         <div
