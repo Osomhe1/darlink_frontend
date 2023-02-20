@@ -64,7 +64,7 @@ handleSubmit();
       setActive(false)
       if (error.response.status === 401) {
         ResetUser()
-        router.push('/auth/Login')
+        router.push('/Login')
       }
      }
    }
@@ -84,7 +84,7 @@ handleSubmit();
       if (error.response) {
         if (error.response.status === 401) {
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
      }

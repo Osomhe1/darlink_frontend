@@ -35,7 +35,7 @@ export default function Main() {
          })
          setActive(false)
          if (data.success) {
-           router.push('/auth/Login')
+           router.push('/Login')
          }
          if (data.error) generateError(data.error)
        }
@@ -133,7 +133,7 @@ export default function Main() {
                 >
                   {active ? 'Authenticating...' : 'Join For Free'}
                 </button>
-                <Link href={'/auth/Login'}>
+                <Link href={'/Login'}>
                   <button
                     className="bg-[#8BC940] hover:bg-[#5AB025]  text-white active:bg-gray-700 text-sm font-bold uppercase
                    px-6 py-5 rounded-xl shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"

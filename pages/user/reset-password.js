@@ -34,17 +34,17 @@ export default function VerifyReset() {
         setActive(false)
         if (data.success) {
           setActive(false)
-          router.push(`/auth/Login`)
+          router.push(`/Login`)
           toast.success(data.msg)
         }
         if (data.error) {
           generateError(data.error)
-          router.push('/auth/forget_password')
+          router.push('/forget_password')
         }
       }
     } catch (error) {
       setActive(false)
-         router.push('/auth/forget_password')
+         router.push('/forget_password')
       if (error.response) {
         const err = error.response.data.error
         setError(err)

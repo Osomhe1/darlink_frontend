@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, {  useEffect, useState } from 'react'
-import Layout from '../../components/Layout'
-import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
-import api from '../../pages/api/darlink'
-import { USER_TYPE } from '../../pages/api/ACTIONS.JS'
+import Layout from '../components/Layout'
+import { USER_ENDPOINTS } from './api/ACTIONS.JS'
+import api from './api/darlink'
+import { USER_TYPE } from './api/ACTIONS.JS'
 import { toast } from 'react-toastify'
-import Button from '../../container/button'
+import Button from '../container/button'
 
 
 export default function Login() {
@@ -155,7 +155,7 @@ export default function Login() {
                 type="button"
                 style={{ transition: 'all .15s ease' }}
               >
-                <Link href="/auth/SignUp">or Create an Account</Link>
+                <Link href="/SignUp">or Create an Account</Link>
               </button>
             </div>
           </form>
