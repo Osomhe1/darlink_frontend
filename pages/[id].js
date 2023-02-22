@@ -19,7 +19,7 @@ export default function PageTitle() {
   const { id } = router.query
   console.log(id, 'route id')
   console.log(router.query, 'router query')
-  const username = UserInfo().username
+  const value = UserInfo()
   const [userLinks, setUserLinks] = useState([])
    const appreances = []
     const [buttonInfor, setButtonInfor] = useState({
@@ -139,12 +139,14 @@ export default function PageTitle() {
 
 
   const handlePreviewReset = async () => {
-    console.log(username, 'before')
+    console.log(value.username, 'before')
+    const userName = value.username
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
           // id,
-          username,
+          userName,
+          // username,
         },
       })
       if (data.success) {
@@ -165,8 +167,8 @@ export default function PageTitle() {
   
   
   const infor = UserInfo().selectedPreview
-  const value = UserInfo()
-  // console.log(value.username)
+  // const value = UserInfo()
+  console.log(value.username)
 
   useEffect(() => {
    handlePreviewReset()
