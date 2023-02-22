@@ -19,7 +19,7 @@ export default function PageTitle() {
   const { id } = router.query
   console.log(id, 'route id')
   console.log(router.query, 'router query')
-  const username = UserInfo()
+  const username = UserInfo().username
   const [userLinks, setUserLinks] = useState([])
    const appreances = []
     const [buttonInfor, setButtonInfor] = useState({
@@ -143,7 +143,7 @@ export default function PageTitle() {
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
-          id,
+          // id,
           username,
         },
       })
@@ -154,6 +154,7 @@ export default function PageTitle() {
       
     } catch (error) {
       if (error.response) {
+        console.log(error)
         const err = error.response.data.error
         console.log(err, 'err')
         toast.error(err)
