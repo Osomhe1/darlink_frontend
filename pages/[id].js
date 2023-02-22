@@ -15,6 +15,10 @@ import { VERIFICATION } from './api/ACTIONS.JS'
 
 export default function PageTitle() {
   const router = useRouter()
+  const { id } = router.query
+  console.log(id, 'route id')
+  console.log(router.query, 'router query')
+  const username = UserInfo()
   const [userLinks, setUserLinks] = useState([])
    const appreances = []
     const [buttonInfor, setButtonInfor] = useState({
@@ -32,7 +36,12 @@ export default function PageTitle() {
 
   const handleData = async () => {
     try {
-      const { data } = await api.get(LINK.GET_LINK(), {})
+      const { data } = await api.get(LINK.GET_LINK(), {
+        params: {
+          id,
+          username,
+        },
+      })
       setUserLinks(data.Link)
     } catch (error) {
       if (error.response) {
@@ -42,7 +51,12 @@ export default function PageTitle() {
   }
   const handleUserProfile = async () => {
     try {
-      const { data } = await api.get(PROFILE.PREVIEW_USER(), {})
+      const { data } = await api.get(PROFILE.PREVIEW_USER(), {
+        params: {
+          id,
+          username,
+        },
+      })
       if (data.success) userData = { ...data.profile }
       localStorage.setItem('passportUrl', userData.passportUrl)
       localStorage.setItem('colour', userData.colour)
@@ -61,7 +75,12 @@ export default function PageTitle() {
 
   const handleUserLink = async () => {
     try {
-      const { data } = await api.get(LINK.PREVIEW_LINK(), {})
+      const { data } = await api.get(LINK.PREVIEW_LINK(), {
+        params: {
+          id,
+          username,
+        },
+      })
       setUserLinks(data.Link)
     } catch (error) {
       if (error.response) {
@@ -72,7 +91,12 @@ export default function PageTitle() {
   const handleUserButton = async () => {
 
      try {
-       const { data } = await api.get(BUTTONS.PREVIEW_BUTTON(), {})
+       const { data } = await api.get(BUTTONS.PREVIEW_BUTTON(), {
+         params: {
+           id,
+           username,
+         },
+       })
        if (data.success) {
          localStorage.setItem('buttonId', data.button[0].buttonId)
          data.button.map((cu) => {
@@ -92,7 +116,12 @@ export default function PageTitle() {
 
   const handleUserAppreans = async () => {
      try {
-       const { data } = await api.get(APPREANCE.PREVIEW_APPREANCE())
+       const { data } = await api.get(APPREANCE.PREVIEW_APPREANCE(), {
+         params: {
+           id,
+           username,
+         },
+       })
        if (data.success) {
          const infor = data.appreances.map((cur) => {
            return cur
@@ -113,10 +142,12 @@ export default function PageTitle() {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
           id,
+          username,
         },
       })
       if (data.success) {
-        localStorage.setItem('linkId', data.id)
+        // localStorage.setItem('linkId', data.id)
+        router.push(`/${id}`)
       }
       
     } catch (error) {
@@ -129,12 +160,13 @@ export default function PageTitle() {
   }
 
   
-
+  
   const infor = UserInfo().selectedPreview
   const value = UserInfo()
+  // console.log(value.username)
 
   useEffect(() => {
-   
+   handlePreviewReset()
     handleData()
   }, [])
 
