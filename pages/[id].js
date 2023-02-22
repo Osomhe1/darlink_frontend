@@ -12,6 +12,7 @@ import { ResetUser } from '../context/context'
 import { BUTTONS } from './api/ACTIONS.JS'
 import { PROFILE } from './api/ACTIONS.JS'
 import { VERIFICATION } from './api/ACTIONS.JS'
+import { toast } from 'react-toastify'
 
 export default function PageTitle() {
   const router = useRouter()
@@ -138,6 +139,7 @@ export default function PageTitle() {
 
 
   const handlePreviewReset = async () => {
+    console.log(username, 'before')
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
@@ -146,14 +148,14 @@ export default function PageTitle() {
         },
       })
       if (data.success) {
-        // localStorage.setItem('linkId', data.id)
+        console.log(username, 'successful')
         router.push(`/${id}`)
       }
       
     } catch (error) {
       if (error.response) {
         const err = error.response.data.error
-        setError(err)
+        console.log(err, 'err')
         toast.error(err)
       }
     }
