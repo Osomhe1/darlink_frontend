@@ -144,8 +144,8 @@ export default function PageTitle() {
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
-          // id,
-          userName,
+          id,
+          // userName,
           // username,
         },
       })
