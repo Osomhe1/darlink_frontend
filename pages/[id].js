@@ -6,13 +6,29 @@ import TelegramIcon from '@mui/icons-material/Telegram'
 import { useRouter } from 'next/router'
 import { UserInfo } from '../components/verify'
 import api from './api/darlink'
-import { LINK, USER_ENDPOINTS } from './api/ACTIONS.JS'
+import { LINK } from './api/ACTIONS.JS'
 import Link from 'next/link'
 import { ResetUser } from '../context/context'
+import { BUTTONS } from './api/ACTIONS.JS'
+import { PROFILE } from './api/ACTIONS.JS'
+import { VERIFICATION } from './api/ACTIONS.JS'
 
 export default function PageTitle() {
   const router = useRouter()
   const [userLinks, setUserLinks] = useState([])
+   const appreances = []
+    const [buttonInfor, setButtonInfor] = useState({
+      email: '',
+      discord: '',
+      phone: '',
+      telegram: '',
+      social: '',
+      music: '',
+      contact: '',
+      podcast: '',
+      buttonId: '',
+    })
+    const [users, setUsers] = useState()
 
   const handleData = async () => {
     try {
@@ -20,27 +36,105 @@ export default function PageTitle() {
       setUserLinks(data.Link)
     } catch (error) {
       if (error.response) {
-        if (error.response.status === 401) {
-          ResetUser()
-          router.push('/Login')
-        }
+        
       }
     }
   }
+  const handleUserProfile = async () => {
+    try {
+      const { data } = await api.get(PROFILE.PREVIEW_USER(), {})
+      if (data.success) userData = { ...data.profile }
+      localStorage.setItem('passportUrl', userData.passportUrl)
+      localStorage.setItem('colour', userData.colour)
+      localStorage.setItem('profileId', userData.profileId)
+      if (data.profile.colour !== null) {
+        setColour(data.profile.colour)
+      }
+      setUsers(userData)
+      reload()
+    } catch (error) {
+      if (error.response) {
+        
+      }
+    }
+  }
+
+  const handleUserLink = async () => {
+    try {
+      const { data } = await api.get(LINK.PREVIEW_LINK(), {})
+      setUserLinks(data.Link)
+    } catch (error) {
+      if (error.response) {
+
+      }
+    }
+  }
+  const handleUserButton = async () => {
+
+     try {
+       const { data } = await api.get(BUTTONS.PREVIEW_BUTTON(), {})
+       if (data.success) {
+         localStorage.setItem('buttonId', data.button[0].buttonId)
+         data.button.map((cu) => {
+           for (const key in cu) {
+             buttonInfor[key] = cu[key]
+           }
+         })
+       }
+     } catch (error) {
+       if (error.response) {
+         
+       }
+     }
+    
+  }
+
+
+  const handleUserAppreans = async () => {
+     try {
+       const { data } = await api.get(APPREANCE.PREVIEW_APPREANCE())
+       if (data.success) {
+         const infor = data.appreances.map((cur) => {
+           return cur
+         })
+         appreances.push(...infor)
+         router.push('/dashboard')
+       }
+     } catch (error) {
+       if (error.response) {
+         
+       }
+     }
+  }
+
+
+  const handlePreviewReset = async () => {
+    try {
+      const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
+        params: {
+          id,
+        },
+      })
+      if (data.success) {
+        localStorage.setItem('linkId', data.id)
+      }
+      
+    } catch (error) {
+      if (error.response) {
+        const err = error.response.data.error
+        setError(err)
+        toast.error(err)
+      }
+    }
+  }
+
+  
 
   const infor = UserInfo().selectedPreview
   const value = UserInfo()
 
   useEffect(() => {
-    // const AuthenticateUser = async () => {
-    //   try {
-    //     const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-    //     if (!data.success) router.push('/Login')
-    //   } catch (error) {
-    //     router.push('/Login')
-    //   }
-    // }
-    // AuthenticateUser()
+   
     handleData()
   }, [])
 
