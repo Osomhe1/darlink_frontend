@@ -33,6 +33,7 @@ export default function PageTitle() {
       podcast: '',
       buttonId: '',
     })
+    let userData;
     const [users, setUsers] = useState()
 
   const handleData = async () => {
@@ -53,6 +54,7 @@ export default function PageTitle() {
       }
     }
   }
+
   const handleUserProfile = async () => {
     const username = value.username
     const userId = value.userId
@@ -72,7 +74,6 @@ export default function PageTitle() {
         setColour(data.profile.colour)
       }
       setUsers(userData)
-      reload()
     } catch (error) {
       if (error.response) {
         
@@ -99,6 +100,7 @@ export default function PageTitle() {
       }
     }
   }
+
   const handleUserButton = async () => {
  const username = value.username
  const userId = value.userId
@@ -140,11 +142,12 @@ export default function PageTitle() {
          },
        })
        if (data.success) {
-         const infor = data.appreances.map((cur) => {
+        //  const infor = data.appreances.map((cur) => {
+         const infor = data.appearance.map((cur) => {
            return cur
          })
          appreances.push(...infor)
-         router.push('/dashboard')
+        //  router.push('/dashboard')
        }
      } catch (error) {
        if (error.response) {
@@ -191,7 +194,10 @@ export default function PageTitle() {
   useEffect(() => {
    handlePreviewReset()
     // handleData()
+    handleUserProfile()
     handleUserLink()
+    handleUserButton()
+    handleUserAppreans()
   }, [])
 
   const handleShow = (cur, key) => {
