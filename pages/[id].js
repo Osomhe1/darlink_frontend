@@ -212,11 +212,11 @@ export default function PageTitle() {
       return (
         <div className="w-[200px] md:w-full">
           <div
-            className="bg-blue-500 p-3 m-3 rounded-md w-[20  flex-wrap"
+            className="bg-blue-500 p-3 m-3 rounded-md w-[20  "
             key={key}
           >
             <h1 className="text-white font-semibold"> {cur.title} </h1>
-            <Link className='' href={`${cur.url}`} target={'_blank'}>
+            <Link className='flex-wrap' href={`${cur.url}`} target={'_blank'}>
               <button type="button"> {cur.url} </button>
             </Link>
           </div>
