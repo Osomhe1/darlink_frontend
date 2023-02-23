@@ -17,9 +17,9 @@ import { toast } from 'react-toastify'
 export default function PageTitle() {
   const router = useRouter()
   const { id } = router.query
+  console.log(id, 'route id')
   const  username  = {id}
   const url = username.id
-  console.log(id, 'route id')
   console.log(username, 'route username')
   console.log(url, 'route url')
   const value = UserInfo()
@@ -171,11 +171,10 @@ export default function PageTitle() {
 
 
   const handlePreviewReset = async () => {
-    console.log(value.username, 'before')
-    // const username = value.username
-    console.log(username, 'username')
-    console.log(username.id, 'username')
+    console.log(url, 'url username')
+    console.log(username.id, 'username id')
     const username = username.id
+    console.log(username, 'name')
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
@@ -189,6 +188,7 @@ export default function PageTitle() {
         console.log(data)
         console.log(data.success)
         console.log(username, 'successful')
+        console.log(url, 'successful')
          localStorage.setItem('userId', data.userId)
         router.push(`/${id}`)
       }
