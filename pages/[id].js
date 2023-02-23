@@ -18,8 +18,10 @@ export default function PageTitle() {
   const router = useRouter()
   const { id } = router.query
   const  username  = {id}
+  const url = username.id
   console.log(id, 'route id')
   console.log(username, 'route username')
+  console.log(url, 'route url')
   const value = UserInfo()
   const [userLinks, setUserLinks] = useState([])
    const appreances = []
@@ -178,6 +180,7 @@ export default function PageTitle() {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
           id,
+          url,
           // userName,
           username,
         },
