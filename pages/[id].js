@@ -18,8 +18,8 @@ export default function PageTitle() {
   const router = useRouter()
   const { id } = router.query
   console.log(id, 'route id')
-  const  username  = {id}
-  const url = username.id
+  const  url  = {id}
+  const username = url.id
   console.log(username, 'route username')
   console.log(url, 'route url')
   const value = UserInfo()
@@ -172,16 +172,12 @@ export default function PageTitle() {
 
   const handlePreviewReset = async () => {
     console.log(url, 'url username')
-    console.log(username.id, 'username id')
-    const username = username.id
-    console.log(username, 'name')
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
           id,
           url,
           // userName,
-          username,
         },
       })
       if (data.success) {
