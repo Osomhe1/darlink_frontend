@@ -6,6 +6,7 @@ export default function CopyButton({onMouseLeave}) {
 
     const infor = UserInfo()
 const [text, setText] = useState(`darlink.to/${infor.username}`)
+// const [text, setText] = useState(`http://localhost:3000/${infor.username}`)
         
 const copyToClipboard = async () => {
   try {
