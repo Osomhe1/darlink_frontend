@@ -173,7 +173,7 @@ export default function PageTitle() {
     // const username = value.username
     console.log(username, 'username')
     console.log(username.id, 'username')
-    const id = username.id
+    const username = username.id
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
