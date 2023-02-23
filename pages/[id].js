@@ -210,8 +210,11 @@ export default function PageTitle() {
   const handleShow = (cur, key) => {
     if (cur.url) {
       return (
-        <div className="">
-          <div className="bg-blue-500 p-3 m-3 rounded-md w-[300px] md:w-full " key={key}>
+        <div className="w-[200px] md:w-full">
+          <div
+            className="bg-blue-500 p-3 m-3 rounded-md w-[200px] md:w-full "
+            key={key}
+          >
             <h1 className="text-white font-semibold"> {cur.title} </h1>
             <Link href={`${cur.url}`} target={'_blank'}>
               <button type="button"> {cur.url} </button>
@@ -282,9 +285,7 @@ export default function PageTitle() {
                   </Link>
                 )}
                 {buttonInfor?.email && (
-                  // {infor?.email && (
                   <Link href={`mailto:${buttonInfor?.email}`} target={'_blank'}>
-                    {/* <Link href={`mailto:${infor?.email}`} target={'_blank'}> */}
                     <button
                       className=" text-white active:bg-pink-600 
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -297,9 +298,7 @@ export default function PageTitle() {
                 )}
 
                 {buttonInfor?.discord && (
-                  // {infor?.discord && (
                   <Link href={buttonInfor?.discord} target={'_blank'}>
-                    {/* <Link href={infor?.discord} target={'_blank'}> */}
                     <button
                       className=" text-white active:bg-pink-600 flex items-center gap-2
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -322,9 +321,7 @@ export default function PageTitle() {
                 )}
 
                 {buttonInfor?.telegram && (
-                  // {infor?.telegram && (
                   <Link href={buttonInfor?.telegram} target={'_blank'}>
-                    {/* <Link href={infor?.telegram} target={'_blank'}> */}
                     <button
                       className=" text-white active:bg-pink-600 
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
