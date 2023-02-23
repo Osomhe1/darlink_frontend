@@ -17,11 +17,8 @@ import { toast } from 'react-toastify'
 export default function PageTitle() {
   const router = useRouter()
   const { id } = router.query
-  console.log(id, 'route id')
   const  url  = {id}
   const username = url.id
-  console.log(username, 'route username')
-  console.log(url, 'route url')
   const value = UserInfo()
   const [userLinks, setUserLinks] = useState([])
    const appreances = []
@@ -114,7 +111,6 @@ export default function PageTitle() {
   const handleUserButton = async () => {
  const username = value.username
  const userId = value.userId
- console.log(userId, 'userId hh')
      try {
        const { data } = await api.get(BUTTONS.PREVIEW_BUTTON(), {
          params: {
@@ -133,7 +129,6 @@ export default function PageTitle() {
          })
        }
      } catch (error) {
-      console.log(error, 'buttons')
        if (error.response) {
          
        }
@@ -172,7 +167,6 @@ export default function PageTitle() {
 
 
   const handlePreviewReset = async () => {
-    console.log(url, 'url username')
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
@@ -204,11 +198,9 @@ export default function PageTitle() {
   
   
   const infor = UserInfo().selectedPreview
-  console.log(infor, 'infor')
 
   useEffect(() => {
    handlePreviewReset()
-    // handleData()
     handleUserProfile()
     handleUserLink()
     handleUserButton()
@@ -219,7 +211,7 @@ export default function PageTitle() {
     if (cur.url) {
       return (
         <div className="">
-          <div className="bg-blue-500 p-3 m-3 rounded-md  " key={key}>
+          <div className="bg-blue-500 p-3 m-3 rounded-md w-[300px] md:w-full " key={key}>
             <h1 className="text-white font-semibold"> {cur.title} </h1>
             <Link href={`${cur.url}`} target={'_blank'}>
               <button type="button"> {cur.url} </button>
