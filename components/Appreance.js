@@ -77,8 +77,6 @@ handleSubmit();
             return cur
           });
           appreances.push(...infor);
-           router.push('/dashboard')
-         
        }
      } catch (error) {
       if (error.response) {
