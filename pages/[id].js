@@ -210,13 +210,13 @@ export default function PageTitle() {
   const handleShow = (cur, key) => {
     if (cur.url) {
       return (
-        <div className="w-[200px] md:w-full">
+        <div className="w md:w-full">
           <div
-            className="bg-blue-500 p-3 m-3 rounded-md w-[20  "
+            className="bg-blue-500 p-3 m-3 rounded-md w-full "
             key={key}
           >
             <h1 className="text-white font-semibold"> {cur.title} </h1>
-            <Link className='flex-wrap' href={`${cur.url}`} target={'_blank'}>
+            <Link className='flex-wrap w-[200px] md:w-full ' href={`${cur.url}`} target={'_blank'}>
               <button type="button"> {cur.url} </button>
             </Link>
           </div>
