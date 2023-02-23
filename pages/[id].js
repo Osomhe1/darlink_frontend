@@ -235,10 +235,15 @@ export default function PageTitle() {
            flex justify-center items-center cursor-pointer bg-cover 
              `}
           style={{
-            backgroundColor: `${value.colour}`
-              ? `${value.colour}`
+            backgroundColor: `${users.colour}`
+              ? `${users.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
           }}
+          // style={{
+          //   backgroundColor: `${value.colour}`
+          //     ? `${value.colour}`
+          //     : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
+          // }}
           name="colour"
         >
           <div className="bg-[#8BC940] z-90 shadow-xl max-w-[90%] h-auto p-5 items-center justify-center flex   ">
@@ -250,7 +255,7 @@ export default function PageTitle() {
                            border-2 border-[#8BC940] absolute -mt-12 lg:-ml-6 xl:-ml-3  "
                   sx={{ width: 200, height: 200 }}
                   style={{ maxWidth: '200px', maxHeight: '200' }}
-                  src={value.passportUrl ? value.passportUrl : <Avatar />}
+                  src={users.passportUrl ? users.passportUrl : <Avatar />}
                 />
               </div>
               <div className="text-center text-2xl">
@@ -259,7 +264,7 @@ export default function PageTitle() {
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
                       mr- mb- w-[100%]  m-auto ease-linear transition-all duration-150"
                 >
-                  {value?.username}
+                  {users?.displayName}
                 </p>
               </div>
 
