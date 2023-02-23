@@ -11,13 +11,13 @@ import Link from 'next/link'
 import { ResetUser } from '../context/context'
 import { BUTTONS } from './api/ACTIONS.JS'
 import { PROFILE } from './api/ACTIONS.JS'
-import { VERIFICATION } from './api/ACTIONS.JS'
+import { VERIFICATION, APPREANCE } from './api/ACTIONS.JS'
 import { toast } from 'react-toastify'
 
 export default function PageTitle() {
   const router = useRouter()
   const { id } = router.query
-  const { username } = router.query
+  const { username } = {id}
   console.log(id, 'route id')
   console.log(username, 'route username')
   const value = UserInfo()
@@ -96,10 +96,10 @@ export default function PageTitle() {
           userId,
         },
       })
-      console.log(data)
+      console.log(data, 'links')
       setUserLinks(data.Link)
     } catch (error) {
-      console.log(error)
+      console.log(error, 'links')
       if (error.response) {
 
       }
@@ -119,7 +119,7 @@ export default function PageTitle() {
          },
        })
        if (data.success) {
-        console.log(data)
+        console.log(data, 'buttons')
          localStorage.setItem('buttonId', data.button[0].buttonId)
          data.button.map((cu) => {
            for (const key in cu) {
@@ -128,7 +128,7 @@ export default function PageTitle() {
          })
        }
      } catch (error) {
-      console.log(error)
+      console.log(error, 'buttons')
        if (error.response) {
          
        }
@@ -149,7 +149,7 @@ export default function PageTitle() {
          },
        })
        if (data.success) {
-        console.log(data)
+        console.log(data, 'appreances')
         //  const infor = data.appreances.map((cur) => {
          const infor = data.appearance.map((cur) => {
            return cur
@@ -158,7 +158,7 @@ export default function PageTitle() {
         //  router.push('/dashboard')
        }
      } catch (error) {
-      console.log(error)
+      console.log(error, 'appreances')
        if (error.response) {
          
        }
