@@ -19,6 +19,7 @@ const UserInfo =  () => {
   const urlId = localStorage.getItem('linkId')
   const linkId = localStorage.getItem('linkId')
   const userId = localStorage.getItem('userId')
+  const displayName = localStorage.getItem('displayName')
 
  
    const infor = {
@@ -27,6 +28,7 @@ const UserInfo =  () => {
      role,
      email,
      emailId,
+     displayName,
      id,
      urlId,
      passportUrl,
