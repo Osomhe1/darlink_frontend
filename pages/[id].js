@@ -168,7 +168,7 @@ export default function PageTitle() {
 
   const handlePreviewReset = async () => {
     console.log(value.username, 'before')
-    // const username = value.username
+    const username = value.username
     console.log(username, 'username')
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
