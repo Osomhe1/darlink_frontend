@@ -37,11 +37,13 @@ export default function PageTitle() {
 
   const handleData = async () => {
     const username = value.username
+     const userId = value.userId
     try {
       const { data } = await api.get(LINK.GET_LINK(), {
         params: {
           id,
           username,
+          userId,
         },
       })
       setUserLinks(data.Link)
@@ -53,11 +55,13 @@ export default function PageTitle() {
   }
   const handleUserProfile = async () => {
     const username = value.username
+    const userId = value.userId
     try {
       const { data } = await api.get(PROFILE.PREVIEW_USER(), {
         params: {
           id,
           username,
+          userId,
         },
       })
       if (data.success) userData = { ...data.profile }
@@ -78,11 +82,14 @@ export default function PageTitle() {
 
   const handleUserLink = async () => {
     const username = value.username
+    const userId = value.userId
+    console.log(userId, 'userId hh')
     try {
       const { data } = await api.get(LINK.PREVIEW_LINK(), {
         params: {
           id,
           username,
+          userId,
         },
       })
       setUserLinks(data.Link)
@@ -94,11 +101,14 @@ export default function PageTitle() {
   }
   const handleUserButton = async () => {
  const username = value.username
+ const userId = value.userId
+ console.log(userId, 'userId hh')
      try {
        const { data } = await api.get(BUTTONS.PREVIEW_BUTTON(), {
          params: {
            id,
            username,
+           userId,
          },
        })
        if (data.success) {
@@ -120,11 +130,13 @@ export default function PageTitle() {
 
   const handleUserAppreans = async () => {
     const username = value.username
+    const userId = value.userId
      try {
        const { data } = await api.get(APPREANCE.PREVIEW_APPREANCE(), {
          params: {
            id,
            username,
+           userId,
          },
        })
        if (data.success) {
@@ -178,7 +190,8 @@ export default function PageTitle() {
 
   useEffect(() => {
    handlePreviewReset()
-    handleData()
+    // handleData()
+    handleUserLink()
   }, [])
 
   const handleShow = (cur, key) => {
