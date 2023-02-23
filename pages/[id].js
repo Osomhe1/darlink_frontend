@@ -204,6 +204,7 @@ export default function PageTitle() {
   
   
   const infor = UserInfo().selectedPreview
+  console.log(infor, 'infor')
 
   useEffect(() => {
    handlePreviewReset()
@@ -274,8 +275,10 @@ export default function PageTitle() {
               </div>
 
               <div className="text-white text-center pb-4 flex flex-wrap items-center justify-center gap-3 ">
-                {infor?.phone && (
-                  <Link href={`tel:${infor?.phone}`}>
+                {/* {infor?.phone && ( */}
+                {buttonInfor?.phone && (
+                  <Link href={`tel:${buttonInfor?.phone}`}>
+                    {/* <Link href={`tel:${infor?.phone}`}> */}
                     <button
                       className=" text-white active:bg-pink-600 
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -286,8 +289,10 @@ export default function PageTitle() {
                     </button>
                   </Link>
                 )}
-                {infor?.email && (
-                  <Link href={`mailto:${infor?.email}`} target={'_blank'}>
+                {buttonInfor?.email && (
+                  // {infor?.email && (
+                  <Link href={`mailto:${buttonInfor?.email}`} target={'_blank'}>
+                    {/* <Link href={`mailto:${infor?.email}`} target={'_blank'}> */}
                     <button
                       className=" text-white active:bg-pink-600 
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -299,8 +304,10 @@ export default function PageTitle() {
                   </Link>
                 )}
 
-                {infor?.discord && (
-                  <Link href={infor?.discord} target={'_blank'}>
+                {buttonInfor?.discord && (
+                  // {infor?.discord && (
+                  <Link href={buttonInfor?.discord} target={'_blank'}>
+                    {/* <Link href={infor?.discord} target={'_blank'}> */}
                     <button
                       className=" text-white active:bg-pink-600 flex items-center gap-2
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -322,8 +329,10 @@ export default function PageTitle() {
                   </Link>
                 )}
 
-                {infor?.telegram && (
-                  <Link href={infor?.telegram} target={'_blank'}>
+                {buttonInfor?.telegram && (
+                  // {infor?.telegram && (
+                  <Link href={buttonInfor?.telegram} target={'_blank'}>
+                    {/* <Link href={infor?.telegram} target={'_blank'}> */}
                     <button
                       className=" text-white active:bg-pink-600 
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
