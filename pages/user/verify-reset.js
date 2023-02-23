@@ -28,7 +28,6 @@ export default function VerifyReset() {
     } catch (error) {
       if (error.response) {
         const err = error.response.data.error
-        setError(err)
         toast.error(err)
         router.push('/forget_password')
       }

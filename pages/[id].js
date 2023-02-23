@@ -140,13 +140,14 @@ export default function PageTitle() {
 
   const handlePreviewReset = async () => {
     console.log(value.username, 'before')
-    const userName = value.username
+    const username = value.username
+    console.log(username, 'username')
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
         params: {
           id,
           // userName,
-          // username,
+          username,
         },
       })
       if (data.success) {
@@ -167,8 +168,6 @@ export default function PageTitle() {
   
   
   const infor = UserInfo().selectedPreview
-  // const value = UserInfo()
-  console.log(value.username)
 
   useEffect(() => {
    handlePreviewReset()
