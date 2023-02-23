@@ -36,6 +36,7 @@ export default function PageTitle() {
     const [users, setUsers] = useState()
 
   const handleData = async () => {
+    const username = value.username
     try {
       const { data } = await api.get(LINK.GET_LINK(), {
         params: {
@@ -51,6 +52,7 @@ export default function PageTitle() {
     }
   }
   const handleUserProfile = async () => {
+    const username = value.username
     try {
       const { data } = await api.get(PROFILE.PREVIEW_USER(), {
         params: {
@@ -75,6 +77,7 @@ export default function PageTitle() {
   }
 
   const handleUserLink = async () => {
+    const username = value.username
     try {
       const { data } = await api.get(LINK.PREVIEW_LINK(), {
         params: {
@@ -90,7 +93,7 @@ export default function PageTitle() {
     }
   }
   const handleUserButton = async () => {
-
+ const username = value.username
      try {
        const { data } = await api.get(BUTTONS.PREVIEW_BUTTON(), {
          params: {
@@ -116,6 +119,7 @@ export default function PageTitle() {
 
 
   const handleUserAppreans = async () => {
+    const username = value.username
      try {
        const { data } = await api.get(APPREANCE.PREVIEW_APPREANCE(), {
          params: {
@@ -151,7 +155,10 @@ export default function PageTitle() {
         },
       })
       if (data.success) {
+        console.log(data)
+        console.log(data.success)
         console.log(username, 'successful')
+         localStorage.setItem('userId', data.userId)
         router.push(`/${id}`)
       }
       
