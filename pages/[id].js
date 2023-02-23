@@ -74,6 +74,7 @@ export default function PageTitle() {
       localStorage.setItem('passportUrl', userData.passportUrl)
       localStorage.setItem('colour', userData.colour)
       localStorage.setItem('profileId', userData.profileId)
+      localStorage.setItem('displayName', userData.displayName)
       if (data.profile.colour !== null) {
         setColour(data.profile.colour)
       }
@@ -187,6 +188,7 @@ export default function PageTitle() {
         console.log(username, 'successful')
         console.log(url, 'successful')
          localStorage.setItem('userId', data.userId)
+         localStorage.setItem('username', data.username)
         router.push(`/${id}`)
       }
       
@@ -268,7 +270,7 @@ export default function PageTitle() {
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
                       mr- mb- w-[100%]  m-auto ease-linear transition-all duration-150"
                 >
-                  {value?.username}
+                  {value.displayName}
                 </p>
               </div>
 
