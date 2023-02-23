@@ -17,8 +17,9 @@ import { toast } from 'react-toastify'
 export default function PageTitle() {
   const router = useRouter()
   const { id } = router.query
+  const { username } = router.query
   console.log(id, 'route id')
-  console.log(router.query, 'router query')
+  console.log(username, 'route username')
   const value = UserInfo()
   const [userLinks, setUserLinks] = useState([])
    const appreances = []
@@ -67,12 +68,14 @@ export default function PageTitle() {
         },
       })
       if (data.success) userData = { ...data.profile }
+      console.log(userData)
       localStorage.setItem('passportUrl', userData.passportUrl)
       localStorage.setItem('colour', userData.colour)
       localStorage.setItem('profileId', userData.profileId)
       if (data.profile.colour !== null) {
         setColour(data.profile.colour)
       }
+      console.log(userData)
       setUsers(userData)
     } catch (error) {
       if (error.response) {
@@ -93,8 +96,10 @@ export default function PageTitle() {
           userId,
         },
       })
+      console.log(data)
       setUserLinks(data.Link)
     } catch (error) {
+      console.log(error)
       if (error.response) {
 
       }
@@ -114,6 +119,7 @@ export default function PageTitle() {
          },
        })
        if (data.success) {
+        console.log(data)
          localStorage.setItem('buttonId', data.button[0].buttonId)
          data.button.map((cu) => {
            for (const key in cu) {
@@ -122,6 +128,7 @@ export default function PageTitle() {
          })
        }
      } catch (error) {
+      console.log(error)
        if (error.response) {
          
        }
@@ -142,6 +149,7 @@ export default function PageTitle() {
          },
        })
        if (data.success) {
+        console.log(data)
         //  const infor = data.appreances.map((cur) => {
          const infor = data.appearance.map((cur) => {
            return cur
@@ -150,6 +158,7 @@ export default function PageTitle() {
         //  router.push('/dashboard')
        }
      } catch (error) {
+      console.log(error)
        if (error.response) {
          
        }
@@ -159,7 +168,7 @@ export default function PageTitle() {
 
   const handlePreviewReset = async () => {
     console.log(value.username, 'before')
-    const username = value.username
+    // const username = value.username
     console.log(username, 'username')
     try {
       const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
