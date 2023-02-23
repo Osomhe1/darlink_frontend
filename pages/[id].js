@@ -35,7 +35,7 @@ export default function PageTitle() {
       buttonId: '',
     })
     let userData;
-    const [users, setUsers] = useState()
+    const [users, setUsers] = useState([])
 
   const handleData = async () => {
     const username = value.username
@@ -83,6 +83,8 @@ export default function PageTitle() {
       }
     }
   }
+
+  console.log(users, 'users ggg')
 
   const handleUserLink = async () => {
     const username = value.username
@@ -235,8 +237,8 @@ export default function PageTitle() {
            flex justify-center items-center cursor-pointer bg-cover 
              `}
           style={{
-            backgroundColor: `${users.colour}`
-              ? `${users.colour}`
+            backgroundColor: `${users?.colour}`
+              ? `${users?.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
           }}
           // style={{
