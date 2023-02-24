@@ -128,8 +128,8 @@ function PageTitle() {
     }
   }
 
-  console.log(appreances, 'line 131')
-  console.log(app, 'line 132')
+  // console.log(appreances, 'line 131')
+  // console.log(app, 'line 132')
 
   const handlePreviewReset = async () => {
     try {
