@@ -112,7 +112,6 @@ function PageTitle() {
       if (data.success) {
         console.log(data, 'appreances')
         console.log(data.appearance, 'appreances 113')
-        //  const infor = data.appreances.map((cur) => {
         const infor = data.appearance.map((cur) => {
           return cur
         })
@@ -121,6 +120,10 @@ function PageTitle() {
       }
       console.log(appreances, 'line 122')
       setApp(appreances)
+      console.log(app.data, 'line 123')
+      console.log(app[0].data, 'line 124')
+      console.log(app.type, 'line 125')
+      console.log(app[0].data, 'line 126')
     } catch (error) {
       console.log(error, 'appreances')
       if (error.response) {
@@ -128,9 +131,11 @@ function PageTitle() {
     }
   }
 
-  console.log(appreances, 'line 131')
-  console.log(app, 'line 132')
-  console.log(app.data, 'line 133')
+  console.log(app, 'line 130')
+  console.log(app.data, 'line 131')
+  console.log(app[0].data, 'line 132')
+  console.log(app.type, 'line 133')
+  console.log(app[0].data, 'line 134')
 
   const handlePreviewReset = async () => {
     try {
@@ -177,7 +182,7 @@ function PageTitle() {
               href={`${cur.url}`}
               target={'_blank'}
             >
-              <button className="overflow-auto w-[200px]" type="button">
+              <button className="overflow-auto w-[200px] md:w-[300px] lg:w-full " type="button">
                 {' '}
                 {cur.url}{' '}
               </button>
