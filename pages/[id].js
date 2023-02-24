@@ -354,7 +354,7 @@ const LazyComponent = dynamic(() => import('../components/[1d]'), {
 const MyPage = () => {
   return (
     <div>
-      <Suspense fallback={<div className='text-4xl m-auto text-green-500 text-center' >Loading...</div>}>
+      <Suspense fallback={<div className='text-4xl m-auto w-[200px] text-green-500 text-center' >Loading...</div>}>
         <LazyComponent />
       </Suspense>
     </div>
