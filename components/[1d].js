@@ -69,6 +69,7 @@ function PageTitle() {
       console.log(userData, 'line 69')
       console.log(data.success, 'success')
       console.log(data.profile, 'profile')
+      setUsers(userData)
       // localStorage.setItem('passportUrl', userData.passportUrl)
       // localStorage.setItem('colour', userData.colour)
       // localStorage.setItem('profileId', userData.profileId)
@@ -78,7 +79,7 @@ function PageTitle() {
       }
       // console.log(userData, 'line 77')
       setUsers(userData, 'line 78')
-      // console.log(users, 'users line 79')
+      console.log(users, 'users line 79')
     } catch (error) {
       if (error.response) {
         
@@ -87,7 +88,7 @@ function PageTitle() {
   }
 
   // console.log(userData, 'userData')
-  // console.log(users, 'users')
+  console.log(users, 'users')
 
 
   const handleUserLink = async (userId) => {
