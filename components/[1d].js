@@ -22,6 +22,7 @@ function PageTitle() {
   const value = UserInfo()
   const [userLinks, setUserLinks] = useState([])
    const appreances = []
+   const[app, setApp] = useState(appreances)
     const [buttonInfor, setButtonInfor] = useState({
       email: '',
       discord: '',
@@ -116,9 +117,10 @@ function PageTitle() {
           return cur
         })
         appreances.push(...infor)
-        console.log(appreances, 'line 122')
+        console.log(appreances, 'line 120')
       }
-      console.log(appreances, 'line 123')
+      console.log(appreances, 'line 122')
+      setApp(appreances)
     } catch (error) {
       console.log(error, 'appreances')
       if (error.response) {
@@ -126,7 +128,8 @@ function PageTitle() {
     }
   }
 
-  console.log(appreances, 'line 128')
+  console.log(appreances, 'line 131')
+  console.log(app, 'line 132')
 
   const handlePreviewReset = async () => {
     try {
@@ -139,7 +142,6 @@ function PageTitle() {
       })
       if (data.success) {
         console.log(data)
-        // call the reset of the endpoints here 
          handleUserProfile(data.userId)
          handleUserLink(data.userId)
          handleUserButton(data.userId)
@@ -195,10 +197,11 @@ function PageTitle() {
             backgroundColor: `${users.colour}`
               ? `${users.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
+              fontFamily
           }}
           name="colour"
         >
-          <div className="bg-[#8BC940] z-90 shadow-xl  h-auto p-5 items-center justify-center flex   ">
+          <div className="bg-[#8BC940] z-90 shadow-xl w-auto h-auto p-5 items-center justify-center flex   ">
             <Stack>
               <div className=" z-90 m-auto">
                 <Avatar
