@@ -177,7 +177,7 @@ function PageTitle() {
               href={`${cur.url}`}
               target={'_blank'}
             >
-              <button className="flex-wrap w-[200px]" type="button">
+              <button className="overflow-auto w-[200px]" type="button">
                 {' '}
                 {cur.url}{' '}
               </button>
