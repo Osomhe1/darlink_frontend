@@ -9,6 +9,7 @@ import {UserInfo} from '../verify'
 import api from '../../pages/api/darlink'
 import { LINK, USER_ENDPOINTS, APPREANCE } from '../../pages/api/ACTIONS.JS'
 import Link from 'next/link'
+import { toast } from 'react-toastify'
 
 
 export default function Preview() {
