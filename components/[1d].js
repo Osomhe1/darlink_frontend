@@ -19,6 +19,7 @@ function PageTitle() {
   const { id } = router.query
   const  url  = {id}
   const username = url.id
+  console.log(id, 'id')
   const value = UserInfo()
   const [userLinks, setUserLinks] = useState([])
    const appreances = []
@@ -55,14 +56,11 @@ function PageTitle() {
     }
   }
 
-  const handleUserProfile = async () => {
-    const username = value.username
-    const userId = value.userId
+  const handleUserProfile = async (userId) => {
+    console.log(userId)
     try {
       const { data } = await api.get(PROFILE.PREVIEW_USER(), {
         params: {
-          id,
-          username,
           userId,
         },
       })
@@ -86,15 +84,11 @@ function PageTitle() {
 
 
 
-  const handleUserLink = async () => {
-    const username = value.username
-    const userId = value.userId
+  const handleUserLink = async (userId) => {
     console.log(userId, 'userId hh')
     try {
       const { data } = await api.get(LINK.PREVIEW_LINK(), {
         params: {
-          id,
-          username,
           userId,
         },
       })
@@ -103,19 +97,16 @@ function PageTitle() {
     } catch (error) {
       console.log(error, 'links')
       if (error.response) {
-
       }
     }
   }
 
-  const handleUserButton = async () => {
- const username = value.username
- const userId = value.userId
+  const handleUserButton = async (userId) => {
+//  const username = value.username
+//  const userId = value.userId
      try {
        const { data } = await api.get(BUTTONS.PREVIEW_BUTTON(), {
          params: {
-           id,
-           username,
            userId,
          },
        })
@@ -177,12 +168,11 @@ function PageTitle() {
       })
       if (data.success) {
         console.log(data)
-        console.log(data.success)
-        console.log(username, 'successful')
-        console.log(url, 'successful')
-         localStorage.setItem('userId', data.userId)
-         localStorage.setItem('username', data.username)
-        router.push(`/${id}`)
+        // call the reset of the endpoints here 
+         handleUserProfile(data.userId)
+         handleUserLink(data.userId)
+         handleUserButton(data.userId)
+         handleUserAppreans(data.userId)
       }
       
     } catch (error) {
@@ -194,18 +184,13 @@ function PageTitle() {
       }
     }
   }
-
+ handlePreviewReset();
   
   
-  const infor = UserInfo().selectedPreview
 
-  useEffect(() => {
-   handlePreviewReset()
-    handleUserProfile()
-    handleUserLink()
-    handleUserButton()
-    handleUserAppreans()
-  }, [])
+  // useEffect(() => {
+  
+  // }, [])
 
   const handleShow = (cur, key) => {
     if (cur.url) {
