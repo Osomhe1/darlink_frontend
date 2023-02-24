@@ -216,7 +216,7 @@ export default function PageTitle() {
             key={key}
           >
             <h1 className="text-white font-semibold"> {cur.title} </h1>
-            <Link className='flex-wrap w-[200px] md:w-full ' href={`${cur.url}`} target={'_blank'}>
+            <Link className='flex-wrap w-[200px]  ' href={`${cur.url}`} target={'_blank'}>
               <button type="button"> {cur.url} </button>
             </Link>
           </div>
@@ -235,11 +235,7 @@ export default function PageTitle() {
           className={`absolute top-0 w-full h-auto bg-center p-10
            flex justify-center items-center cursor-pointer bg-cover 
              `}
-          // style={{
-          //   backgroundColor: `${users.colour}`
-          //     ? `${users.colour}`
-          //     : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
-          // }}
+         
           style={{
             backgroundColor: `${value.colour}`
               ? `${value.colour}`
@@ -247,7 +243,7 @@ export default function PageTitle() {
           }}
           name="colour"
         >
-          <div className="bg-[#8BC940] z-90 shadow-xl max-w-[90%] h-auto p-5 items-center justify-center flex   ">
+          <div className="bg-[#8BC940] z-90 shadow-xl  h-auto p-5 items-center justify-center flex   ">
             <Stack>
               <div className=" z-90 m-auto">
                 <Avatar
