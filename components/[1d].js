@@ -67,6 +67,8 @@ function PageTitle() {
       })
       if (data.success) userData = { ...data.profile }
       console.log(userData, 'line 69')
+      console.log(data.success, 'success')
+      console.log(data.profile, 'profile')
       // localStorage.setItem('passportUrl', userData.passportUrl)
       // localStorage.setItem('colour', userData.colour)
       // localStorage.setItem('profileId', userData.profileId)
