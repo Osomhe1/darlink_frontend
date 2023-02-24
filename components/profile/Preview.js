@@ -7,14 +7,16 @@ import { ResetUser } from '../../context/context'
 import {useRouter} from 'next/router'
 import {UserInfo} from '../verify'
 import api from '../../pages/api/darlink'
-import { LINK, USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
+import { LINK, USER_ENDPOINTS, APPREANCE } from '../../pages/api/ACTIONS.JS'
 import Link from 'next/link'
+
 
 export default function Preview() {
 
   const router = useRouter()
   const [userLinks, setUserLinks]= useState([]);
-
+const appreances = []
+const [app, setApp] = useState(appreances)
   const handleData = async () => {
      try {
        const { data } = await api.get(LINK.GET_LINK(), {})
@@ -25,6 +27,23 @@ export default function Preview() {
            ResetUser()
            router.push('/Login')
          }
+       }
+     }
+   }
+
+   const handleUserAppreans = async () => {
+     try {
+       const { data } = await api.get(APPREANCE.GET_APPREANCE(), {})
+       if (data.success) {
+         const infor = data.appearance.map((cur) => {
+           return cur
+         })
+         appreances.push(...infor)
+       }
+        setApp(appreances)
+     } catch (error) {
+       if (error.response) {
+         toast.error(error.response.data.error)
        }
      }
    }
@@ -43,6 +62,7 @@ export default function Preview() {
     }
     AuthenticateUser();
     handleData()
+    handleUserAppreans()
     
   }, [])
 
@@ -75,6 +95,7 @@ const handleShow =(cur, key) => {
             backgroundColor: `${value.colour}`
               ? `${value.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
+            fontFamily: `${app[0]?.data}` ? `${app[0]?.data}` : 'monospace',
           }}
           name="colour"
         >
@@ -171,7 +192,7 @@ const handleShow =(cur, key) => {
           </div>
           {/* links */}
         </div>
-        
+
         <div className=""></div>
       </section>
     </div>
