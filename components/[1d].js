@@ -184,13 +184,13 @@ function PageTitle() {
       }
     }
   }
- handlePreviewReset();
   
   
-
-  // useEffect(() => {
   
-  // }, [])
+  useEffect(() => {
+    
+    handlePreviewReset();
+  }, [])
 
   const handleShow = (cur, key) => {
     if (cur.url) {
