@@ -58,7 +58,6 @@ function PageTitle() {
   }
 
   const handleUserProfile = async (userId) => {
-    console.log(userId)
     try {
       const { data } = await api.get(PROFILE.PREVIEW_USER(), {
         params: {
@@ -66,20 +65,11 @@ function PageTitle() {
         },
       })
       if (data.success) userData = { ...data.profile }
-      console.log(userData, 'line 69')
-      console.log(data.success, 'success')
-      console.log(data.profile, 'profile')
       setUsers(userData)
-      // localStorage.setItem('passportUrl', userData.passportUrl)
-      // localStorage.setItem('colour', userData.colour)
-      // localStorage.setItem('profileId', userData.profileId)
-      // localStorage.setItem('displayName', userData.displayName)
       if (data.profile.colour !== null) {
         setColour(data.profile.colour)
       }
-      // console.log(userData, 'line 77')
       setUsers(userData, 'line 78')
-      console.log(users, 'users line 82')
     } catch (error) {
       if (error.response) {
         
@@ -87,8 +77,6 @@ function PageTitle() {
     }
   }
 
-  // console.log(userData, 'userData')
-  console.log(users, 'users 91')
 
 
   const handleUserLink = async (userId) => {
@@ -125,7 +113,10 @@ function PageTitle() {
              buttonInfor[key] = cu[key]
            }
          })
+         setButtonInfor(buttonInfor)
+         console.log(buttonInfor, 'line117')
        }
+       console.log(buttonInfor, 'line 118')
      } catch (error) {
        if (error.response) {
          
@@ -133,6 +124,8 @@ function PageTitle() {
      }
     
   }
+
+  console.log(buttonInfor, 'buttonInfor 126')
 
 
   const handleUserAppreans = async () => {
