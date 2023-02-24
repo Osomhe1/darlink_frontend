@@ -130,6 +130,7 @@ function PageTitle() {
 
   console.log(appreances, 'line 131')
   console.log(app, 'line 132')
+  console.log(app.data, 'line 133')
 
   const handlePreviewReset = async () => {
     try {
@@ -169,13 +170,17 @@ function PageTitle() {
     if (cur.url) {
       return (
         <div className="w-[250px] ">
-          <div
-            className="bg-blue-500 p-3 m-3 rounded-md w-full "
-            key={key}
-          >
+          <div className="bg-blue-500 p-3 m-3 rounded-md w-full " key={key}>
             <h1 className="text-white font-semibold"> {cur.title} </h1>
-            <Link className='flex-wrap w-[200px]  ' href={`${cur.url}`} target={'_blank'}>
-              <button type="button"> {cur.url} </button>
+            <Link
+              className="flex-wrap w-[200px]  "
+              href={`${cur.url}`}
+              target={'_blank'}
+            >
+              <button className="flex-wrap w-[200px]" type="button">
+                {' '}
+                {cur.url}{' '}
+              </button>
             </Link>
           </div>
         </div>
