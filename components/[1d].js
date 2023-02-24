@@ -120,10 +120,10 @@ function PageTitle() {
       }
       console.log(appreances, 'line 122')
       setApp(appreances)
-      console.log(app.data, 'line 123')
-      console.log(app[0].data, 'line 124')
-      console.log(app.type, 'line 125')
-      console.log(app[0].data, 'line 126')
+      console.log(app?.data, 'line 123')
+      console.log(app[0]?.data, 'line 124')
+      console.log(app?.type, 'line 125')
+      console.log(app[0]?.data, 'line 126')
     } catch (error) {
       console.log(error, 'appreances')
       if (error.response) {
@@ -132,10 +132,10 @@ function PageTitle() {
   }
 
   console.log(app, 'line 130')
-  console.log(app.data, 'line 131')
-  console.log(app[0].data, 'line 132')
-  console.log(app.type, 'line 133')
-  console.log(app[0].data, 'line 134')
+  console.log(app?.data, 'line 131')
+  console.log(app[0]?.data, 'line 132')
+  console.log(app?.type, 'line 133')
+  console.log(app[0]?.data, 'line 134')
 
   const handlePreviewReset = async () => {
     try {
