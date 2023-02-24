@@ -131,7 +131,6 @@ function PageTitle() {
         },
       })
       if (data.success) {
-        console.log(data)
          handleUserProfile(data.userId)
          handleUserLink(data.userId)
          handleUserButton(data.userId)
