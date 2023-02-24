@@ -135,7 +135,7 @@ function PageTitle() {
   console.log(app?.data, 'line 131')
   console.log(app[0]?.data, 'line 132')
   console.log(app?.type, 'line 133')
-  console.log(app[0]?.data, 'line 134')
+  console.log(app[0]?.type, 'line 134')
 
   const handlePreviewReset = async () => {
     try {
@@ -174,7 +174,7 @@ function PageTitle() {
   const handleShow = (cur, key) => {
     if (cur.url) {
       return (
-        <div className="w-[250px] ">
+        <div className=" ">
           <div className="bg-blue-500 p-3 m-3 rounded-md w-full " key={key}>
             <h1 className="text-white font-semibold"> {cur.title} </h1>
             <Link
@@ -207,7 +207,7 @@ function PageTitle() {
             backgroundColor: `${users.colour}`
               ? `${users.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
-              fontFamily : `${app?.data}` ? `${app?.data}` : 'monospace'
+              fontFamily : `${app[0]?.data}` ? `${app[0]?.data}` : 'monospace'
           }}
           name="colour"
         >
