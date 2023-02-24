@@ -36,6 +36,7 @@ function PageTitle() {
     })
     let userData;
     const [users, setUsers] = useState([])
+    const [colour, setColour] = useState('[#100410]')
 
   const handleData = async () => {
     const username = value.username
@@ -65,7 +66,7 @@ function PageTitle() {
         },
       })
       if (data.success) userData = { ...data.profile }
-      console.log(userData)
+      console.log(userData, 'line 69')
       // localStorage.setItem('passportUrl', userData.passportUrl)
       // localStorage.setItem('colour', userData.colour)
       // localStorage.setItem('profileId', userData.profileId)
@@ -73,8 +74,9 @@ function PageTitle() {
       if (data.profile.colour !== null) {
         setColour(data.profile.colour)
       }
-      console.log(userData)
+      console.log(userData, 'line 77')
       setUsers(userData)
+      console.log(users, 'users line 79')
     } catch (error) {
       if (error.response) {
         
