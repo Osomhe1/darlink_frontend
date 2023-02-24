@@ -19,7 +19,6 @@ function PageTitle() {
   const { id } = router.query
   const  url  = {id}
   const username = url.id
-  console.log(id, 'id')
   const value = UserInfo()
   const [userLinks, setUserLinks] = useState([])
    const appreances = []
@@ -38,24 +37,6 @@ function PageTitle() {
     const [users, setUsers] = useState([])
     const [colour, setColour] = useState('[#100410]')
 
-  const handleData = async () => {
-    const username = value.username
-     const userId = value.userId
-    try {
-      const { data } = await api.get(LINK.GET_LINK(), {
-        params: {
-          id,
-          username,
-          userId,
-        },
-      })
-      setUserLinks(data.Link)
-    } catch (error) {
-      if (error.response) {
-        
-      }
-    }
-  }
 
   const handleUserProfile = async (userId) => {
     try {
@@ -69,15 +50,13 @@ function PageTitle() {
       if (data.profile.colour !== null) {
         setColour(data.profile.colour)
       }
-      setUsers(userData, 'line 78')
+      setUsers(userData)
     } catch (error) {
       if (error.response) {
         
       }
     }
   }
-
-
 
   const handleUserLink = async (userId) => {
     console.log(userId, 'userId hh')
@@ -97,8 +76,6 @@ function PageTitle() {
   }
 
   const handleUserButton = async (userId) => {
-//  const username = value.username
-//  const userId = value.userId
      try {
        const { data } = await api.get(BUTTONS.PREVIEW_BUTTON(), {
          params: {
@@ -106,17 +83,14 @@ function PageTitle() {
          },
        })
        if (data.success) {
-        console.log(data, 'buttons')
-         localStorage.setItem('buttonId', data.button[0].buttonId)
+        //  localStorage.setItem('buttonId', data.button[0].buttonId)
          data.button.map((cu) => {
            for (const key in cu) {
              buttonInfor[key] = cu[key]
            }
          })
          setButtonInfor(buttonInfor)
-         console.log(buttonInfor, 'line117')
        }
-       console.log(buttonInfor, 'line 118')
      } catch (error) {
        if (error.response) {
          
@@ -125,37 +99,34 @@ function PageTitle() {
     
   }
 
-  console.log(buttonInfor, 'buttonInfor 126')
 
 
-  const handleUserAppreans = async () => {
-    const username = value.username
-    const userId = value.userId
-     try {
-       const { data } = await api.get(APPREANCE.PREVIEW_APPREANCE(), {
-         params: {
-           id,
-           username,
-           userId,
-         },
-       })
-       if (data.success) {
+  const handleUserAppreans = async (userId) => {
+    try {
+      const { data } = await api.get(APPREANCE.PREVIEW_APPREANCE(), {
+        params: {
+          userId,
+        },
+      })
+      if (data.success) {
         console.log(data, 'appreances')
+        console.log(data.appearance, 'appreances 113')
         //  const infor = data.appreances.map((cur) => {
-         const infor = data.appearance.map((cur) => {
-           return cur
-         })
-         appreances.push(...infor)
-        //  router.push('/dashboard')
-       }
-     } catch (error) {
+        const infor = data.appearance.map((cur) => {
+          return cur
+        })
+        appreances.push(...infor)
+        console.log(appreances, 'line 122')
+      }
+      console.log(appreances, 'line 123')
+    } catch (error) {
       console.log(error, 'appreances')
-       if (error.response) {
-         
-       }
-     }
+      if (error.response) {
+      }
+    }
   }
 
+  console.log(appreances, 'line 128')
 
   const handlePreviewReset = async () => {
     try {
