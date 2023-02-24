@@ -44,7 +44,7 @@ const [app, setApp] = useState(appreances)
         setApp(appreances)
      } catch (error) {
        if (error.response) {
-         toast.error(error.response.data.error)
+        //  toast.error(error.response.data.error)
        }
      }
    }

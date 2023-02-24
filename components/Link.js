@@ -89,8 +89,8 @@ export default function Links() {
         }
       })
       if (data.success) {
-        handleData()
         toast.success(data.msg)
+        handleData()
       } 
     } catch (error) {
       toast.error(error.response.data.error)
