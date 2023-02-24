@@ -54,24 +54,22 @@ function PageTitle() {
       setUsers(userData)
     } catch (error) {
       if (error.response) {
-        
+        toast.error(error.response.data.error)
       }
     }
   }
 
   const handleUserLink = async (userId) => {
-    console.log(userId, 'userId hh')
     try {
       const { data } = await api.get(LINK.PREVIEW_LINK(), {
         params: {
           userId,
         },
       })
-      console.log(data, 'links')
       setUserLinks(data.Link)
     } catch (error) {
-      console.log(error, 'links')
       if (error.response) {
+        toast.error(error.response.data.error)
       }
     }
   }
@@ -84,7 +82,6 @@ function PageTitle() {
          },
        })
        if (data.success) {
-        //  localStorage.setItem('buttonId', data.button[0].buttonId)
          data.button.map((cu) => {
            for (const key in cu) {
              buttonInfor[key] = cu[key]
@@ -94,7 +91,7 @@ function PageTitle() {
        }
      } catch (error) {
        if (error.response) {
-         
+         toast.error(error.response.data.error)
        }
      }
     
@@ -110,32 +107,19 @@ function PageTitle() {
         },
       })
       if (data.success) {
-        console.log(data, 'appreances')
-        console.log(data.appearance, 'appreances 113')
         const infor = data.appearance.map((cur) => {
           return cur
         })
         appreances.push(...infor)
-        console.log(appreances, 'line 120')
       }
-      console.log(appreances, 'line 122')
       setApp(appreances)
-      console.log(app?.data, 'line 123')
-      console.log(app[0]?.data, 'line 124')
-      console.log(app?.type, 'line 125')
-      console.log(app[0]?.data, 'line 126')
     } catch (error) {
-      console.log(error, 'appreances')
       if (error.response) {
+      toast.error(error.response.data.error)
       }
     }
   }
 
-  console.log(app, 'line 130')
-  console.log(app?.data, 'line 131')
-  console.log(app[0]?.data, 'line 132')
-  console.log(app?.type, 'line 133')
-  console.log(app[0]?.type, 'line 134')
 
   const handlePreviewReset = async () => {
     try {
@@ -156,9 +140,7 @@ function PageTitle() {
       
     } catch (error) {
       if (error.response) {
-        console.log(error)
         const err = error.response.data.error
-        console.log(err, 'err')
         toast.error(err)
       }
     }
@@ -234,10 +216,8 @@ function PageTitle() {
               </div>
 
               <div className="text-white text-center pb-4 flex flex-wrap items-center justify-center gap-3 ">
-                {/* {infor?.phone && ( */}
                 {buttonInfor?.phone && (
                   <Link href={`tel:${buttonInfor?.phone}`}>
-                    {/* <Link href={`tel:${infor?.phone}`}> */}
                     <button
                       className=" text-white active:bg-pink-600 
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -304,7 +284,6 @@ function PageTitle() {
               })}
             </Stack>
           </div>
-          {/* links */}
         </div>
 
         <div className=""></div>
@@ -315,4 +294,3 @@ function PageTitle() {
 
 
 export default PageTitle;
-// export default React.lazy(() => import('./[1d]'))
