@@ -66,10 +66,10 @@ function PageTitle() {
       })
       if (data.success) userData = { ...data.profile }
       console.log(userData)
-      localStorage.setItem('passportUrl', userData.passportUrl)
-      localStorage.setItem('colour', userData.colour)
-      localStorage.setItem('profileId', userData.profileId)
-      localStorage.setItem('displayName', userData.displayName)
+      // localStorage.setItem('passportUrl', userData.passportUrl)
+      // localStorage.setItem('colour', userData.colour)
+      // localStorage.setItem('profileId', userData.profileId)
+      // localStorage.setItem('displayName', userData.displayName)
       if (data.profile.colour !== null) {
         setColour(data.profile.colour)
       }
@@ -220,10 +220,9 @@ function PageTitle() {
           className={`absolute top-0 w-full h-auto bg-center p-10
            flex justify-center items-center cursor-pointer bg-cover 
              `}
-         
           style={{
-            backgroundColor: `${value.colour}`
-              ? `${value.colour}`
+            backgroundColor: `${users.colour}`
+              ? `${users.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
           }}
           name="colour"
@@ -237,7 +236,7 @@ function PageTitle() {
                            border-2 border-[#8BC940] absolute -mt-12 lg:-ml-6 xl:-ml-3  "
                   sx={{ width: 200, height: 200 }}
                   style={{ maxWidth: '200px', maxHeight: '200' }}
-                  src={value.passportUrl ? value.passportUrl : <Avatar />}
+                  src={users.passportUrl ? users.passportUrl : <Avatar />}
                 />
               </div>
               <div className="text-center text-2xl">
@@ -246,7 +245,7 @@ function PageTitle() {
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
                       mr- mb- w-[100%]  m-auto ease-linear transition-all duration-150"
                 >
-                  {value.username}
+                  {users.username}
                 </p>
               </div>
 
