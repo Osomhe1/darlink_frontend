@@ -168,7 +168,7 @@ function PageTitle() {
   const handleShow = (cur, key) => {
     if (cur.url) {
       return (
-        <div className="w md:w-full">
+        <div className="w-[250px] ">
           <div
             className="bg-blue-500 p-3 m-3 rounded-md w-full "
             key={key}
@@ -197,7 +197,7 @@ function PageTitle() {
             backgroundColor: `${users.colour}`
               ? `${users.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
-              // fontFamily
+              fontFamily : `${app?.data}` ? `${app?.data}` : 'monospace'
           }}
           name="colour"
         >
