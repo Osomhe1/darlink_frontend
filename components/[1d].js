@@ -74,9 +74,9 @@ function PageTitle() {
       if (data.profile.colour !== null) {
         setColour(data.profile.colour)
       }
-      console.log(userData, 'line 77')
-      setUsers(userData)
-      console.log(users, 'users line 79')
+      // console.log(userData, 'line 77')
+      setUsers(userData, 'line 78')
+      // console.log(users, 'users line 79')
     } catch (error) {
       if (error.response) {
         
@@ -84,8 +84,8 @@ function PageTitle() {
     }
   }
 
-  console.log(userData, 'userData')
-  console.log(users, 'users')
+  // console.log(userData, 'userData')
+  // console.log(users, 'users')
 
 
   const handleUserLink = async (userId) => {
@@ -225,7 +225,7 @@ function PageTitle() {
            flex justify-center items-center cursor-pointer bg-cover 
              `}
           style={{
-            backgroundColor: `${userData.colour}`
+            backgroundColor: `${users.colour}`
               ? `${userData.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
           }}
