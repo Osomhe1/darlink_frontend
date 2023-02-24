@@ -261,7 +261,7 @@ export default function PageTitle() {
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
                       mr- mb- w-[100%]  m-auto ease-linear transition-all duration-150"
                 >
-                  {value.displayName}
+                  {value.username}
                 </p>
               </div>
 
