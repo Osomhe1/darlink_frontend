@@ -128,8 +128,8 @@ function PageTitle() {
     }
   }
 
-  // console.log(appreances, 'line 131')
-  // console.log(app, 'line 132')
+  console.log(appreances, 'line 131')
+  console.log(app, 'line 132')
 
   const handlePreviewReset = async () => {
     try {
@@ -197,7 +197,7 @@ function PageTitle() {
             backgroundColor: `${users.colour}`
               ? `${users.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
-              fontFamily
+              // fontFamily
           }}
           name="colour"
         >
