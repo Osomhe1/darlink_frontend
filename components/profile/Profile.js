@@ -184,10 +184,10 @@ export default function Profile() {
 
   return (
     <>
-      <main className="profile-page mx- ">
+      <main className="profile-page mx-auto ">
         {/* pages */}
         <div
-          className={`md:flex justify-between -mt-5 md:-mt-24 xl:w-5/6 my-  `}
+          className={`md:flex justify-between -mt-5 md:-mt-24 xl:w-5/6 my- m-auto `}
         >
           <div className=" ml-20 md:ml-0">
             <h1 className="text-[#8BC940] font-bold text-5xl ">My Page</h1>

@@ -115,9 +115,10 @@ export default function Links() {
           <Link
             href={
               item?.url.includes('https')
-               ? `${item?.url}`
+                ? `${item?.url}`
                 : `https://${item.url}`
             }
+            className="overflow-auto w-[200px] md:w-[300px] lg:w-full "
             target={'_blank'}
           >
             {item?.url}
