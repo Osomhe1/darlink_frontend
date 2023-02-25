@@ -75,9 +75,9 @@ const handleShow =(cur, key) => {
             <h1 className="text-white font-semibold"> {cur.title} </h1>
             <Link
               href={
-                item?.url.includes('https')
-                  ? `${item?.url}`
-                  : `https://${item.url}`
+                cur?.url.includes('https')
+                  ? `${cur?.url}`
+                  : `https://${cur.url}`
               }
               target={'_blank'}
             >
@@ -99,7 +99,7 @@ const handleShow =(cur, key) => {
     <div>
       <section
         className="relative  block  "
-        style={{ height: '400px', backgroundColor: '#8BC940' }}
+        style={{ height: '', backgroundColor: '#8BC940' }}
       >
         <div
           className={`absolute top-0 w-full h-auto bg-center p-10 m-auto
