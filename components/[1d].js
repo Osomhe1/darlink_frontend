@@ -69,7 +69,7 @@ function PageTitle() {
       setUserLinks(data.Link)
     } catch (error) {
       if (error.response) {
-        toast.error(error.response.data.error)
+        // toast.error(error.response.data.error)
       }
     }
   }
@@ -91,7 +91,7 @@ function PageTitle() {
        }
      } catch (error) {
        if (error.response) {
-         toast.error(error.response.data.error)
+        //  toast.error(error.response.data.error)
        }
      }
     
@@ -115,7 +115,7 @@ function PageTitle() {
       setApp(appreances)
     } catch (error) {
       if (error.response) {
-      toast.error(error.response.data.error)
+      // toast.error(error.response.data.error)
       }
     }
   }
@@ -160,10 +160,17 @@ function PageTitle() {
             <h1 className="text-white font-semibold"> {cur.title} </h1>
             <Link
               className="flex-wrap w-[200px]  "
-              href={`${cur.url}`}
+              href={
+                item?.url.includes('https')
+                  ? `${item?.url}`
+                  : `https://${item.url}`
+              }
               target={'_blank'}
             >
-              <button className="overflow-auto w-[200px] md:w-[300px] lg:w-full " type="button">
+              <button
+                className="overflow-auto w-[200px] md:w-[300px] lg:w-full "
+                type="button"
+              >
                 {' '}
                 {cur.url}{' '}
               </button>
@@ -177,7 +184,7 @@ function PageTitle() {
   return (
     <div>
       <section
-        className="relative  block bg-'[#8BC940]'  "
+        className="relative  block bg-[#8BC940]  "
         style={{ height: '400px', backgroundColor: '[#8BC940]' }}
       >
         <div

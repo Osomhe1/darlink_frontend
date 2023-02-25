@@ -71,10 +71,23 @@ const handleShow =(cur, key) => {
     if(cur.url){
       return (
         <div className="">
-          <div className="bg-blue-500 p-3 m-3 rounded-md  " key={key} >
+          <div className="bg-blue-500 p-3 m-3 rounded-md  " key={key}>
             <h1 className="text-white font-semibold"> {cur.title} </h1>
-            <Link href={`${cur.url}`} target={'_blank'}>
-              <button type="button"> {cur.url} </button>
+            <Link
+              href={
+                item?.url.includes('https')
+                  ? `${item?.url}`
+                  : `https://${item.url}`
+              }
+              target={'_blank'}
+            >
+              <button
+                className="overflow-auto w-[200px] md:w-[300px] lg:w-full "
+                type="button"
+              >
+                {' '}
+                {cur.url}{' '}
+              </button>
             </Link>
           </div>
         </div>
@@ -86,10 +99,10 @@ const handleShow =(cur, key) => {
     <div>
       <section
         className="relative  block  "
-        style={{ height: '400px', backgroundColor: '[#8BC940]' }}
+        style={{ height: '400px', backgroundColor: '#8BC940' }}
       >
         <div
-          className={`absolute top-0 w-full h-auto bg-center p-10
+          className={`absolute top-0 w-full h-auto bg-center p-10 m-auto
            flex justify-center items-center cursor-pointer bg-cover 
              `}
           style={{
@@ -100,7 +113,7 @@ const handleShow =(cur, key) => {
           }}
           name="colour"
         >
-          <div className="bg-[#8BC940] z-90 shadow-xl max-w-[90%] h-auto p-5 items-center justify-center flex   ">
+          <div className="bg-[#8BC940] z-90 shadow-xl m-auto max-w-[90%] h-auto p-5 items-center justify-center flex   ">
             <Stack>
               <div className=" z-90 m-auto">
                 <Avatar
