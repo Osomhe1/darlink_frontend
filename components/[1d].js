@@ -54,7 +54,7 @@ function PageTitle() {
       setUsers(userData)
     } catch (error) {
       if (error.response) {
-        toast.error(error.response.data.error)
+        // toast.error(error.response.data.error)
       }
     }
   }
@@ -184,7 +184,7 @@ function PageTitle() {
   return (
     <div>
       <section
-        className="relative  block bg-[#8BC940]  "
+        className="relative h-full block bg-[#8BC940]  "
         style={{ height: '400px', backgroundColor: '[#8BC940]' }}
       >
         <div
