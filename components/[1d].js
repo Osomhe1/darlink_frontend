@@ -161,9 +161,9 @@ function PageTitle() {
             <Link
               className="flex-wrap w-[200px]  "
               href={
-                item?.url.includes('https')
-                  ? `${item?.url}`
-                  : `https://${item.url}`
+                cur?.url.includes('https')
+                  ? `${cur?.url}`
+                  : `https://${cur.url}`
               }
               target={'_blank'}
             >
