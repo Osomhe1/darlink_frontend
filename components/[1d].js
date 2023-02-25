@@ -184,7 +184,7 @@ function PageTitle() {
   return (
     <div>
       <section
-        className="relative h-full block bg-[#8BC940]  "
+        className="relative h-auto block bg-[#8BC940]  "
         style={{ height: '400px', backgroundColor: '[#8BC940]' }}
       >
         <div
