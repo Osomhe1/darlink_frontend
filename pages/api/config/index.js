@@ -6,7 +6,7 @@ const config = {
 }
 
 const getConfig = () =>{
-    // return config.LOCAL_API(); //comment this when you want to push to git
+    // return config.LOCAL_API();  //comment this when you want to push to git
      return config.API(); //comment this when you want to run on local server
     //one of the two lines of codes must be uncommented.
 }

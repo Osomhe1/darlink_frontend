@@ -199,7 +199,7 @@ function PageTitle() {
           }}
           name="colour"
         >
-          <div className="bg-[#8BC940] z-90 shadow-xl w-auto h-auto p-5 items-center justify-center flex   ">
+          <div className="bg-[#8BC940] z-90 shadow-xl  w-auto min-w-min h-auto p-5 items-center justify-center flex   ">
             <Stack>
               <div className=" z-90 m-auto">
                 <Avatar
