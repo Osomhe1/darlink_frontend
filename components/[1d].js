@@ -185,7 +185,7 @@ function PageTitle() {
     <div>
       <section
         className="relative h-auto block bg-[#8BC940]  "
-        style={{ height: '400px', backgroundColor: '[#8BC940]' }}
+        style={{ height: '', backgroundColor: '#8BC940' }}
       >
         <div
           className={`absolute top-0 w-full h-auto bg-center p-10
