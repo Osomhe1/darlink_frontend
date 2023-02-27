@@ -64,10 +64,10 @@ export default function Links() {
     try {
       const { data } = await api.get(LINK.GET_LINK(), {})
       if(data.success){
-        setUserLinks(data.Link)
+        setUserLinks(data.Link, 'linkss')
 
-        localStorage.setItem('linkId', userLinks[0]?.linkId)
       }
+      // console.log(userLinks, 'links')
       
     } catch (error) {
       if (error.response) {
@@ -79,20 +79,36 @@ export default function Links() {
     }
   }
 
+  //  console.log(userLinks[0]?.linkId, '86')
+  // const linkId = userLinks.map((x) => {
+  //   console.log(x, 'x')
+  //   console.log(x.linkId, 'x Id')
+  //   x.linkId
+  // })
+  // console.log(userLinks,'lll')
+  // console.log(userLinks[0],'l2l')
+  //  console.log(userLinks.linkId, '87')
+  //  const linkId = userLinks?.linkId
 
-  const handleDelete = async (e) => {
-    const linkId = localStorage.getItem('linkId')
+  const handleDelete = async (  ) => {
+    // const linkId = localStorage.getItem('linkId')
+    const linkId = userLinks[0]?.linkId
+    // console.log(linkId, 'linkId')
+    // console.log(id, 'linkId')
+    // if(linkId !== null || undefined)
     try {
       const { data } = await api.delete(LINK.DELETE_LINK(), {
-        params:{
+        params: {
           linkId,
-        }
+        },
       })
       if (data.success) {
         toast.success(data.msg)
+        router.push('/dashboard')
         handleData()
-      } 
+      }
     } catch (error) {
+      console.log(error)
       toast.error(error.response.data.error)
     }
   }
@@ -103,6 +119,7 @@ export default function Links() {
 
 
   const showLink = (item) => {
+    // console.log(item.linkId, 'linkdsss')
     if (!item) return null
     return (
       <div
@@ -125,7 +142,7 @@ export default function Links() {
           </Link>
         </div>
         <div className="">
-          <button type="button" onClick={handleDelete}>
+          <button type="button" id={item.linkId} onClick={handleDelete}>
             <BsThreeDotsVertical className="text-3xl" />
           </button>
         </div>
@@ -269,7 +286,7 @@ export default function Links() {
                                   <button
                                     className=" text-lg w-[150px] border-2 p-2 bg-blue-600 text-white "
                                     variant="outlined"
-                                    onClick={handleClick2}
+                                    // onClick={handleClick2}
                                   >
                                     Done
                                   </button>
