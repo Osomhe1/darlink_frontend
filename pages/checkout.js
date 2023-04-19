@@ -1,5 +1,5 @@
-import React from 'react'
-import Link from 'next/link'
+import React, { useState } from 'react'
+import PayStack from '../components/PayStack'
 
 export default function Checkout() {
 
@@ -9,22 +9,32 @@ export default function Checkout() {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    try {
-      const initializeTransaction = await paystackClient.transaction.initialize(
-        {
-          email,
-          amount: amount * 100,
-        }
-      )
+    // try {
+    //   const initializeTransaction = await paystackClient.transaction.initialize(
+    //     {
+    //       email,
+    //       amount: amount * 100,
+    //     }
+    //   )
 
-      if (initializeTransaction.data) {
-        window.location.assign(initializeTransaction.data.authorization_url)
-      } else {
-        console.error('An error occurred while initializing the transaction')
-      }
-    } catch (error) {
-      console.error(error)
-    }
+    //   if (initializeTransaction.data) {
+    //     window.location.assign(initializeTransaction.data.authorization_url)
+    //   } else {
+    //     console.error('An error occurred while initializing the transaction')
+    //   }
+    // } catch (error) {
+    //   console.error(error)
+    // }
+  }
+
+  const handlePaymentSuccess = (response) => {
+    console.log(response)
+    // TODO: Handle successful payment
+  }
+
+  const handlePaymentClose = () => {
+    console.log('Payment closed')
+    // TODO: Handle payment closed
   }
 
 
@@ -35,22 +45,7 @@ export default function Checkout() {
           <div className="border border-b text-xl p-4 px-8 ">
             <h1 className="p-2 text-3xl font-normal ">Subscription Details</h1>
           </div>
-          <div className="border border-b text-xl p-4 px-8 text-gray-400 ">
-            <div className="py-4">
-              <div className="flex gap-2 flex-wrap justify-around ">
-                <p>Personal Plan</p>
-                <p>
-                  ..............................................................................
-                </p>
-                <p>$1/month</p>
-              </div>
-              {/* <div className=''></div> */}
-            </div>
-            {/* <h1 className='p-5 text-3xl font-normal '>Payment Method</h1> */}
-            <p className="text-center font-semibold text-2xl p-2  ">
-              Total $12
-            </p>
-          </div>
+          
           <div className="border border-b-2 text-xl p-4 px-8 ">
             <h1 className="p-2 text-3xl font-normal ">Payment Method</h1>
           </div>
@@ -68,13 +63,7 @@ export default function Checkout() {
                     Name on Card
                   </label>
                 </div>
-                {/* <input
-                  type='name'
-                  className='border-0 px-3   py-5 placeholder-gray-400 
-                   text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring  w-full'
-                  placeholder='Full Name'
-                  style={{ transition: 'all .15s ease' }}
-                /> */}
+                
                 <input
                   type="name"
                   placeholder="Full Name"
@@ -117,12 +106,18 @@ export default function Checkout() {
 
               <div className="text-center mt-6   ">
                 <button
-                  className="bg-green-400 text-white active:bg-gray-700 text-sm font-bold uppercase
+                  className="bg-[#8BC940] text-white active:bg-gray-700 text-sm font-bold uppercase
                    px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                  type="button"
+                  type="submit"
                   style={{ transition: 'all .15s ease' }}
                 >
-                  <Link href="/dashboard">Pay $12</Link>
+                  <PayStack
+                    amount={5000}
+                    email="john.doe@example.com"
+                    onSuccess={handlePaymentSuccess}
+                    onClose={handlePaymentClose}
+                  />
+                  {/* <Link href="/dashboard">Pay $12</Link> */}
                 </button>
               </div>
 
