@@ -126,7 +126,7 @@ export default function Price() {
                   </li>
                 </ul>
                 <Link
-                  href="/auth/SignUp"
+                  href="/SignUp"
                   className="text-white bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                 >
                   Get started
@@ -359,7 +359,7 @@ export default function Price() {
               </div>
               {/* <!-- Pricing Card --> */}
               <div className="flex flex-col max-w-lg p-6 mx-auto text-center text-gray-900 bg-white border border-gray-100 rounded-lg shadow dark:border-gray-600 xl:p-8 dark:bg-gray-800 dark:text-white">
-                <h3 className="mb-4 text-2xl font-semibold">Enterprise</h3>
+                <h3 className="mb-4 text-2xl font-semibold"> Entrapenur</h3>
                 <p className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
                   Best for large scale uses and extended redistribution rights.
                 </p>
@@ -462,11 +462,11 @@ export default function Price() {
                   </li>
                 </ul>
                 <Link
-                  href="/#"
+                  href="/SignUp"
                   // href="/auth/SignUp"
                   className="text-white bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                 >
-                  Comming Soon
+                  Get Started
                 </Link>
               </div>
             </div>

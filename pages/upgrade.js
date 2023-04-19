@@ -642,13 +642,13 @@ export default function Upgrade() {
                             </li>
                           </ul>
                           <Link
-                            href="#/"
-                            // href="/checkout"
+                            // href="#/"
+                            href="/checkout"
                             disable
                             className="text-white disabled bg-[#8BC940] focus:ring-[#8BC940]  hover:bg-[#97ff19] focus:ring-4  
                   font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:text-white  dark:focus:ring-purple-900"
                           >
-                            Coming Soon
+                            Get Started
                           </Link>
                         </div>
                       </ListItemText>
