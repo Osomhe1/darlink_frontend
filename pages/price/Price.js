@@ -45,7 +45,7 @@ export default function Price() {
                 to unlock additional features and get started.
               </p>
             </div>
-            <div className="space-y-8 lg:grid lg:grid-cols-2 xl:grid-cols-4 sm:gap-6 xl:gap-6 lg:space-y-0">
+            <div className="space-y-8 lg:grid lg:grid-cols-2 xl:grid-cols- sm:gap-6 xl:gap-6 lg:space-y-0">
               {/* <!-- Pricing Card --> */}
               {starterPlan?.map((plan, index) => (
                 <>
