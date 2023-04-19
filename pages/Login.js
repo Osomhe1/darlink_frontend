@@ -129,7 +129,7 @@ export default function Login() {
 
               <div>
                 <label className="inline-flex items-center cursor-pointer">
-                  <Link href="/auth/forget_password">
+                  <Link href="/forget_password">
                     <span
                       style={{ transition: 'all .15s ease' }}
                       className="ml-2 text-sm font-semibold hover:text-gray-200 text-gray-700"
