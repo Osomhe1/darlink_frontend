@@ -1,5 +1,3 @@
-
-
 export const USER_ENDPOINTS = {
   REGISTER: () => '/auth/register',
   FORGET_PASSWORD: () => '/user/forgot-password',
@@ -13,18 +11,19 @@ export const USER_ENDPOINTS = {
   RESET_PASSWORD: () => '/user/reset-password',
 }
 
-
 export const USER_TYPE = {
   ADMIN: () => 'admin',
-  USER:() => 'user'
+  USER: () => 'user',
 }
 
 export const USER_PLAN = {
   ADD_PLAN: () => '/plan',
   UPDATE_PLAN: () => '/plan',
   GET_PLAN: () => '/plan',
+  GET_PLAN_BY_ID: () => '/plan/planid',
   DELETE_PLAN: () => '/plan',
   GET_USER_PLAN: () => '/plan/user-plan',
+  PLAN_UPGRADE: () => '/plan/upgrade',
 }
 
 export const PROFILE = {
@@ -75,4 +74,3 @@ export const GET_USERS = {
   GET_USER: () => '/auth/users',
   DELETE_ACC: () => '/auth/user',
 }
-

@@ -12,38 +12,63 @@ import darlinkApi from './api/darlink'
 import { USER_PLAN } from './api/ACTIONS.JS'
 import PriceCard from '../components/PriceCard'
 import { toast } from 'react-toastify'
+import { USER_ENDPOINTS } from './api/ACTIONS.JS'
 
 export default function Upgrade() {
+  const router = useRouter()
 
-   const [open, setOpen] = useState(false)
-   
-    const [starterPlan, setStarterPlan] = useState([])
+  const [open, setOpen] = useState(false)
+  const [plans, setPlans] = useState([])
+  const [active, setActive] = useState(false)
 
-    const handleData = async () => {
+  const handleData = async () => {
+    try {
+      const { data } = await darlinkApi.get(USER_PLAN.GET_PLAN())
+      if (data.success) {
+        const newPlan = data.plans.filter((x)=>x.amount !== 0)
+        setPlans(newPlan)
+      }
+    } catch (error) {
+      toast.error(error)
+      console.log(error)
+    }
+  }
+
+
+  const handleClick = () => {
+    setOpen(!open)
+  }
+
+  const handler = async (e) => {
+    try {
+      setActive(true)
+      let planId = e.currentTarget.id
+      const { data } = await darlinkApi.post(USER_PLAN.PLAN_UPGRADE(), {
+        planId,
+      })
+      setActive(false)
+      if (data.status) {
+        router.push(data.data.authorization_url)
+      }
+    } catch (error) {
+      setActive(false)
+      console.log(error)
+      toast.error(error)
+    }
+  }
+
+  useEffect(() => {
+    const AuthenticateUser = async () => {
       try {
-        const { data } = await darlinkApi.get(USER_PLAN.GET_PLAN())
-        if (data.success) {
-          setStarterPlan(data.plans)
-        }
+        const { data } = await darlinkApi.post(USER_ENDPOINTS.CHECK(), {})
+        if (!data.success) router.push('/Login')
       } catch (error) {
-        toast.error(error)
-        console.log(error)
+        router.push('/Login')
       }
     }
-
-   
-  
-
-   const handleClick = () => {
-     setOpen(!open)
-   }
-  
-
-   const router = useRouter()
-
-    useEffect(() => {
-      handleData()
-    }, [])
+    AuthenticateUser()
+    handleData()
+  }, [])
 
   return (
     <div>
@@ -75,8 +100,11 @@ export default function Upgrade() {
               >
                 <ListItemButton onClick={handleClick}>
                   <ListItemText>
-                    <Typography className="text-[#8BC940] uppercase " variant="h4">
-                     pick a Plan
+                    <Typography
+                      className="text-[#8BC940] uppercase "
+                      variant="h4"
+                    >
+                      pick a Plan
                     </Typography>
                   </ListItemText>
                   {open ? (
@@ -86,16 +114,20 @@ export default function Upgrade() {
                   )}
                 </ListItemButton>
                 <Collapse in={open} timeout="auto" unmountOnExit>
-                  {starterPlan?.map((plan, index) => (
+                  {plans?.map((cur) => (
                     <>
                       <List component="div" disablePadding>
                         <ListItemButton sx={{ pl: 4 }}>
                           <ListItemText>
-                            <div key={index} className="">
+                            <div key={cur.planId} className="">
                               <PriceCard
-                                label={plan?.plan}
-                                amount={plan?.amount}
-                                url={'/checkout'}
+                                label={cur.plan}
+                                amount={cur.amount}
+                                key={cur.planId}
+                                id={cur.planId}
+                                planId={cur.planId}
+                                handler={handler}
+                                text={active ? 'Loading...' : 'Get Started'}
                               />
                             </div>
                           </ListItemText>
@@ -107,8 +139,7 @@ export default function Upgrade() {
               </List>
             </section>
           </div>
-         
-          
+
           {/* <!-- End block --> */}
         </div>
       </div>
