@@ -15,7 +15,7 @@ export default function DeleteModal() {
      try {
        const { data } = await api.delete(USER.DELETE_ACC(), {})
          if (data.success) {
-           router.push('/auth/Login')
+           router.push('/Login')
        }
      } catch (error) {
        toast.error(error.response.data.error)

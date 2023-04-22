@@ -17,7 +17,7 @@ export default function Contact() {
         }}
       />
       <Head>
-        <title>nine4</title>
+        <title>darlink.to</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Header />

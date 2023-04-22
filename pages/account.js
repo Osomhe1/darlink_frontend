@@ -7,6 +7,7 @@ import {UserInfo} from '../components/verify'
 import DeleteModal from '../components/DeleteModal'
 import { toast } from 'react-toastify'
 import { ResetUser } from '../context/context'
+import Button from '../container/button'
 
 
 export default function Account() {
@@ -60,11 +61,12 @@ const handleChange = (e) => {
         if (error.response.status === 401) {
           toast.error(error.response.data.error)
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -88,7 +90,7 @@ const handleChange = (e) => {
         if (error.response.status === 401) {
           toast.error(error.response.data.error)
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }
@@ -99,10 +101,10 @@ const handleChange = (e) => {
     const AuthenticateUser = async () => {
       try {
         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-        if (!data.success) router.push('/auth/Login')
+        if (!data.success) router.push('/Login')
       } catch (error) {
         toast.error(error.response.data.error)
-        router.push('/auth/Login')
+        router.push('/Login')
       }
     }
     const infor = UserInfo();
@@ -209,16 +211,12 @@ const handleChange = (e) => {
                   </div>
 
                   <div className="text-center mt-6 float- items-end ">
-                    <button
-                      className="bg-[#8BC940]  text-white absolute right-0 active:bg-gray-700 text-sm font-bold uppercase
-                       px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
-                       bottom-0 "
+                   
+                    <Button
                       type="submit"
-                      style={{ transition: 'all .15s ease' }}
                       disabled={active}
-                    >
-                      {active ? 'Saving...' : 'Save'}
-                    </button>
+                      label={active ? 'Saving...' : 'Save'}
+                    />
                   </div>
                 </form>
               </div>
@@ -262,16 +260,12 @@ const handleChange = (e) => {
                       />
                     </div>
                     <div className="text-center mt-6 float- w-1/3 ">
-                      <button
-                        className="bg-[#8BC940] text-white active:bg-gray-700 text-sm font-bold uppercase
-                       px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full
-                       bottom-0 "
-                        type="button"
-                        style={{ transition: 'all .15s ease' }}
+                     
+                      <Button
+                        type="submit"
                         disabled={active}
-                      >
-                        {active ? 'Saving...' : 'Save'}
-                      </button>
+                        label={active ? 'Saving...' : 'Save'}
+                      />
                     </div>
                   </div>
                 </form>
@@ -356,16 +350,12 @@ const handleChange = (e) => {
                   </div>
 
                   <div className="text-center  mt-6 float- items-end ">
-                    <button
-                      className="bg-[#8BC940] text-white absolute right-0 active:bg-gray-700 text-sm font-bold uppercase
-                       px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px]
-                       bottom-0 "
+                  
+                    <Button
                       type="submit"
-                      style={{ transition: 'all .15s ease' }}
                       disabled={active}
-                    >
-                      {active ? 'Saving...' : 'Save'}
-                    </button>
+                      label={active ? 'Saving...' : 'Save'}
+                    />
                   </div>
                 </form>
               </div>

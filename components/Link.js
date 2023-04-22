@@ -1,19 +1,22 @@
-import React, {  useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import List from '@mui/material/List'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
-import { Box, Button, Typography } from '@mui/material'
+import { Box,  Typography } from '@mui/material'
 import { LINK } from '../pages/api/ACTIONS.JS'
 import api from '../pages/api/darlink'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import { ResetUser } from '../context/context'
 import { toast } from 'react-toastify'
+import Link from 'next/link'
+import {BsThreeDotsVertical} from 'react-icons/bs'
+import Button from '../container/button'
 
-export default function Link() {
 
+export default function Links() {
   const [open, setOpen] = useState(false)
   const [open2, setOpen2] = useState(false)
   const [values, setValues] = useState({
@@ -25,6 +28,7 @@ export default function Link() {
   })
   const router = useRouter()
   const [active, setActive] = useState(false)
+  const [userLinks, setUserLinks] = useState([])
   const handleClick = () => {
     setOpen(!open)
   }
@@ -37,44 +41,114 @@ export default function Link() {
     try {
       setActive(true)
       const { data } = await api.post(LINK.ADD_LINK(), {
-        ...values, type:"link"
+        ...values,
+        type: 'link',
       })
-     setActive(false)
+      setActive(false)
       if (data.success) {
+        handleData()
         router.push('/dashboard')
-      } 
+      }
     } catch (error) {
       setActive(false)
       if (error.response) {
         if (error.response.status === 401) {
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }
   }
 
- 
+  const handleData = async () => {
+    try {
+      const { data } = await api.get(LINK.GET_LINK(), {})
+      if(data.success){
+        setUserLinks(data.Link, 'linkss')
 
-   const handleDelete = async (e) => {
-     try {
-       const { data } = await api.delete(LINK.DELETE_LINK(), {})
-       if (data.success) {
-         handleData()
-       } else {
-         //display error
-       }
-     } catch (error) {
-      //  console.log(error.response.data.error)
+      }
+      // console.log(userLinks, 'links')
+      
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/Login')
+        }
+      }
+    }
+  }
+
+  //  console.log(userLinks[0]?.linkId, '86')
+  // const linkId = userLinks.map((x) => {
+  //   console.log(x, 'x')
+  //   console.log(x.linkId, 'x Id')
+  //   x.linkId
+  // })
+  // console.log(userLinks,'lll')
+  // console.log(userLinks[0],'l2l')
+  //  console.log(userLinks.linkId, '87')
+  //  const linkId = userLinks?.linkId
+
+  const handleDelete = async (  ) => {
+    // const linkId = localStorage.getItem('linkId')
+    const linkId = userLinks[0]?.linkId
+    // console.log(linkId, 'linkId')
+    // console.log(id, 'linkId')
+    // if(linkId !== null || undefined)
+    try {
+      const { data } = await api.delete(LINK.DELETE_LINK(), {
+        params: {
+          linkId,
+        },
+      })
+      if (data.success) {
+        toast.success(data.msg)
+        router.push('/dashboard')
+        handleData()
+      }
+    } catch (error) {
+      console.log(error)
       toast.error(error.response.data.error)
-     }
-   }
+    }
+  }
 
- 
+  useEffect(() => {
+    handleData()
+  }, [])
 
-   useEffect(() => {
-    //  handleData()  
-   }, [])
+
+  const showLink = (item) => {
+    // console.log(item.linkId, 'linkdsss')
+    if (!item) return null
+    return (
+      <div
+        className="bg-gray-500 p-3 m-3 rounded-md shadow-md hover:shadow-3xl flex items-center justify-between "
+        style={{ transition: 'all .15s ease' }}
+        key={item.linkId}
+      >
+        <div className="">
+          <p>{item?.title}</p>
+          <Link
+            href={
+              item?.url.includes('https')
+                ? `${item?.url}`
+                : `https://${item.url}`
+            }
+            className="overflow-auto w-[200px] md:w-[300px] lg:w-full "
+            target={'_blank'}
+          >
+            {item?.url}
+          </Link>
+        </div>
+        <div className="">
+          <button type="button" id={item.linkId} onClick={handleDelete}>
+            <BsThreeDotsVertical className="text-3xl" />
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -209,20 +283,25 @@ export default function Link() {
                                   >
                                     Delete
                                   </button>
-                                  <Button
-                                    className=" text-lg w-[150px] border-2 p-2 "
+                                  <button
+                                    className=" text-lg w-[150px] border-2 p-2 bg-blue-600 text-white "
                                     variant="outlined"
-                                    onClick={handleClick2}
+                                    // onClick={handleClick2}
                                   >
                                     Done
-                                  </Button>
+                                  </button>
                                 </div>
                               </Collapse>
                             </div>
                           </div>
+                          <div className="">
+                            {userLinks?.map((item) => {
+                              return showLink(item)
+                            })}
+                          </div>
 
-                          <div className="text-center mt-6 float-right ">
-                            <button
+                          <div className="text-center mt-6 float-right py-8 ">
+                            {/* <button
                               className="bg-[#8BC940] text-white active:bg-gray-700 text-sm font-bold uppercase
                        px-6 py-5 rounded absolute right-0 shadow hover:shadow-lg outline-none focus:outline-none mr-1 -mb-1 w-[100px]
                        bottom-0 "
@@ -231,7 +310,12 @@ export default function Link() {
                               disabled={active}
                             >
                               {active ? 'Saving...' : 'Save'}
-                            </button>
+                            </button> */}
+                            <Button
+                              type="submit"
+                              disabled={active}
+                              label={active ? 'Saving...' : 'Save'}
+                            />
                           </div>
                         </form>
                       </div>

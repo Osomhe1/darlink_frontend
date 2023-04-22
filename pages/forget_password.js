@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import Layout from '../../components/Layout'
-import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
-import api from '../../pages/api/darlink'
+import Layout from '../components/Layout'
+import { USER_ENDPOINTS } from './api/ACTIONS.JS'
+import api from './api/darlink'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Button from '../container/button'
 
 export default function ForgetPassword() {
 
@@ -74,30 +75,28 @@ export default function ForgetPassword() {
                 onChange={(e) => {
                   setValues({ ...values, [e.target.name]: e.target.value })
                 }}
-                name='username'
+                name="username"
               />
             </div>
 
             <div className="text-center mt-6">
-              <button
-                className="bg-[#8BC940] hover:bg-[#5AB025] text-white active:bg-gray-700 text-sm font-bold uppercase
-                   px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+             
+              <Button
                 type="submit"
-                style={{ transition: 'all .15s ease' }}
-              >
-                {active ? 'Sending...' : 'Send'}
-              </button>
+                disabled={active}
+                label={active ? 'Sending...' : 'Send'}
+              />
             </div>
             <div className="text-center mt-6">
               <Link href={'/'}>
-              <button
-                className=" text-gray-300 hover:text-gray-500 active:bg-gray-700 text-sm font-bold uppercase
+                <button
+                  className=" text-gray-300 hover:text-gray-500 active:bg-gray-700 text-sm font-bold uppercase
                    px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
-                type="button"
-                style={{ transition: 'all .15s ease' }}
-              >
-                or Go Back
-              </button>
+                  type="button"
+                  style={{ transition: 'all .15s ease' }}
+                >
+                  or Go Back
+                </button>
               </Link>
             </div>
           </form>

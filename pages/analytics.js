@@ -20,10 +20,10 @@ export default function Analytics() {
     const AuthenticateUser = async () => {
       try {
         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-        if (!data.success) router.push('/auth/Login')
+        if (!data.success) router.push('/Login')
       } catch (error) {
         toast.error(error.response.data.error)
-        router.push('/auth/Login')
+        router.push('/Login')
       }
     }
 

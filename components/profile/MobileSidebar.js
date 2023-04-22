@@ -19,21 +19,19 @@ import { reload } from '../sidebar/DesktopSidebar'
 
 const NewSidebar = () => {
   const [showSidebar, setShowSidebar] = useState(false)
-
    const router = useRouter()
-
    const handleLogout = async (e) => {
      try {
        const { data } = await api.post(USER_ENDPOINTS.LOGOUT(), {})
        if (data.success) {
-         router.push('/auth/Login')
+         router.push('/Login')
        }
      } catch (error) {
       toast.error(error.response.data.error)
       if (error.response.status === 401) {
         toast.error(error.response.data.error)
         ResetUser()
-        router.push('/auth/Login')
+        router.push('/Login')
       }
      }
    }
@@ -41,9 +39,9 @@ const NewSidebar = () => {
      const AuthenticateUser = async () => {
        try {
          const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-         if (!data.success) router.push('/auth/Login')
+         if (!data.success) router.push('/Login')
        } catch (error) {
-         router.push('/auth/Login')
+         router.push('/Login')
        }
      }
 

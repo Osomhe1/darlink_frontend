@@ -19,20 +19,14 @@ export default function Reset() {
 
     try {
       setActive(true)
-      // const { data } = await api.post(USER_ENDPOINTS.RECOVERY_MAIL(), {
       const { data } = await api.get(USER_ENDPOINTS.VERIFY_RESET(), {
         params: {
-          //   id: emailId,
-          //   email: email,
-          // id
+         
         },
       })
       setActive(false)
       if (data.success) {
-        // localStorage.clear('email')
-        // localStorage.clear('emailId')
         setActive(false)
-        // router.push(`/reset/${id}`)
         router.push(`/reset?id=${id}`) 
         toast.success(data.msg)
       }
@@ -54,7 +48,7 @@ export default function Reset() {
     email = localStorage.getItem('email')
     emailId = localStorage.getItem('emailId')
     if (!email || !emailId) {
-      Router.push('/auth/forget_password')
+      Router.push('/forget_password')
     }
 
   }, [])

@@ -23,14 +23,13 @@ export default function VerifyReset() {
       }
       if (data.error) {
         toast.error(data.error)
-        router.push('/auth/forget_password')
+        router.push('/forget_password')
     }
     } catch (error) {
       if (error.response) {
         const err = error.response.data.error
-        setError(err)
         toast.error(err)
-        router.push('/auth/forget_password')
+        router.push('/forget_password')
       }
     }
   }

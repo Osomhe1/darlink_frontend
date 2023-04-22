@@ -1,10 +1,5 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-} from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Appreance from '../Appreance'
-import Link from '../Link'
 import Buttons from '../Buttons'
 import Integrations from '../Integrations'
 import ToggleButton from '@mui/material/ToggleButton'
@@ -13,26 +8,34 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import ModeEditOutlineRoundedIcon from '@mui/icons-material/ModeEditOutlineRounded'
 import { PROFILE } from '../../pages/api/ACTIONS.JS'
 import api from '../../pages/api/darlink'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import { USER_ENDPOINTS } from '../../pages/api/ACTIONS.JS'
-import {  ResetUser } from '../../context/context'
-import {clearPreview, UserInfo} from '../verify'
-import { Avatar, Box } from '@mui/material'
+import { ResetUser } from '../../context/context'
+import { clearPreview, UserInfo } from '../verify'
+import { Avatar } from '@mui/material'
 import Modal from '../Modal'
 import { toast } from 'react-toastify'
 import Preview from './Preview'
 import { reload } from '../sidebar/DesktopSidebar'
-
-
+import CopyButton from '../CopyButton'
+import Links from '../Link'
+import Button from '../../container/button'
 
 export default function Profile() {
-
-  
   const [view, setView] = useState('edit')
+  const [isHovering, setIsHovering] = useState(false)
+  const [copy, setCopy] = useState(false)
+  const handleMouseEnter = (e) => {
+    setCopy(!copy)
+  }
+
+  const handleMouseLeave = () => {
+    setIsHovering(false)
+  }
 
   const [alignment, setAlignment] = useState('left')
- const [previewSource, setPreviewSource] = useState('')
-  let userData;
+  const [previewSource, setPreviewSource] = useState('')
+  let userData
   const [users, setUsers] = useState([])
   const [values, setValues] = useState({
     displayName: users.displayName,
@@ -44,7 +47,7 @@ export default function Profile() {
   })
 
   const [colour, setColour] = useState('[#100410]')
-  const selectColour = `absolute top-0 w-full h-full bg-center flex justify-center items-center cursor-pointer bg-cover bg-${colour}`;
+  const selectColour = `absolute top-0 w-full h-full bg-center flex justify-center items-center cursor-pointer bg-cover bg-${colour}`
   const inputRef = useRef(null)
   const displayNameRef = useRef(null)
   const locationRef = useRef(null)
@@ -54,8 +57,7 @@ export default function Profile() {
   const handleAlignment = (event, newAlignment) => {
     setAlignment(newAlignment)
   }
- 
- 
+
   const handleChange = (e) => {
     setValues({
       ...values,
@@ -65,59 +67,52 @@ export default function Profile() {
   }
 
   const [active, setActive] = useState(false)
-  const[state,setState] = useState("hidden")
+  const [state, setState] = useState('hidden')
 
-  const handleFile = e => {
-     const file = e.target.files[0]
-     previewFile(file) 
+  const handleFile = (e) => {
+    const file = e.target.files[0]
+    previewFile(file)
   }
-   const previewFile = (file) => {
-     const type = file.type
-     if (
-       type === 'image/png' ||
-       type === 'image/jpeg' ||
-       type === 'image/jpg'
-     ) {
-       const reader = new FileReader()
-       reader.readAsDataURL(file)
-       reader.onloadend = () => {
-         setPreviewSource(reader.result)
-       }
-     } else {
+  const previewFile = (file) => {
+    const type = file.type
+    if (type === 'image/png' || type === 'image/jpeg' || type === 'image/jpg') {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = () => {
+        setPreviewSource(reader.result)
+      }
+    } else {
       //  generateError('file format not supported')
-     }
-   }
- const uploadImage = (base64EncodedImage) => {
-   values.profileImage= base64EncodedImage
-  
- }
- 
+    }
+  }
+  const uploadImage = (base64EncodedImage) => {
+    values.profileImage = base64EncodedImage
+  }
 
   const handleSubmit = async (e) => {
-    e.preventDefault() 
-    
-    try {
-     const newColor = localStorage.getItem("colour");
-     const profileId = localStorage.getItem('profileId')
-     if(newColor) 
-      values.colour =newColor;
-      
-      if (previewSource) uploadImage(previewSource)
-       setActive(true)
+    e.preventDefault()
 
-       if(profileId === null){
+    try {
+      const newColor = localStorage.getItem('colour')
+      const profileId = localStorage.getItem('profileId')
+      if (newColor) values.colour = newColor
+
+      if (previewSource) uploadImage(previewSource)
+      setActive(true)
+
+      if (profileId === null) {
         values.profileId = profileId
         const { data } = await api.post(PROFILE.CREATE_USER_PROFILE(), {
           ...values,
-        })  
+        })
         setActive(false)
         if (data.success) {
           router.push('/dashboard')
           localStorage.removeItem('colour')
-          setIsEditing(false)          
-            handleData() 
-       }
-      } else{
+          setIsEditing(false)
+          handleData()
+        }
+      } else {
         handleData()
         if (previewSource) uploadImage(previewSource)
         const { data } = await api.patch(PROFILE.UPDATE_USER_PROFILE(), {
@@ -133,32 +128,30 @@ export default function Profile() {
         }
       }
     } catch (error) {
-        setActive(false)
-        if(error.response){
-          toast.error(error.response.data.error)
-           if (error.response.status === 401) {
-              ResetUser()
-           }
+      setActive(false)
+      if (error.response) {
+        toast.error(error.response.data.error)
+        if (error.response.status === 401) {
+          ResetUser()
         }
+      }
     }
   }
 
-
- const handleViewChange = (currentView) =>{
-  setView(currentView)
- }
+  const handleViewChange = (currentView) => {
+    setView(currentView)
+  }
 
   const handleData = async () => {
     try {
       const { data } = await api.get(PROFILE.USER_PROFILE(), {})
-      if (data.success) 
-       userData = {...data.profile}
-       localStorage.setItem('passportUrl', userData.passportUrl)
-       localStorage.setItem('colour', userData.colour)
-       localStorage.setItem('profileId', userData.profileId)
-       if(data.profile.colour !== null){
-         setColour(data.profile.colour);
-        }
+      if (data.success) userData = { ...data.profile }
+      localStorage.setItem('passportUrl', userData.passportUrl)
+      localStorage.setItem('colour', userData.colour)
+      localStorage.setItem('profileId', userData.profileId)
+      if (data.profile.colour !== null) {
+        setColour(data.profile.colour)
+      }
       setUsers(userData)
       reload()
     } catch (error) {
@@ -166,37 +159,35 @@ export default function Profile() {
         if (error.response.status === 401) {
           toast.error(error.response.data.error)
           ResetUser()
-          router.push('/auth/Login')
+          router.push('/Login')
         }
       }
     }
   }
 
- const infor = UserInfo()
+  const infor = UserInfo()
 
   useEffect(() => {
-
     const AuthenticateUser = async () => {
       try {
         const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-        if (!data.success) router.push('/auth/Login')
-        
+        if (!data.success) router.push('/Login')
       } catch (error) {
-        router.push('/auth/Login')
+        router.push('/Login')
       }
     }
 
-    AuthenticateUser();
-    handleData()  
-    reload(); 
+    AuthenticateUser()
+    handleData()
+    reload()
   }, [])
 
   return (
     <>
-      <main className="profile-page mx- ">
+      <main className="profile-page mx-auto ">
         {/* pages */}
         <div
-          className={`md:flex justify-between -mt-5 md:-mt-24 xl:w-5/6 my-  `}
+          className={`md:flex justify-between -mt-5 md:-mt-24 xl:w-5/6 my- m-auto `}
         >
           <div className=" ml-20 md:ml-0">
             <h1 className="text-[#8BC940] font-bold text-5xl ">My Page</h1>
@@ -237,15 +228,19 @@ export default function Profile() {
           <div className="flex gap-3">
             <div className=""></div>
             <div className="">
-              <button
-                className="bg-[#8BC940]  text-white active:bg-gray-700 text-sm font-bold uppercase
+              {copy === false && (
+                <button
+                  className="bg-[#8BC940]  text-white active:bg-gray-700 text-sm font-thin uppercase
                        px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100%]
                        bottom-0 "
-                type="button"
-                style={{ transition: 'all .15s ease' }}
-              >
-                {infor?.username}
-              </button>
+                  type="button"
+                  style={{ transition: 'all .15s ease', hover: '' }}
+                  onMouseEnter={handleMouseEnter}
+                >
+                  {`darlink.to/${infor?.username}`}
+                </button>
+              )}
+              {copy === true && <CopyButton onMouseLeave={handleMouseEnter} />}
             </div>
           </div>
           <div className=""></div>
@@ -295,10 +290,9 @@ export default function Profile() {
                             <div className="relative pt-8 py-8 lg:py-0 md:pt-0 ">
                               <Avatar
                                 src={
-                                  !previewSource ? 
-                                  users.passportUrl 
-                                  : previewSource 
-                                  
+                                  !previewSource
+                                    ? users.passportUrl
+                                    : previewSource
                                 }
                                 // src={
                                 //   !previewSource ? users.passportUrl : previewSource ? <Avatar /> : null
@@ -424,16 +418,12 @@ export default function Profile() {
                             </div>
 
                             <div className="text-center mt-6 py-4 float-right ">
-                              <button
-                                className="bg-[#8BC940]  text-white active:bg-gray-700 absolute right-0 text-sm font-bold uppercase
-                       px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-[100px] 
-                       bottom-0 "
+                            
+                              <Button
                                 type="submit"
-                                style={{ transition: 'all .15s ease' }}
                                 disabled={active}
-                              >
-                                {active ? 'Saving...' : 'Save'}
-                              </button>
+                                label={active ? 'Saving...' : 'Save'}
+                              />
                             </div>
                           </div>
                         </div>
@@ -449,7 +439,7 @@ export default function Profile() {
                   </div>
                   <div className="py-2 my-4">
                     {' '}
-                    <Link />
+                    <Links />
                   </div>
                   <div className="py-2 my-4">
                     <Buttons />

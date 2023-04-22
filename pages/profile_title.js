@@ -3,54 +3,33 @@ import { Avatar, Stack } from '@mui/material'
 import CallIcon from '@mui/icons-material/Call'
 import EmailIcon from '@mui/icons-material/Email'
 import TelegramIcon from '@mui/icons-material/Telegram'
-import { ResetUser } from '../../context/context'
-import {useRouter} from 'next/router'
-import {UserInfo} from '../verify'
-import api from '../../pages/api/darlink'
-import { LINK, USER_ENDPOINTS, APPREANCE } from '../../pages/api/ACTIONS.JS'
+import { useRouter } from 'next/router'
+import { UserInfo } from '../components/verify'
+import api from './api/darlink'
+import { LINK, USER_ENDPOINTS } from './api/ACTIONS.JS'
 import Link from 'next/link'
-import { toast } from 'react-toastify'
+import { ResetUser } from '../context/context'
 
-
-export default function Preview() {
-
+export default function PageTitle() {
   const router = useRouter()
-  const [userLinks, setUserLinks]= useState([]);
-const appreances = []
-const [app, setApp] = useState(appreances)
+  const [userLinks, setUserLinks] = useState([])
+
   const handleData = async () => {
-     try {
-       const { data } = await api.get(LINK.GET_LINK(), {})
-    setUserLinks(data.Link)
-      } catch (error) {
-       if (error.response) {
-         if (error.response.status === 401) {
-           ResetUser()
-           router.push('/Login')
-         }
-       }
-     }
-   }
+    try {
+      const { data } = await api.get(LINK.GET_LINK(), {})
+      setUserLinks(data.Link)
+    } catch (error) {
+      if (error.response) {
+        if (error.response.status === 401) {
+          ResetUser()
+          router.push('/Login')
+        }
+      }
+    }
+  }
 
-   const handleUserAppreans = async () => {
-     try {
-       const { data } = await api.get(APPREANCE.GET_APPREANCE(), {})
-       if (data.success) {
-         const infor = data.appearance.map((cur) => {
-           return cur
-         })
-         appreances.push(...infor)
-       }
-        setApp(appreances)
-     } catch (error) {
-       if (error.response) {
-        //  toast.error(error.response.data.error)
-       }
-     }
-   }
-
-   const infor = UserInfo().selectedPreview;
-   const value = UserInfo()
+  const infor = UserInfo().selectedPreview
+  const value = UserInfo()
 
   useEffect(() => {
     const AuthenticateUser = async () => {
@@ -61,59 +40,43 @@ const [app, setApp] = useState(appreances)
         router.push('/Login')
       }
     }
-    AuthenticateUser();
+    AuthenticateUser()
     handleData()
-    handleUserAppreans()
-    
   }, [])
 
-const handleShow =(cur, key) => {
-    if(cur.url){
+  const handleShow = (cur, key) => {
+    if (cur.url) {
       return (
         <div className="">
           <div className="bg-blue-500 p-3 m-3 rounded-md  " key={key}>
             <h1 className="text-white font-semibold"> {cur.title} </h1>
-            <Link
-              href={
-                cur?.url.includes('https')
-                  ? `${cur?.url}`
-                  : `https://${cur.url}`
-              }
-              target={'_blank'}
-            >
-              <button
-                className="overflow-auto w-[200px] md:w-[300px] lg:w-full "
-                type="button"
-              >
-                {' '}
-                {cur.url}{' '}
-              </button>
+            <Link href={`${cur.url}`} target={'_blank'}>
+              <button type="button"> {cur.url} </button>
             </Link>
           </div>
         </div>
       )
-    }else return null
-}
+    } else return null
+  }
 
   return (
     <div>
       <section
         className="relative  block  "
-        style={{ height: '', backgroundColor: '#8BC940' }}
+        style={{ height: '400px', backgroundColor: '[#8BC940]' }}
       >
         <div
-          className={`absolute top-0 w-full h-auto bg-center p-10 m-auto
+          className={`absolute top-0 w-full h-auto bg-center p-10
            flex justify-center items-center cursor-pointer bg-cover 
              `}
           style={{
             backgroundColor: `${value.colour}`
               ? `${value.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
-            fontFamily: `${app[0]?.data}` ? `${app[0]?.data}` : 'monospace',
           }}
           name="colour"
         >
-          <div className="bg-[#8BC940] z-90 shadow-xl m-auto max-w-[90%] h-auto p-5 items-center justify-center flex   ">
+          <div className="bg-[#8BC940] z-90 shadow-xl max-w-[90%] h-auto p-5 items-center justify-center flex   ">
             <Stack>
               <div className=" z-90 m-auto">
                 <Avatar

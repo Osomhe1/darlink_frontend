@@ -3,77 +3,163 @@ import { Avatar, Stack } from '@mui/material'
 import CallIcon from '@mui/icons-material/Call'
 import EmailIcon from '@mui/icons-material/Email'
 import TelegramIcon from '@mui/icons-material/Telegram'
-import { ResetUser } from '../../context/context'
-import {useRouter} from 'next/router'
-import {UserInfo} from '../verify'
-import api from '../../pages/api/darlink'
-import { LINK, USER_ENDPOINTS, APPREANCE } from '../../pages/api/ACTIONS.JS'
+import { useRouter } from 'next/router'
+import { UserInfo } from './verify'
+import api from '../pages/api/darlink'
+import { LINK } from '../pages/api/ACTIONS.JS'
 import Link from 'next/link'
+import { ResetUser } from '../context/context'
+import { BUTTONS } from '../pages/api/ACTIONS.JS'
+import { PROFILE } from '../pages/api/ACTIONS.JS'
+import { VERIFICATION, APPREANCE } from '../pages/api/ACTIONS.JS'
 import { toast } from 'react-toastify'
 
-
-export default function Preview() {
-
+function PageTitle() {
   const router = useRouter()
-  const [userLinks, setUserLinks]= useState([]);
-const appreances = []
-const [app, setApp] = useState(appreances)
-  const handleData = async () => {
-     try {
-       const { data } = await api.get(LINK.GET_LINK(), {})
-    setUserLinks(data.Link)
-      } catch (error) {
-       if (error.response) {
-         if (error.response.status === 401) {
-           ResetUser()
-           router.push('/Login')
-         }
-       }
-     }
-   }
+  const { id } = router.query
+  const  url  = {id}
+  const username = url.id
+  const value = UserInfo()
+  const [userLinks, setUserLinks] = useState([])
+   const appreances = []
+   const[app, setApp] = useState(appreances)
+    const [buttonInfor, setButtonInfor] = useState({
+      email: '',
+      discord: '',
+      phone: '',
+      telegram: '',
+      social: '',
+      music: '',
+      contact: '',
+      podcast: '',
+      buttonId: '',
+    })
+    let userData;
+    const [users, setUsers] = useState([])
+    const [colour, setColour] = useState('[#100410]')
 
-   const handleUserAppreans = async () => {
+
+  const handleUserProfile = async (userId) => {
+    try {
+      const { data } = await api.get(PROFILE.PREVIEW_USER(), {
+        params: {
+          userId,
+        },
+      })
+      if (data.success) userData = { ...data.profile }
+      setUsers(userData)
+      if (data.profile.colour !== null) {
+        setColour(data.profile.colour)
+      }
+      setUsers(userData)
+    } catch (error) {
+      if (error.response) {
+        // toast.error(error.response.data.error)
+      }
+    }
+  }
+
+  const handleUserLink = async (userId) => {
+    try {
+      const { data } = await api.get(LINK.PREVIEW_LINK(), {
+        params: {
+          userId,
+        },
+      })
+      setUserLinks(data.Link)
+    } catch (error) {
+      if (error.response) {
+        // toast.error(error.response.data.error)
+      }
+    }
+  }
+
+  const handleUserButton = async (userId) => {
      try {
-       const { data } = await api.get(APPREANCE.GET_APPREANCE(), {})
+       const { data } = await api.get(BUTTONS.PREVIEW_BUTTON(), {
+         params: {
+           userId,
+         },
+       })
        if (data.success) {
-         const infor = data.appearance.map((cur) => {
-           return cur
+         data.button.map((cu) => {
+           for (const key in cu) {
+             buttonInfor[key] = cu[key]
+           }
          })
-         appreances.push(...infor)
+         setButtonInfor(buttonInfor)
        }
-        setApp(appreances)
      } catch (error) {
        if (error.response) {
         //  toast.error(error.response.data.error)
        }
      }
-   }
+    
+  }
 
-   const infor = UserInfo().selectedPreview;
-   const value = UserInfo()
 
-  useEffect(() => {
-    const AuthenticateUser = async () => {
-      try {
-        const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-        if (!data.success) router.push('/Login')
-      } catch (error) {
-        router.push('/Login')
+
+  const handleUserAppreans = async (userId) => {
+    try {
+      const { data } = await api.get(APPREANCE.PREVIEW_APPREANCE(), {
+        params: {
+          userId,
+        },
+      })
+      if (data.success) {
+        const infor = data.appearance.map((cur) => {
+          return cur
+        })
+        appreances.push(...infor)
+      }
+      setApp(appreances)
+    } catch (error) {
+      if (error.response) {
+      // toast.error(error.response.data.error)
       }
     }
-    AuthenticateUser();
-    handleData()
-    handleUserAppreans()
+  }
+
+
+  const handlePreviewReset = async () => {
+    try {
+      const { data } = await api.get(VERIFICATION.PREVIEW_VERIFY(), {
+        params: {
+          id,
+          url,
+          username,
+        },
+      })
+      if (data.success) {
+         handleUserProfile(data.userId)
+         handleUserLink(data.userId)
+         handleUserButton(data.userId)
+         handleUserAppreans(data.userId)
+      }
+      
+    } catch (error) {
+      if (error.response) {
+        const err = error.response.data.error
+        toast.error(err)
+      }
+    }
+  }
+  
+  
+  
+  useEffect(() => {
     
+    handlePreviewReset();
   }, [])
 
-const handleShow =(cur, key) => {
-    if(cur.url){
+  const handleShow = (cur, key) => {
+    if (cur.url) {
       return (
-        <div className="">
-          <div className="bg-blue-500 p-3 m-3 rounded-md  " key={key}>
+        <div className=" ">
+          <div className="bg-blue-500 p-3 m-3 rounded-md w-full " key={key}>
             <h1 className="text-white font-semibold"> {cur.title} </h1>
             <Link
+              className="flex-wrap w-[200px]  "
               href={
                 cur?.url.includes('https')
                   ? `${cur?.url}`
@@ -92,28 +178,28 @@ const handleShow =(cur, key) => {
           </div>
         </div>
       )
-    }else return null
-}
+    } else return null
+  }
 
   return (
     <div>
       <section
-        className="relative  block  "
-        style={{ height: '', backgroundColor: '#8BC940' }}
+        className="relative h-auto block bg-[#8BC940]  "
+        style={{ height: '400px', backgroundColor: '[#8BC940]' }}
       >
         <div
-          className={`absolute top-0 w-full h-auto bg-center p-10 m-auto
+          className={`absolute top-0 w-full h-auto bg-center p-10
            flex justify-center items-center cursor-pointer bg-cover 
              `}
           style={{
-            backgroundColor: `${value.colour}`
-              ? `${value.colour}`
+            backgroundColor: `${users.colour}`
+              ? `${users.colour}`
               : 'from-[#8BC940]  bg-gradient-to-r  to-blue-500',
-            fontFamily: `${app[0]?.data}` ? `${app[0]?.data}` : 'monospace',
+              fontFamily : `${app[0]?.data}` ? `${app[0]?.data}` : 'monospace'
           }}
           name="colour"
         >
-          <div className="bg-[#8BC940] z-90 shadow-xl m-auto max-w-[90%] h-auto p-5 items-center justify-center flex   ">
+          <div className="bg-[#8BC940] z-90 shadow-xl  w-auto min-w-min h-auto p-5 items-center justify-center flex   ">
             <Stack>
               <div className=" z-90 m-auto">
                 <Avatar
@@ -122,7 +208,7 @@ const handleShow =(cur, key) => {
                            border-2 border-[#8BC940] absolute -mt-12 lg:-ml-6 xl:-ml-3  "
                   sx={{ width: 200, height: 200 }}
                   style={{ maxWidth: '200px', maxHeight: '200' }}
-                  src={value.passportUrl ? value.passportUrl : <Avatar />}
+                  src={users.passportUrl ? users.passportUrl : <Avatar />}
                 />
               </div>
               <div className="text-center text-2xl">
@@ -131,13 +217,13 @@ const handleShow =(cur, key) => {
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
                       mr- mb- w-[100%]  m-auto ease-linear transition-all duration-150"
                 >
-                  {value?.username}
+                  {users.displayName}
                 </p>
               </div>
 
               <div className="text-white text-center pb-4 flex flex-wrap items-center justify-center gap-3 ">
-                {infor?.phone && (
-                  <Link href={`tel:${infor?.phone}`}>
+                {buttonInfor?.phone && (
+                  <Link href={`tel:${buttonInfor?.phone}`}>
                     <button
                       className=" text-white active:bg-pink-600 
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -148,8 +234,8 @@ const handleShow =(cur, key) => {
                     </button>
                   </Link>
                 )}
-                {infor?.email && (
-                  <Link href={`mailto:${infor?.email}`} target={'_blank'}>
+                {buttonInfor?.email && (
+                  <Link href={`mailto:${buttonInfor?.email}`} target={'_blank'}>
                     <button
                       className=" text-white active:bg-pink-600 
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -161,8 +247,8 @@ const handleShow =(cur, key) => {
                   </Link>
                 )}
 
-                {infor?.discord && (
-                  <Link href={infor?.discord} target={'_blank'}>
+                {buttonInfor?.discord && (
+                  <Link href={buttonInfor?.discord} target={'_blank'}>
                     <button
                       className=" text-white active:bg-pink-600 flex items-center gap-2
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -184,8 +270,8 @@ const handleShow =(cur, key) => {
                   </Link>
                 )}
 
-                {infor?.telegram && (
-                  <Link href={infor?.telegram} target={'_blank'}>
+                {buttonInfor?.telegram && (
+                  <Link href={buttonInfor?.telegram} target={'_blank'}>
                     <button
                       className=" text-white active:bg-pink-600 
                     font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg 
@@ -204,7 +290,6 @@ const handleShow =(cur, key) => {
               })}
             </Stack>
           </div>
-          {/* links */}
         </div>
 
         <div className=""></div>
@@ -212,3 +297,6 @@ const handleShow =(cur, key) => {
     </div>
   )
 }
+
+
+export default PageTitle;

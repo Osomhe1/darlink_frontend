@@ -17,13 +17,18 @@ const UserInfo =  () => {
   const emailId = localStorage.getItem('emailId')
   const id = localStorage.getItem('id')
   const urlId = localStorage.getItem('linkId')
+  const linkId = localStorage.getItem('linkId')
+  const userId = localStorage.getItem('userId')
+  const displayName = localStorage.getItem('displayName')
 
  
    const infor = {
      username,
+     userId,
      role,
      email,
      emailId,
+     displayName,
      id,
      urlId,
      passportUrl,
@@ -37,9 +42,11 @@ const UserInfo =  () => {
        telegram,
      },
      buttonId,
-     link:{
-      title, url
-     }
+     link: {
+       title,
+       url,
+       linkId,
+     },
    }
    return infor;
 }

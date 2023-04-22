@@ -32,12 +32,14 @@ export const PROFILE = {
   USER_PROFILE: () => '/user/profile',
   CREATE_USER_PROFILE: () => '/user/profile',
   UPDATE_USER_PROFILE: () => '/user/profile',
+  PREVIEW_USER: () => '/preview/profile',
 }
 
 export const LINK = {
   ADD_LINK: () => '/user/resources',
   GET_LINK: () => '/user/resources',
   DELETE_LINK: () => '/user/resources',
+  PREVIEW_LINK: () => '/preview/resources',
 }
 
 export const BUTTONS = {
@@ -45,17 +47,20 @@ export const BUTTONS = {
   GET_BUTTON: () => '/user/button',
   DELETE_BUTTON: () => '/user/button',
   UPDATE_BUTTON: () => '/user/button',
+  PREVIEW_BUTTON: () => '/preview/button',
 }
 
 export const APPREANCE = {
   ADD_APPREANCE: () => '/user/appearance',
   GET_APPREANCE: () => '/user/appearance',
+  PREVIEW_APPREANCE: () => '/preview/appearance',
 }
 
 export const VERIFICATION = {
   VERIFY: () => '/user/verification-link',
   GET_BUTTON: () => '/user/button',
   DELETE_BUTTON: () => '/user/button',
+  PREVIEW_VERIFY: () => '/preview/verify',
 }
 
 export const USER = {

@@ -21,7 +21,7 @@ const MobileSidebar = () => {
      try {
        const { data } = await api.post(USER_ENDPOINTS.LOGOUT(), {})
        if (data.success) {
-         router.push('/auth/Login')
+         router.push('/Login')
        }
      } catch (error) {
        toast.error(error.response.data.error)
@@ -37,11 +37,10 @@ const MobileSidebar = () => {
      const AuthenticateUser = async () => {
        try {
          const { data } = await api.post(USER_ENDPOINTS.CHECK(), {})
-         if (!data.success) router.push('/auth/Login')
+         if (!data.success) router.push('/Login')
        } catch (error) {
-         console.log(error)
          if (error.response) {
-           router.push('/auth/Login')
+           router.push('/Login')
          }
        }
      }
