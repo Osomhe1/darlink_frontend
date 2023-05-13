@@ -82,6 +82,5 @@ export const GET_USERS = {
 export const WALLET = {
   GET_WALLET: () => '/wallet/balance',
   GET_WALLET_HISTORY: () => '/wallet/history',
-  FUND_WALLET: () => '/wallet',
 }
 
