@@ -65,7 +65,7 @@ export default function Referrals() {
       </div>
       <section>
         {/* <div class='flex flex-co items-center w-full max-w-screen-md p-6 pb-6 mt-10 gap-6 bg-white rounded-lg shadow-xl sm:p-8'> */}
-        <div className="grid gap-6 mt-4 mb-8 md:grid-cols-2 xl:grid-cols-4 xl:w-5/6">
+        <div className="grid gap-6 mt-4 mb-8 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 xl:w-5/6">
           <InfoCard
             title="Total Balance"
             value={parseFloat(balance).toFixed(2)}
