@@ -21,8 +21,9 @@ export default function Referrals() {
         setBalance(data.wallet.balance)
       } 
     } catch (error) {
-      toast.error(error.response.data.error)
-      router.push('/Login')
+      if (error.response.status === 401) {
+        router.push('/Login')
+      } else return new Error(error)
     }
    }
 
