@@ -10,25 +10,27 @@ import { toast } from 'react-toastify'
 export default function Checkout() {
 
   const [amount, setAmount] = useState(0)
+  const [active, setActive] = useState(false)
   const router = useRouter()
 
   const handleSubmit = async (event) => {
     event.preventDefault()
-
+ setActive(true)
     try {
       const { data } = await api.post(WALLET.FUND_WALLET(),{
         amount: amount
       })
       if (data.status === true) {
+        setActive(false)
         router.push(data.data.authorization_url)
       }
     } catch (error) {
-      if(error.response.status === '401') {
-        router.push('/login')
-          
-    }else{
-      toast.error('error')
-    }
+        toast.error('error')
+        setActive(false)
+        if(error.response.status === 401){
+          router.push('/login')
+        }
+    
   }
   }
 
@@ -78,22 +80,21 @@ export default function Checkout() {
                 />
               </div>
 
-              
               <div className="text-center mt-6   ">
                 <button
                   className="bg-[#8BC940] text-white active:bg-gray-700 text-sm font-bold uppercase
-                   px-6 py-5 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
+                   px-6 py-5 rounded shadow hover:bg-[#5e8f23] hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full"
                   type="submit"
                   style={{ transition: 'all .15s ease' }}
                 >
-                  Pay Now
+                  {active ? ' please wait...' : ' Proceed'}
                 </button>
               </div>
 
               <div className="py-3 text-gray-400">
                 <small>
                   By clicking, you allow darlink.to to request payment from your
-                  card on  basis subject to the Terms of Service.
+                  card on basis subject to the Terms of Service.
                 </small>
               </div>
             </form>
