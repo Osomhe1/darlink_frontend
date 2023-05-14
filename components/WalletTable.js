@@ -1,5 +1,4 @@
 import React from 'react'
-import moment from 'moment' 
 
 
 const WalletTable = ({ wallets }) => {
@@ -8,6 +7,9 @@ const WalletTable = ({ wallets }) => {
       <table className="min-w-full bg-white cursor-pointer ">
         <thead>
           <tr>
+            <th className="py-3 px-6 text-left bg-gray-100 font-semibold text-sm uppercase">
+              Id
+            </th>
             <th className="py-3 px-6 text-left bg-gray-100 font-semibold text-sm uppercase">
               Description
             </th>
@@ -29,6 +31,9 @@ const WalletTable = ({ wallets }) => {
           {wallets.map((wallet) => (
             <tr key={wallet.id}>
               <td className="py-4 px-6 border-b border-gray-200">
+                {wallet.refereceId}
+              </td>
+              <td className="py-4 px-6 border-b border-gray-200">
                 {wallet.description}
               </td>
               <td className="py-4 px-6 border-b border-gray-200">
@@ -38,8 +43,7 @@ const WalletTable = ({ wallets }) => {
                 &#8358;{wallet.balance}
               </td>
               <td className="py-4 px-6 border-b border-gray-200">
-                {wallet.createAt}
-                 
+                {new Date(wallet.createAt).toLocaleDateString()}
               </td>
               {/* <td className="py-4 px-6 border-b border-gray-200">
                 <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">

@@ -42,8 +42,6 @@ export default function Referrals() {
   }
    }
 
-console.log(walletHistory)
-
   useEffect(() => {
     const AuthenticateUser = async () => {
       try {
@@ -68,12 +66,20 @@ console.log(walletHistory)
       <section>
         {/* <div class='flex flex-co items-center w-full max-w-screen-md p-6 pb-6 mt-10 gap-6 bg-white rounded-lg shadow-xl sm:p-8'> */}
         <div className="grid gap-6 mt-4 mb-8 md:grid-cols-2 xl:grid-cols-4 xl:w-5/6">
-          <InfoCard title="Total Balance" value={balance}>
-            <span className="text-2xl font-bold">&#8358;</span>
+          <InfoCard
+            title="Total Balance"
+            value={parseFloat(balance).toFixed(2)}
+            sign="&#8358;"
+          >
+            <span className="text-2xl font-bold"></span>
           </InfoCard>
 
-          
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={(() =>{router.push('/checkout')})} >
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={() => {
+              router.push('/checkout')
+            }}
+          >
             Fund Wallet
           </button>
         </div>
@@ -81,8 +87,7 @@ console.log(walletHistory)
         {/* </div> */}
         {/* second box */}
         <div class=" w-full max-w-screen-md p-6 pb-6 mt-10 bg-white rounded-lg shadow-xl sm:p-8">
-   
-              <WalletTable wallets={walletHistory} />
+          <WalletTable wallets={walletHistory} />
         </div>
       </section>
     </div>
